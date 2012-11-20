@@ -69,3 +69,5 @@ class Comparator(Tag):
                         "'%s' comparator is unknown/unsupported"
                         % arg_list[starting_index+1][0])
 
+	return validated_args
+
