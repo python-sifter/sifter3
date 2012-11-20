@@ -22,7 +22,7 @@ t_ignore = ' \t'
 
 # section 2.3
 def t_HASH_COMMENT(t):
-    r'\#.*\r\n'
+    r'\#.*\r?\n'
     t.lexer.lineno += 1
 
 # section 2.3
@@ -90,7 +90,7 @@ def t_NUMBER(t):
     return t
 
 def t_newline(t):
-    r'(\r\n)+'
+    r'(\r?\n)+'
     t.lexer.lineno += t.value.count('\n')
 
 
