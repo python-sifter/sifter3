@@ -14,3 +14,14 @@ class ComparatorASCIICasemap(ComparatorOctet):
             string.ascii_uppercase))
 
 ComparatorASCIICasemap.register()
+
+class ComparatorASCIICasemapnoi(ComparatorOctet):
+
+    COMPARATOR_ID = ';ascii-casemap'
+
+    @classmethod
+    def sort_key(cls, s):
+        return s.translate(string.maketrans(string.ascii_lowercase,
+            string.ascii_uppercase))
+
+ComparatorASCIICasemapnoi.register()
