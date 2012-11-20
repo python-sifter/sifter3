@@ -1,5 +1,6 @@
 import sifter.commands.discard
 import sifter.commands.fileinto
+import sifter.commands.imap4flags
 import sifter.commands.if_cmd
 import sifter.commands.keep
 import sifter.commands.redirect
