@@ -11,6 +11,9 @@ FEATURES
 - Extensions supported:
 
   - regex (draft-ietf-sieve-regex-01)
+  - rewrite (completely unofficial)
+    usage: rewrite search replace ; search and replace are expected to be
+    regular expressions interpreted by python's re.sub routine
 
 
 EXAMPLE

@@ -1,5 +1,6 @@
 import sifter.commands.discard
 import sifter.commands.fileinto
+import sifter.commands.rewrite
 import sifter.commands.imap4flags
 import sifter.commands.if_cmd
 import sifter.commands.keep
@@ -25,4 +26,5 @@ map(sifter.extension.register,
     ('fileinto',
      'comparator-i;ascii-casemap',
      'comparator-i;octet',
+     'rewrite',
      ))
