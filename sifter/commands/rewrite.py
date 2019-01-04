@@ -13,8 +13,8 @@ class CommandRewrite(sifter.grammar.Command):
         _, positional_args = self.validate_arguments(
                 {},
                 [ sifter.validators.StringList(length=1),
-		  sifter.validators.StringList(length=1),
-		],
+                  sifter.validators.StringList(length=1),
+                ],
             )
         self.validate_tests_size(0)
         self.validate_block_size(0)

@@ -8,7 +8,7 @@ class Tag(sifter.grammar.Validator):
 
     def __init__(self, allowed_tags=None, tag_arg_validators=None):
         super(Tag, self).__init__()
-        if isinstance(allowed_tags, basestring):
+        if isinstance(allowed_tags, str):
             self.allowed_tags = [ allowed_tags ]
         else:
             self.allowed_tags = allowed_tags
@@ -69,5 +69,5 @@ class Comparator(Tag):
                         "'%s' comparator is unknown/unsupported"
                         % arg_list[starting_index+1][0])
 
-	return validated_args
+        return validated_args
 

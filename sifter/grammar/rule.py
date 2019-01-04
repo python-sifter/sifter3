@@ -51,7 +51,7 @@ class Rule(object):
             if not isinstance(self.arguments[i], sifter.grammar.Tag):
                 break
             num_valid_args = 0
-            for arg_name, arg_validator in tagged_args.iteritems():
+            for arg_name, arg_validator in tagged_args.items():
                 num_valid_args = arg_validator.validate(self.arguments, i)
                 if num_valid_args > 0:
                     if arg_name in seen_args:

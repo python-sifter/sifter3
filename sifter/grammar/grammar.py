@@ -22,15 +22,15 @@ def p_commands_list(p):
     if p[2].RULE_IDENTIFIER == 'REQUIRE':
         if any(command.RULE_IDENTIFIER != 'REQUIRE'
                for command in p[0].commands):
-            print("REQUIRE command on line %d must come before any "
-                  "other non-REQUIRE commands" % p.lineno(2))
+            print(("REQUIRE command on line %d must come before any "
+                  "other non-REQUIRE commands" % p.lineno(2)))
             raise SyntaxError
 
     # section 3.1: ELSIF and ELSE must follow IF or another ELSIF
     elif p[2].RULE_IDENTIFIER in ('ELSIF', 'ELSE'):
         if p[0].commands[-1].RULE_IDENTIFIER not in ('IF', 'ELSIF'):
-            print("ELSIF/ELSE command on line %d must follow an IF/ELSIF "
-                  "command" % p.lineno(2))
+            print(("ELSIF/ELSE command on line %d must follow an IF/ELSIF "
+                  "command" % p.lineno(2)))
             raise SyntaxError
 
     p[0].commands.append(p[2])
@@ -48,16 +48,16 @@ def p_command(p):
     if p[3] != ';': block = p[3]
     handler = sifter.handler.get('command', p[1])
     if handler is None:
-        print("No handler registered for command '%s' on line %d" %
-            (p[1], p.lineno(1)))
+        print(("No handler registered for command '%s' on line %d" %
+            (p[1], p.lineno(1))))
         raise SyntaxError
     p[0] = handler(arguments=p[2]['args'], tests=tests, block=block)
 
 def p_command_error(p):
     """command : IDENTIFIER error ';'
                | IDENTIFIER error block"""
-    print("Syntax error in command definition after %s on line %d" %
-        (p[1], p.lineno(1)))
+    print(("Syntax error in command definition after %s on line %d" %
+        (p[1], p.lineno(1))))
     raise SyntaxError
 
 def p_block(p):
@@ -66,15 +66,15 @@ def p_block(p):
     # which means it can't be in the block of another command
     if any(command.RULE_IDENTIFIER == 'REQUIRE'
            for command in p[2].commands):
-        print("REQUIRE command not allowed inside of a block (line %d)" %
-            (p.lineno(2)))
+        print(("REQUIRE command not allowed inside of a block (line %d)" %
+            (p.lineno(2))))
         raise SyntaxError
     p[0] = p[2]
 
 def p_block_error(p):
     """block : '{' error '}'"""
-    print("Syntax error in command block that starts on line %d" %
-        (p.lineno(1),))
+    print(("Syntax error in command block that starts on line %d" %
+        (p.lineno(1),)))
     raise SyntaxError
 
 def p_arguments(p):
@@ -90,7 +90,7 @@ def p_arguments(p):
 
 def p_testlist_error(p):
     """arguments : argumentlist '(' error ')'"""
-    print("Syntax error in test list that starts on line %d" % p.lineno(2))
+    print(("Syntax error in test list that starts on line %d" % p.lineno(2)))
     raise SyntaxError
 
 def p_argumentlist_list(p):
@@ -108,8 +108,8 @@ def p_test(p):
     tests = p[2].get('tests')
     handler = sifter.handler.get('test', p[1])
     if handler is None:
-        print("No handler registered for test '%s' on line %d" %
-                (p[1], p.lineno(1)))
+        print(("No handler registered for test '%s' on line %d" %
+                (p[1], p.lineno(1))))
         raise SyntaxError
     p[0] = handler(arguments=p[2]['args'], tests=tests)
 
@@ -141,8 +141,8 @@ def p_argument_tag(p):
 
 def p_stringlist_error(p):
     """argument : '[' error ']'"""
-    print("Syntax error in string list that starts on line %d" %
-            p.lineno(1))
+    print(("Syntax error in string list that starts on line %d" %
+            p.lineno(1)))
     raise SyntaxError
 
 def p_stringlist_list(p):
