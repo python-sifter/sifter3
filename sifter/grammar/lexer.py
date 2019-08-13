@@ -93,6 +93,10 @@ def t_newline(t):
     r'(\r?\n)+'
     t.lexer.lineno += t.value.count('\n')
 
+def t_error(t):
+    # Add empty error handler to supress warning.  
+    # Not handling the error will cause ply to raise LexError, which is fine.
+    pass
 
 if __name__ == '__main__':
     # PLY has a simple debugging mode that'll print out tokens for input coming
