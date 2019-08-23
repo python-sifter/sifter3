@@ -11,6 +11,7 @@ FEATURES
 - Extensions supported:
 
   - regex (draft-ietf-sieve-regex-01)
+  - body (RFC 5173)
   - rewrite (completely unofficial)
     usage: rewrite search replace ; search and replace are expected to be
     regular expressions interpreted by python's re.sub routine
@@ -68,11 +69,12 @@ In rough order of importance:
   way as the sieve spec
 - Make sure regular expressions are actually handled according to the extension
   spec
+- Body extension: Cannot search prologue and epilogue of multipart parts, 
+  cannot search headers of nested message/rfc822 parts
 - Add support for various extensions:
 
   - variables (RFC 5229)
-  - externally stored lists (draft-melnikov-sieve-external-lists)
-  - body (RFC 5173)
+  - externally stored lists (RFC 6134)
   - relational (RFC 5231)
   - subaddress (RFC 5233)
   - copy (RFC 3894)

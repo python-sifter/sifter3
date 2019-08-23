@@ -11,10 +11,14 @@ class TestEvaluateRules(unittest.TestCase):
              [('redirect', 'acm@example.com')]),
             ("evaluation_1.msg", "evaluation_2.rules",
              []),
+            ("evaluation_1.msg", "evaluation_3.rules",
+             [('redirect', 'birdseed@example.com')]),
             ("evaluation_2.msg", "evaluation_1.rules",
              [('redirect', 'postmaster@example.com')]),
             ("evaluation_2.msg", "evaluation_2.rules",
              []),
+            ("evaluation_2.msg", "evaluation_3.rules",
+             [('redirect', 'cash@example.com')]),
     )
 
     def setUp(self):

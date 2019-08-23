@@ -60,6 +60,26 @@ class TestTagValidator(unittest.TestCase):
                 mock_validator.validate([sifter.grammar.Tag('IS')], 0),
                 0)
 
+class TestBodyTransformValidator(unittest.TestCase):
+    
+    def test_text(self):
+        body_transform = sifter.validators.BodyTransform()
+        self.assertEqual(
+                body_transform.validate([sifter.grammar.Tag('TEXT')], 0),
+                1)
+        
+    def test_content_empty(self):
+        body_transform = sifter.validators.BodyTransform()
+        with self.assertRaises(sifter.grammar.RuleSyntaxError):
+            body_transform.validate([sifter.grammar.Tag('CONTENT')], 0)
+        
+    def test_content_with_string(self):
+        body_transform = sifter.validators.BodyTransform()
+        self.assertEqual(
+                body_transform.validate([sifter.grammar.Tag('CONTENT'), ["multipart"]], 0),
+                2)
+
+        
 
 if __name__ == '__main__':
     unittest.main()

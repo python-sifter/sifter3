@@ -2,7 +2,7 @@ import sifter.grammar
 import sifter.handler
 import sifter.validators
 
-__all__ = ('Tag', 'MatchType', 'Comparator',)
+__all__ = ('Tag', 'MatchType', 'Comparator', 'BodyTransform')
 
 class Tag(sifter.grammar.Validator):
 
@@ -71,3 +71,21 @@ class Comparator(Tag):
 
         return validated_args
 
+
+class BodyTransform(Tag):
+
+    def __init__(self):
+        super(BodyTransform, self).__init__(('RAW', 'CONTENT', 'TEXT',))
+
+    def validate(self, arg_list, starting_index):
+        validated_args = super(BodyTransform, self).validate(arg_list, starting_index)
+
+        if validated_args > 0 and arg_list[starting_index] == 'CONTENT':
+            content_args = sifter.validators.StringList().validate(
+                    arg_list, starting_index + validated_args)
+            if content_args > 0:
+                return validated_args + content_args
+            else:
+                raise sifter.grammar.RuleSyntaxError(
+                    "body :content requires argument")
+        return validated_args

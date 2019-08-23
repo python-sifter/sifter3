@@ -13,6 +13,7 @@ import sifter.tests.allof
 import sifter.tests.anyof
 import sifter.tests.exists
 import sifter.tests.header
+import sifter.tests.body
 import sifter.tests.false
 import sifter.tests.not_test
 import sifter.tests.size
@@ -27,4 +28,5 @@ list(map(sifter.extension.register,
      'comparator-i;ascii-casemap',
      'comparator-i;octet',
      'rewrite',
+     'body'
      )))

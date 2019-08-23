@@ -1,0 +1,8 @@
+require "body";
+if body :raw :contains "birdseed" {
+        redirect "birdseed@example.com";
+} elsif body :content ["text/html", "text/plain"] :contains ["XXX", "COLD HARD CASH"] {
+        redirect "cash@example.com";
+} else {
+        redirect "field@example.com";
+}
