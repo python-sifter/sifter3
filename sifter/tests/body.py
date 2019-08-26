@@ -73,6 +73,7 @@ class TestBody(sifter.grammar.Test):
 
     def evaluate_part(self, part_str, state):
         for key in self.keylist:
+            key = sifter.grammar.string.expand_variables(key, state)
             if sifter.grammar.string.compare(part_str, key, state, 
                                              self.comparator, self.match_type):
                 return True

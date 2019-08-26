@@ -31,7 +31,8 @@ class CommandRedirect(sifter.grammar.Command):
                     )
 
     def evaluate(self, message, state):
-        state.actions.append('redirect', self.email_address)
+        email_address = sifter.grammar.string.expand_variables(self.email_address, state)
+        state.actions.append('redirect', email_address)
         state.actions.cancel_implicit_keep()
 
 CommandRedirect.register()

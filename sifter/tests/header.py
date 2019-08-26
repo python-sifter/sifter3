@@ -33,8 +33,10 @@ class TestHeader(sifter.grammar.Test):
 
     def evaluate(self, message, state):
         for header in self.headers:
+            header = sifter.grammar.string.expand_variables(header, state)
             for value in message.get_all(header, []):
                 for key in self.keylist:
+                    key = sifter.grammar.string.expand_variables(key, state)
                     if sifter.grammar.string.compare(value, key, state,
                             self.comparator, self.match_type):
                         return True

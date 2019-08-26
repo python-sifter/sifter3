@@ -8,9 +8,9 @@ class TestEvaluateRules(unittest.TestCase):
 
     EVAL_RESULTS = (
             ("evaluation_1.msg", "evaluation_1.rules",
-             [('redirect', 'acm@example.com')]),
+             [('redirect', 'Coyote@example.com')]),
             ("evaluation_1.msg", "evaluation_2.rules",
-             []),
+             [('fileinto', ['desert'])]),
             ("evaluation_1.msg", "evaluation_3.rules",
              [('redirect', 'birdseed@example.com')]),
             ("evaluation_2.msg", "evaluation_1.rules",

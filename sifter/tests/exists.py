@@ -17,6 +17,7 @@ class TestExists(sifter.grammar.Test):
 
     def evaluate(self, message, state):
         for header in self.headers:
+            header = sifter.grammar.string.expand_variables(header, state)
             if header not in message:
                 return False
         return True

@@ -1,7 +1,7 @@
-require "fileinto";
-if header :contains "from" "coyote" {
-        discard;
-} elsif header :contains ["subject"] ["$$$"] {
+require ["fileinto", "variables"];
+if header :matches "from" "*@*.example.org" {
+        fileinto "${2}";
+} elsif header :matches ["subject"] ["*$$$*"] {
         discard;
 } else {
         fileinto "INBOX";

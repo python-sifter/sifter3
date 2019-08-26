@@ -20,7 +20,8 @@ class CommandFileInto(sifter.grammar.Command):
 
     def evaluate(self, message, state):
         state.check_required_extension('fileinto', 'FILEINTO')
-        state.actions.append('fileinto', self.file_dest)
+        file_dest = map(lambda s: sifter.grammar.string.expand_variables(s, state), self.file_dest)
+        state.actions.append('fileinto', file_dest)
         state.actions.cancel_implicit_keep()
 
 CommandFileInto.register()

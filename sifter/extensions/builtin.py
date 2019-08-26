@@ -7,6 +7,7 @@ import sifter.commands.keep
 import sifter.commands.redirect
 import sifter.commands.require
 import sifter.commands.stop
+import sifter.commands.variables
 
 import sifter.tests.address
 import sifter.tests.allof
@@ -28,5 +29,6 @@ list(map(sifter.extension.register,
      'comparator-i;ascii-casemap',
      'comparator-i;octet',
      'rewrite',
-     'body'
+     'body',
+     'variables'
      )))

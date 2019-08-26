@@ -19,15 +19,17 @@ class ComparatorOctet(sifter.grammar.Comparator):
     @classmethod
     def cmp_matches(cls, s, pattern, state):
         pattern = cls.sort_key(pattern)
-        i, n = 0, len(pattern)
+        i, g, n = 0, 0, len(pattern)
         re_pattern = []
         while i < n:
             c = pattern[i]
             i += 1
             if c == "*":
-                re_pattern.append(".*")
+                re_pattern.append("(.*?)")
+                g += 1
             elif c == "?":
-                re_pattern.append(".")
+                re_pattern.append("(.)")
+                g += 1
             elif c == "\\":
                 if pattern[i:i+1] in ("\\*", "\\?"):
                     re_pattern.append(re.escape(pattern[i+1]))
@@ -39,7 +41,13 @@ class ComparatorOctet(sifter.grammar.Comparator):
         re_pattern.append("\Z")
         # TODO: compile and cache pattern for more efficient execution across
         # multiple strings and messages
-        return re.match(''.join(re_pattern), cls.sort_key(s),
+        m = re.match(''.join(re_pattern), cls.sort_key(s),
                 re.MULTILINE | re.DOTALL)
+        state.match_variables = []
+        if m and state.have_extension('variables'):
+            # Get the matched ranges from the original string, not the case-corrected one
+            for i in range(0, g + 1):
+                state.match_variables.append(s[m.start(i):m.end(i)])
+        return m
 
 ComparatorOctet.register()

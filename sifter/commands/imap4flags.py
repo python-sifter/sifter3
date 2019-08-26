@@ -27,7 +27,8 @@ class CommandSetFlag(sifter.grammar.Command):
 
     def evaluate(self, message, state):
         state.check_required_extension('imap4flags', 'imapflags')
-        state.actions.append('setflag', self.flag_list)
+        flag_list = map(lambda s: sifter.grammar.string.expand_variables(s, state), self.flag_list)
+        state.actions.append('setflag', flag_list)
 CommandSetFlag.register()
 
 class CommandRemoveFlag(sifter.grammar.Command):
@@ -45,7 +46,8 @@ class CommandRemoveFlag(sifter.grammar.Command):
 
     def evaluate(self, message, state):
         state.check_required_extension('imap4flags', 'imapflags')
-        state.actions.append('removeflag', self.flag_list)
+        flag_list = map(lambda s: sifter.grammar.string.expand_variables(s, state), self.flag_list)
+        state.actions.append('removeflag', flag_list)
 
 CommandRemoveFlag.register()
 
@@ -64,7 +66,8 @@ class CommandAddFlag(sifter.grammar.Command):
 
     def evaluate(self, message, state):
         state.check_required_extension('imap4flags', 'imapflags')
-        state.actions.append('addflag', self.flag_list)
+        flag_list = map(lambda s: sifter.grammar.string.expand_variables(s, state), self.flag_list)
+        state.actions.append('addflag', flag_list)
 
 CommandAddFlag.register()
 

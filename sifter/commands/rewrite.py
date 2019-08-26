@@ -23,6 +23,8 @@ class CommandRewrite(sifter.grammar.Command):
 
     def evaluate(self, message, state):
         state.check_required_extension('rewrite', 'REWRITE')
-        state.actions.append('rewrite', (self.search, self.replace))
+        search = sifter.grammar.string.expand_variables(self.search, state)
+        replace = sifter.grammar.string.expand_variables(self.replace, state)
+        state.actions.append('rewrite', (search, replace))
 
 CommandRewrite.register()

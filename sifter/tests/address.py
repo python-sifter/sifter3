@@ -39,6 +39,7 @@ class TestAddress(sifter.grammar.Test):
     def evaluate(self, message, state):
         header_values = []
         for header in self.headers:
+            header = sifter.grammar.string.expand_variables(header, state)
             # TODO: section 5.1: we should restrict the allowed headers to
             # those headers that contain an "address-list". this includes at
             # least: from, to, cc, bcc, sender, resent-from, resent-to.
@@ -50,6 +51,7 @@ class TestAddress(sifter.grammar.Test):
                     self.address_part))
         for address in addresses:
             for key in self.keylist:
+                key = sifter.grammar.string.expand_variables(key, state)
                 if sifter.grammar.string.compare(address, key, state,
                         self.comparator, self.match_type):
                     return True

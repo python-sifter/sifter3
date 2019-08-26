@@ -12,6 +12,7 @@ FEATURES
 
   - regex (draft-ietf-sieve-regex-01)
   - body (RFC 5173)
+  - variables (RFC 5229)
   - imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
   - rewrite (completely unofficial)
     usage: rewrite search replace ; search and replace are expected to be
@@ -74,7 +75,6 @@ In rough order of importance:
   cannot search headers of nested message/rfc822 parts
 - Add support for various extensions:
 
-  - variables (RFC 5229)
   - externally stored lists (RFC 6134)
   - relational (RFC 5231)
   - subaddress (RFC 5233)
