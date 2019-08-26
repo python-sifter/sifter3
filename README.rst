@@ -12,6 +12,7 @@ FEATURES
 
   - regex (draft-ietf-sieve-regex-01)
   - body (RFC 5173)
+  - imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
   - rewrite (completely unofficial)
     usage: rewrite search replace ; search and replace are expected to be
     regular expressions interpreted by python's re.sub routine
