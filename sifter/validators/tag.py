@@ -44,7 +44,7 @@ class Tag(sifter.grammar.Validator):
 class MatchType(Tag):
 
     def __init__(self):
-        super(MatchType, self).__init__(('IS', 'CONTAINS', 'MATCHES'))
+        super(MatchType, self).__init__(('IS', 'CONTAINS', 'MATCHES', 'REGEX'))
 
 
 class Comparator(Tag):

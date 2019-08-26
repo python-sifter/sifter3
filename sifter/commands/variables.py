@@ -18,6 +18,7 @@ class CommandSet(sifter.grammar.Command):
                     'lowerfirst' : sifter.validators.Tag('LOWERFIRST'),
                     'upperfirst' : sifter.validators.Tag('UPPERFIRST'),
                     'quotewildcard' : sifter.validators.Tag('QUOTEWILDCARD'),
+                    'quoteregex' : sifter.validators.Tag('QUOTEREGEX'),
                     'length' : sifter.validators.Tag('LENGTH'),
                 },
                 [ 
@@ -49,6 +50,8 @@ class CommandSet(sifter.grammar.Command):
             variable_value = variable_value.replace('*', '\\*')
             variable_value = variable_value.replace('?', '\\?')
             variable_value = variable_value.replace('\\', '\\\\')
+        if 'quoteregex' in self.variable_modifier:
+            variable_value = re.escape(variable_value)
         if 'length' in self.variable_modifier:
             variable_value = "" + len(variable_value)
         state.named_variables[self.variable_name] = variable_value

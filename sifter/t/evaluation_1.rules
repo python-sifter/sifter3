@@ -1,6 +1,6 @@
-require ["variables"];
-if header :matches ["From"] ["*@desert.example.org"] {
-        set :upperfirst :quotewildcard "account" "${1}";
+require ["variables", "regex"];
+if header :regex ["From"] ["^(.*)@desert.example.org$"] {
+        set :upperfirst :quoteregex "account" "${1}";
         redirect "${account}@example.com";
 } elsif header :contains "Subject" "$$$" {
         redirect "postmaster@example.com";

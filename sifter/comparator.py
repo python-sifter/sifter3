@@ -7,10 +7,15 @@ def register(comparator_name, comparator_cls):
 
 def get_match_fn(comparator, match_type):
     # section 2.7.3: default comparator is 'i;ascii-casemap'
-    if comparator is None: comparator = 'i;ascii-casemap'
     # RFC 4790, section 3.1: the special identifier 'default' refers to the
     # implementation-defined default comparator
-    elif comparator == 'default': comparator = 'i;ascii-casemap'
+    if comparator is None or comparator == 'default': 
+        if match_type != 'REGEX':
+            comparator = 'i;ascii-casemap'
+        else:
+            # 'i;ascii-casemap' uppercases test string but not pattern, which
+            # is is very counter intuitive -> change default for regex 
+            comparator = 'i;octet'
 
     # section 2.7.1: default match type is ":is"
     if match_type is None: match_type = 'IS'
