@@ -19,7 +19,7 @@ class String(str):
     
 
 def expand_variables(s, state):
-    if state.have_extension('variables'):
+    if s and state.have_extension('variables'):
         for m in reversed(list(_variable_re.finditer(s))):
             if m.group(1):
                 raise RuntimeError("Variable namespaces not supported")
