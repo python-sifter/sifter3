@@ -8,6 +8,7 @@ import sifter.commands.redirect
 import sifter.commands.require
 import sifter.commands.stop
 import sifter.commands.variables
+import sifter.commands.notify
 
 import sifter.tests.address
 import sifter.tests.allof
@@ -19,9 +20,12 @@ import sifter.tests.false
 import sifter.tests.not_test
 import sifter.tests.size
 import sifter.tests.true
+import sifter.tests.notify
 
 import sifter.comparators.ascii_casemap
 import sifter.comparators.octet
+
+import sifter.notificationmethods.mailto
 
 import sifter.extension
 list(map(sifter.extension.register,
@@ -30,5 +34,6 @@ list(map(sifter.extension.register,
      'comparator-i;octet',
      'rewrite',
      'body',
-     'variables'
+     'variables',
+     'enotify'
      )))

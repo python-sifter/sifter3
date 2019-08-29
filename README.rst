@@ -13,6 +13,7 @@ FEATURES
   - regex (draft-ietf-sieve-regex-01)
   - body (RFC 5173)
   - variables (RFC 5229)
+  - enotify (RFC 5435, particularly the mailto method RFC 5436)
   - imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
   - rewrite (completely unofficial)
     usage: rewrite search replace ; search and replace are expected to be
@@ -84,6 +85,5 @@ In rough order of importance:
   - editheader (RFC 5293)
   - ihave (RFC 5463)
   - mailbox metadata (RFC 5490)
-  - notifications (RFC 5435), mailto notifications (RFC 5436), xmpp
-    notifications (RFC 5437)
+  - xmpp notifications (RFC 5437)
 
