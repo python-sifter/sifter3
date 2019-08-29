@@ -1,4 +1,4 @@
-require ["body", "enotify"];
+require ["body", "enotify", "pipe"];
 if body :raw :contains "birdseed" {
         if allof( valid_notify_method "mailto:shop@example.com", 
                   notify_method_capability "mailto:shop@example.com" "online" ["yes", "maybe"] ) {
@@ -6,6 +6,7 @@ if body :raw :contains "birdseed" {
         }
         redirect "birdseed@example.com";
 } elsif body :content ["text/html", "text/plain"] :contains ["XXX", "COLD HARD CASH"] {
+        pipe "cat >> mails.log";
         redirect "cash@example.com";
 } else {
         redirect "field@example.com";

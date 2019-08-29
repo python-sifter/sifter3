@@ -8,6 +8,7 @@ import sifter.commands.redirect
 import sifter.commands.require
 import sifter.commands.stop
 import sifter.commands.variables
+import sifter.commands.pipe
 import sifter.commands.notify
 
 import sifter.tests.address
@@ -35,5 +36,6 @@ list(map(sifter.extension.register,
      'rewrite',
      'body',
      'variables',
-     'enotify'
+     'enotify',
+     'pipe'
      )))

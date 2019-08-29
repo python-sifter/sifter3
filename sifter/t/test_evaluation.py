@@ -19,7 +19,8 @@ class TestEvaluateRules(unittest.TestCase):
             ("evaluation_2.msg", "evaluation_2.rules",
              []),
             ("evaluation_2.msg", "evaluation_3.rules",
-             [('redirect', 'cash@example.com')]),
+             [('pipe', ['cat >> mails.log']),
+              ('redirect', 'cash@example.com')]),
     )
 
     def setUp(self):

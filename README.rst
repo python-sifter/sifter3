@@ -15,6 +15,8 @@ FEATURES
   - variables (RFC 5229)
   - enotify (RFC 5435, particularly the mailto method RFC 5436)
   - imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
+  - pipe (completely unofficial)
+    usage: pipe the contents of the message to a local command
   - rewrite (completely unofficial)
     usage: rewrite search replace ; search and replace are expected to be
     regular expressions interpreted by python's re.sub routine
