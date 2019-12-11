@@ -61,7 +61,6 @@ In rough order of importance:
   - multi-line strings (section 2.4.2)
   - bracketed comments (section 2.3)
   - message uniqueness (section 2.10.3)
-  - envelope test (section 5.4)
   - handle message loops (section 10)
   - limit abuse of redirect action (section 10)
   - address test should limit allowed headers to those that contain addresses

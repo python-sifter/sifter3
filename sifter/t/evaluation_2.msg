@@ -1,3 +1,4 @@
+From spammer@spam.com 
 From: youcouldberich!@reply-by-postal-mail.invalid
 Sender: b1ff@de.res.example.com
 To: rube@landru.example.com

@@ -1,8 +1,9 @@
-require ["variables", "regex"];
+require ["variables", "regex", "envelope"];
 if header :regex ["From"] ["^(.*)@desert.example.org$"] {
         set :upperfirst :quoteregex "account" "${1}";
         redirect "${account}@example.com";
-} elsif header :contains "Subject" "$$$" {
+} elsif allof(header :contains "Subject" "$$$",
+              envelope :is "from" "spammer@spam.com") {
         redirect "postmaster@example.com";
 } else {
         redirect "field@example.com";
