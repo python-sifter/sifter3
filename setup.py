@@ -32,6 +32,7 @@ setup(
             "sifter.comparators",
             "sifter.extensions",
             "sifter.grammar",
+            "sifter.notificationmethods",
             "sifter.t",
             "sifter.tests",
             "sifter.validators",
