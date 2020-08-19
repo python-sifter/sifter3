@@ -1,4 +1,4 @@
-import urlparse
+from urllib.parse import urlparse
 import sifter.notificationmethod
 
 __all__ = ('MailtoNotificationMethod',)
