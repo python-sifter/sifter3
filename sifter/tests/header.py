@@ -37,8 +37,8 @@ class TestHeader(sifter.grammar.Test):
             for value in message.get_all(header, []):
                 for key in self.keylist:
                     key = sifter.grammar.string.expand_variables(key, state)
-                    if sifter.grammar.string.compare(value, key, state,
-                            self.comparator, self.match_type):
+                    if sifter.grammar.string.compare(str(value), key, state,
+                                                     self.comparator, self.match_type):
                         return True
         return False
 
