@@ -2,7 +2,6 @@ import sifter.grammar
 import sifter.grammar.string
 import sifter.validators
 import re
-from __builtin__ import True
 
 __all__ = ('TestBody',)
 
