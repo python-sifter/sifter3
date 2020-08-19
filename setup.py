@@ -26,6 +26,7 @@ setup(
             "Topic :: Software Development :: Interpreters",
             "Topic :: Software Development :: Libraries :: Python Modules",
             ],
+        install_requires=['ply'],
         packages = [
             "sifter",
             "sifter.commands",
