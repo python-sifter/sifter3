@@ -1,8 +1,12 @@
+import re
 import sifter.grammar
 import sifter.grammar.string
 import sifter.validators
 
 __all__ = ('TestHeader',)
+
+# Newline striping
+_newline_re = re.compile(r'\n+\s+')
 
 # section 5.7
 class TestHeader(sifter.grammar.Test):
@@ -35,6 +39,7 @@ class TestHeader(sifter.grammar.Test):
         for header in self.headers:
             header = sifter.grammar.string.expand_variables(header, state)
             for value in message.get_all(header, []):
+                value = _newline_re.sub(" ", value)
                 for key in self.keylist:
                     key = sifter.grammar.string.expand_variables(key, state)
                     if sifter.grammar.string.compare(str(value), key, state,
