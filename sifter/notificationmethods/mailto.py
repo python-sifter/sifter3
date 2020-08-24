@@ -1,4 +1,4 @@
-from urllib.parse import urlparse
+from urllib import parse as urlparse
 import sifter.notificationmethod
 
 __all__ = ('MailtoNotificationMethod',)
@@ -19,7 +19,7 @@ class MailtoNotificationMethod(sifter.notificationmethod.NotificationMethod):
     @classmethod
     def test_valid(cls, notification_uri):
         uri_headers = cls.parse_mailto_url(notification_uri)
-        uri_headers = dict((k.lower(), v) for k,v in uri_headers.iteritems())
+        uri_headers = dict((k.lower(), v) for k,v in uri_headers.items())
         if any(h in uri_headers for h in ('auto-submitted', 'received', 'date', 'message-id', 'from')):
             return (False, "Notification method mailto - illegal header")
         return (True, '')
@@ -35,4 +35,3 @@ class MailtoNotificationMethod(sifter.notificationmethod.NotificationMethod):
 
 
 MailtoNotificationMethod.register()
-

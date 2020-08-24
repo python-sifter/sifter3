@@ -35,9 +35,17 @@ class TestEvaluateRules(unittest.TestCase):
             rule_fh.close()
 
     def test_msg_rule_cross_product(self):
+        def to_list(obj):
+            if obj is None or isinstance(obj, (str, int)):
+                return obj
+            elif isinstance(obj, (tuple)):
+                return tuple(to_list(item) for item in obj)
+            else:
+                return list(obj)
+
         for result in self.EVAL_RESULTS:
             self.assertEqual(
-                self.rules[result[1]].evaluate(self.messages[result[0]]),
+                [(action, to_list(value)) for action, value in self.rules[result[1]].evaluate(self.messages[result[0]])],
                 result[2]
                 )
 
