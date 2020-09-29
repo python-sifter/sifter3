@@ -4,14 +4,15 @@
 from typing import (
     TYPE_CHECKING,
     Any,
-    Optional
+    Optional,
+    Text
 )
 
 import math
 import ply.lex  # type: ignore
 
 if TYPE_CHECKING:
-    from ply.lex import Lexer, LexToken
+    from ply.lex import LexToken  # type: ignore
 
 
 class SieveLexer():
@@ -20,13 +21,13 @@ class SieveLexer():
         self.lexer = ply.lex.lex(module=self)
         self.lexer.linestart = 0
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         return iter(self.lexer)
 
-    def token(self):
+    def token(self) -> Any:
         return self.lexer.token()
 
-    def input(self, data):
+    def input(self, data: Text) -> None:
         self.lexer.input(data)
 
     tokens = (
@@ -115,10 +116,4 @@ class SieveLexer():
 
     def t_error(self, t: 'LexToken') -> Optional['LexToken']:
         t.lexer.skip(1)
-        #raise Exception(
-        #    "Illegal character '%s' on line %d, column %d" % (
-        #        t.value[0],
-        #        t.lexer.lineno,
-        #        t.lexer.lexpos - t.lexer.linestart + 1
-        #    )
-        #)
+        return None

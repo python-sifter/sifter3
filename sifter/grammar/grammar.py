@@ -7,7 +7,7 @@ from sifter.grammar.command import Command
 from typing import (
     TYPE_CHECKING,
     cast,
-    Any
+    Text
 )
 
 import ply.yacc  # type: ignore
@@ -37,7 +37,7 @@ class SieveParser():
             module=mod
         )
 
-    def parse(self, rules, tracking=0):
+    def parse(self, rules: Text, tracking: int = 0) -> CommandList:
         self.parser.errok()
 
         rules = self.parser.parse(rules, self.lexer, tracking=tracking)

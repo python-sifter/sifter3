@@ -1,6 +1,4 @@
-import logging
 from typing import (
-    cast,
     Text,
     TextIO
 )
