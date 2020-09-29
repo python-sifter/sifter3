@@ -21,13 +21,12 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
     from sifter.grammar.test import Test
 
-__all__ = ('CommandRedirect',)
-
 
 # section 4.2
 class CommandRedirect(Command):
 
     RULE_IDENTIFIER = 'REDIRECT'
+    POSITIONAL_ARGS = [StringList(length=1)]
 
     def __init__(
         self,
@@ -35,18 +34,9 @@ class CommandRedirect(Command):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(CommandRedirect, self).__init__(arguments, tests, block)
-        _, positional_args = self.validate_arguments(
-            {},
-            [StringList(length=1), ],
-        )
-        self.validate_tests_size(0)
-        self.validate_block_size(0)
-        if not isinstance(positional_args, list):
-            raise ValueError("CommandRedirect positional argument error")
-        if not isinstance(positional_args[0], list):
-            raise ValueError("CommandRedirect positional argument error")
-        self.email_address = positional_args[0][0]
+        super().__init__(arguments, tests, block)
+
+        self.email_address = self.positional_args[0][0]  # type: ignore
         # TODO: section 2.4.2.3 constrains the email address to a limited
         # subset of valid address formats. need to check if python's
         # email.utils also uses this subset or if we need to do our own

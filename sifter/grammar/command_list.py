@@ -12,8 +12,6 @@ from sifter.grammar.actions import Actions
 if TYPE_CHECKING:
     from sifter.grammar.command import Command
 
-__all__ = ('CommandList',)
-
 
 class CommandList(object):
 

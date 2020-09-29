@@ -1,36 +1,17 @@
 from email.message import Message
 from typing import (
-    TYPE_CHECKING,
-    List,
-    Optional,
-    Union,
-    SupportsInt,
-    Text
+    Optional
 )
 
 from sifter.grammar.test import Test
 from sifter.grammar.state import EvaluationState
-
-if TYPE_CHECKING:
-    from sifter.grammar.tag import Tag as TagGrammar
-    from sifter.grammar.string import String
-
-
-__all__ = ('TestAnyOf',)
 
 
 # section 5.3
 class TestAnyOf(Test):
 
     RULE_IDENTIFIER = 'ANYOF'
-
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None
-    ) -> None:
-        super(TestAnyOf, self).__init__(arguments, tests)
-        self.validate_arguments()
+    HAS_TESTS = False
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         # short-circuit evaluation if a test is true. the base standard does

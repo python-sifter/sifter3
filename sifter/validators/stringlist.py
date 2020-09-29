@@ -13,13 +13,11 @@ if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
     from sifter.grammar.string import String
 
-__all__ = ('StringList',)
-
 
 class StringList(Validator):
 
     def __init__(self, length: Optional[int] = None) -> None:
-        super(StringList, self).__init__()
+        super().__init__()
         self.length = length
 
     def validate(

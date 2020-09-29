@@ -19,8 +19,6 @@ if TYPE_CHECKING:
     from sifter.grammar.test import Test
     from sifter.grammar.string import String
 
-__all__ = ('Rule', 'RuleSyntaxError',)
-
 
 class RuleSyntaxError(Exception):
     pass
@@ -30,6 +28,13 @@ class Rule(object):
 
     RULE_TYPE: Optional[Text] = None
     RULE_IDENTIFIER: Optional[Text] = None
+
+    TAGGED_ARGS: Optional[Union[List[Validator], Dict[Text, Validator]]] = None
+    POSITIONAL_ARGS: Optional[List[Validator]] = None
+
+    HAS_TESTS: bool = True
+    TESTS_MIN: int = 0
+    TESTS_MAX: Optional[int] = None
 
     @classmethod
     def register(cls) -> None:
@@ -43,7 +48,8 @@ class Rule(object):
     def __init__(
         self,
         arguments: Optional[List[Union['Tag', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None
+        tests: Optional[List['Test']] = None,
+        validate: bool = True
     ) -> None:
         if arguments is None:
             self.arguments = []
@@ -53,6 +59,8 @@ class Rule(object):
             self.tests = []
         else:
             self.tests = tests
+        if validate:
+            self.tagged_args, self.positional_args = self.validate()
 
     def __str__(self) -> Text:
         s = ["%s" % self.RULE_IDENTIFIER, ]
@@ -72,9 +80,9 @@ class Rule(object):
         List[Union[Tag, SupportsInt, List[Union[Text, 'String']]]]
     ]:
         if tagged_args is None:
-            tagged_args = {}
+            tagged_args = self.TAGGED_ARGS or {}
         if positional_args is None:
-            positional_args = []
+            positional_args = self.POSITIONAL_ARGS or []
 
         seen_args: Dict[Text, List[Union['Tag', SupportsInt, List[Union[Text, 'String']]]]] = {}
         i, n = 0, len(self.arguments)
@@ -124,3 +132,12 @@ class Rule(object):
                 msg = "between %d and %d" % (min_tests, max_tests)
             raise RuleSyntaxError("%s takes %s tests" % (
                 self.RULE_IDENTIFIER, msg))
+
+    def validate(self) -> Tuple[
+        Dict[Text, List[Union[Tag, SupportsInt, List[Union[Text, 'String']]]]],
+        List[Union[Tag, SupportsInt, List[Union[Text, 'String']]]]
+    ]:
+        tagged_args, positional_args = self.validate_arguments()
+        if self.HAS_TESTS:
+            self.validate_tests_size(min_tests=self.TESTS_MIN, max_tests=self.TESTS_MAX)
+        return tagged_args, positional_args

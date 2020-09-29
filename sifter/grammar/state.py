@@ -5,8 +5,6 @@ from typing import (
 )
 from sifter.grammar.actions import Actions
 
-__all__ = ('EvaluationState',)
-
 
 class EvaluationState(object):
 

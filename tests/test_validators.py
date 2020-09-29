@@ -10,28 +10,26 @@ from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Tag as TagValidator
 
 
-class MockRule(Rule):
-
-    RULE_TYPE = 'mock'
-    RULE_IDENTIFIER = 'MOCKRULE'
-
-    def __init__(self, arguments=None, tests=None):
-        super(MockRule, self).__init__(arguments, tests)
-
-
 def test_too_many_args() -> None:
-    mock_rule = MockRule([GrammarTag('IS'), 13, ])
+    class MockRuleNoArgs(Rule):
+        RULE_TYPE = 'mock'
+        RULE_IDENTIFIER = 'MOCKRULE'
+
     with pytest.raises(RuleSyntaxError):
-        mock_rule.validate_arguments()
+        _ = MockRuleNoArgs([GrammarTag('IS'), 13, ])
 
 
 def test_not_enough_args() -> None:
-    mock_rule = MockRule([13, ])
-    with pytest.raises(RuleSyntaxError):
-        mock_rule.validate_arguments([
+    class MockRuleTwoArgs(Rule):
+        RULE_TYPE = 'mock'
+        RULE_IDENTIFIER = 'MOCKRULE'
+        TAGGED_ARGS = [
             Number(),
             StringList(),
-        ])
+        ]
+
+    with pytest.raises(RuleSyntaxError):
+        _ = MockRuleTwoArgs([13, ])
 
 
 def test_allowed_tag() -> None:

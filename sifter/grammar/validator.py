@@ -11,8 +11,6 @@ if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
     from sifter.grammar.string import String
 
-__all__ = ('Validator',)
-
 
 class Validator(object):
 

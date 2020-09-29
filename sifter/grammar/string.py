@@ -10,8 +10,6 @@ from sifter.grammar.state import EvaluationState
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag
 
-__all__ = ('String', 'compare', 'address_part',)
-
 
 # TODO: this is here because it'll be needed when support for encoded
 # characters and variables is added. for now it's just a wrapper around str.

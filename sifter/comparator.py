@@ -15,8 +15,6 @@ if TYPE_CHECKING:
     from sifter.grammar.tag import Tag
     from sifter.grammar.state import EvaluationState
 
-__all__ = ('register', 'get_match_fn',)
-
 
 def register(comparator_name: Optional[Text], comparator_cls: Type['Comparator']) -> None:
     sifter.handler.register('comparator', comparator_name, comparator_cls)

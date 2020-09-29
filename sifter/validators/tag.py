@@ -20,9 +20,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
 
 
-__all__ = ('Tag', 'MatchType', 'Comparator',)
-
-
 class Tag(Validator):
 
     def __init__(
@@ -31,7 +28,7 @@ class Tag(Validator):
         tag_arg_validators: Optional[Tuple[Validator, ...]] = None
     ) -> None:
         self.tag_arg_validators: Tuple[Validator, ...]
-        super(Tag, self).__init__()
+        super().__init__()
         self.allowed_tags: Optional[Tuple[Text, ...]] = None
         if isinstance(allowed_tags, str):
             self.allowed_tags = (allowed_tags, )
@@ -73,13 +70,13 @@ class Tag(Validator):
 class MatchType(Tag):
 
     def __init__(self) -> None:
-        super(MatchType, self).__init__(('IS', 'CONTAINS', 'MATCHES'))
+        super().__init__(('IS', 'CONTAINS', 'MATCHES'))
 
 
 class Comparator(Tag):
 
     def __init__(self) -> None:
-        super(Comparator, self).__init__(
+        super().__init__(
             ('COMPARATOR',),
             (StringList(1),),
         )
@@ -89,7 +86,7 @@ class Comparator(Tag):
         arg_list: List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]],
         starting_index: int
     ) -> Optional[int]:
-        validated_args = super(Comparator, self).validate(
+        validated_args = super().validate(
             arg_list,
             starting_index
         )

@@ -5,7 +5,9 @@ from typing import (
     Optional,
     List,
     Union,
-    SupportsInt
+    SupportsInt,
+    Tuple,
+    Dict
 )
 
 import sifter.grammar
@@ -21,12 +23,11 @@ if TYPE_CHECKING:
     from sifter.grammar.test import Test
 
 
-__all__ = ('Command',)
-
-
 class Command(Rule):
 
     RULE_TYPE: Text = 'command'
+    HAS_BLOCKS: bool = True
+    BLOCKS_MAX: int = 0
 
     def __init__(
         self,
@@ -34,14 +35,14 @@ class Command(Rule):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(Command, self).__init__(arguments, tests)
         if block is None:
             self.block = CommandList()
         else:
             self.block = block
+        super().__init__(arguments, tests)
 
     def __str__(self) -> Text:
-        s = [super(Command, self).__str__(), ]
+        s = [super().__str__(), ]
         if len(self.block.commands) > 0:
             s.append("{\n")
             for command in self.block.commands:
@@ -54,6 +55,11 @@ class Command(Rule):
             raise RuleSyntaxError(
                 "%s takes no more than %d commands" % (self.RULE_IDENTIFIER, max_commands)
             )
+
+    def validate(self) -> Tuple[Dict[Text, List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]], List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]]:
+        if self.HAS_BLOCKS:
+            self.validate_block_size(max_commands=self.BLOCKS_MAX)
+        return super().validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         raise NotImplementedError
