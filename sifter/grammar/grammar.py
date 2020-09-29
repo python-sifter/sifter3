@@ -5,6 +5,7 @@
 from sifter.grammar.test import Test
 from sifter.grammar.command import Command
 from typing import (
+    Any,
     TYPE_CHECKING,
     cast,
     Text
@@ -32,7 +33,7 @@ class SieveParser():
         self.parser = self.make_parser(self)
 
     @staticmethod
-    def make_parser(mod) -> 'LRParser':
+    def make_parser(mod: Any) -> 'LRParser':
         return ply.yacc.yacc(
             module=mod
         )

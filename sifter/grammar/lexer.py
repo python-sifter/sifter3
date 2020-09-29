@@ -12,7 +12,7 @@ import math
 import ply.lex  # type: ignore
 
 if TYPE_CHECKING:
-    from ply.lex import LexToken  # type: ignore
+    from ply.lex import LexToken
 
 
 class SieveLexer():

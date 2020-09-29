@@ -19,7 +19,7 @@ class TestExists(Test):
         headers = self.positional_args[0]
         if not isinstance(headers, list):
             raise ValueError("TestExists.headers must be a list")
-        for header in self.headers:
+        for header in headers:
             if header not in message:
                 return False
         return True

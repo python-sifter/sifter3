@@ -20,7 +20,7 @@ class CommandRequire(Command):
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         ext_name_list = self.positional_args[0]
-        for ext_name in ext_name_list:
+        for ext_name in ext_name_list:  # type: ignore
             if not sifter.handler.get('extension', ext_name):
                 raise RuntimeError(
                     "Required extension '%s' not supported"

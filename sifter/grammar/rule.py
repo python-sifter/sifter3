@@ -33,7 +33,7 @@ class Rule(object):
     POSITIONAL_ARGS: Optional[List[Validator]] = None
 
     HAS_TESTS: bool = True
-    TESTS_MIN: Optional[int] = 0
+    TESTS_MIN: int = 0
     TESTS_MAX: Optional[int] = None
 
     @classmethod
