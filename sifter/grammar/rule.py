@@ -19,8 +19,6 @@ if TYPE_CHECKING:
     from sifter.grammar.test import Test
     from sifter.grammar.string import String
 
-__all__ = ('Rule', 'RuleSyntaxError',)
-
 
 class RuleSyntaxError(Exception):
     pass

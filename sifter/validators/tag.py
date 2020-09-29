@@ -20,9 +20,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
 
 
-__all__ = ('Tag', 'MatchType', 'Comparator',)
-
-
 class Tag(Validator):
 
     def __init__(

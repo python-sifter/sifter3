@@ -15,8 +15,6 @@ if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
     from sifter.grammar.string import String
 
-__all__ = ('TestNot',)
-
 
 # section 5.8
 class TestNot(Test):

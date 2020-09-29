@@ -21,8 +21,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
     from sifter.grammar.test import Test
 
-__all__ = ('CommandRedirect',)
-
 
 # section 4.2
 class CommandRedirect(Command):

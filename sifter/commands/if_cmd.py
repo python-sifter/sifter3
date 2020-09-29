@@ -18,8 +18,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
     from sifter.grammar.test import Test
 
-__all__ = ('CommandIf', 'CommandElsIf', 'CommandElse',)
-
 
 # section 3.1
 class CommandIfBase(Command):

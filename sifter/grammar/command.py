@@ -21,9 +21,6 @@ if TYPE_CHECKING:
     from sifter.grammar.test import Test
 
 
-__all__ = ('Command',)
-
-
 class Command(Rule):
 
     RULE_TYPE: Text = 'command'

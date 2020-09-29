@@ -16,9 +16,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
 
 
-__all__ = ('TestAnyOf',)
-
-
 # section 5.3
 class TestAnyOf(Test):
 

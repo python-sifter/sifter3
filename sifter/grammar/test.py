@@ -6,8 +6,6 @@ from typing import (
 from sifter.grammar.rule import Rule
 from sifter.grammar.state import EvaluationState
 
-__all__ = ('Test',)
-
 
 class Test(Rule):
 

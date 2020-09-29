@@ -9,8 +9,6 @@ import re
 import sifter.comparator
 from sifter.grammar.state import EvaluationState
 
-__all__ = ('Comparator',)
-
 
 # The official definition of comparators is in RFC 4790
 class Comparator(object):

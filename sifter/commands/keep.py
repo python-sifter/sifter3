@@ -19,9 +19,6 @@ if TYPE_CHECKING:
     from sifter.grammar.test import Test
 
 
-__all__ = ('CommandKeep',)
-
-
 # section 4.3
 class CommandKeep(Command):
 

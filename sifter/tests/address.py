@@ -21,8 +21,6 @@ if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
     from sifter.grammar.string import String
 
-__all__ = ('TestAddress',)
-
 
 # section 5.1
 class TestAddress(Test):

@@ -18,8 +18,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
     from sifter.grammar.test import Test
 
-__all__ = ('CommandDiscard',)
-
 
 # section 4.4
 class CommandDiscard(Command):

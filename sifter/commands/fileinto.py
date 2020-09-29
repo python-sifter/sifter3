@@ -19,8 +19,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
     from sifter.grammar.test import Test
 
-__all__ = ('CommandFileInto',)
-
 
 # section 4.1
 class CommandFileInto(Command):

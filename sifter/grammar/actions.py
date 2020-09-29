@@ -9,8 +9,6 @@ from typing import (
 if TYPE_CHECKING:
     from sifter.grammar.string import String
 
-__all__ = ('Actions',)
-
 
 class Actions(list):  # type: ignore
 

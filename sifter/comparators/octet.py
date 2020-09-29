@@ -8,8 +8,6 @@ from typing import (
 from sifter.grammar.comparator import Comparator
 from sifter.grammar.state import EvaluationState
 
-__all__ = ('ComparatorOctet',)
-
 
 class ComparatorOctet(Comparator):
 

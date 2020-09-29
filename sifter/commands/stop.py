@@ -18,8 +18,6 @@ if TYPE_CHECKING:
     from sifter.grammar.string import String
     from sifter.grammar.test import Test
 
-__all__ = ('CommandStop',)
-
 
 # section 3.3
 class CommandStop(Command):

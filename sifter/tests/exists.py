@@ -17,8 +17,6 @@ if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
     from sifter.grammar.string import String
 
-__all__ = ('TestExists',)
-
 
 # section 5.9
 class TestExists(Test):

@@ -3,8 +3,6 @@ from sifter.comparators.octet import ComparatorOctet
 
 maketrans = str.maketrans
 
-__all__ = ('ComparatorASCIICasemap',)
-
 
 class ComparatorASCIICasemap(ComparatorOctet):
 

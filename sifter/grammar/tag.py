@@ -1,7 +1,5 @@
 from typing import Text
 
-__all__ = ('Tag',)
-
 
 class Tag(str):
 
