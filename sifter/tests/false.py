@@ -1,19 +1,10 @@
 from email.message import Message
 from typing import (
-    TYPE_CHECKING,
-    List,
-    Optional,
-    Union,
-    SupportsInt,
-    Text
+    Optional
 )
 
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.test import Test
-
-if TYPE_CHECKING:
-    from sifter.grammar.tag import Tag as TagGrammar
-    from sifter.grammar.string import String
 
 
 # section 5.6
