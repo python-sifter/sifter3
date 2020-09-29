@@ -22,6 +22,9 @@ if TYPE_CHECKING:
 # section 3.1
 class CommandIfBase(Command):
 
+    TESTS_MIN = 1
+    HAS_BLOCKS = False
+
     def __init__(
         self,
         arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
@@ -29,8 +32,7 @@ class CommandIfBase(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        self.validate_arguments()
-        self.validate_tests_size(1)
+        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if self.tests[0].evaluate(message, state):
@@ -65,6 +67,8 @@ CommandElsIf.register()
 class CommandElse(Command):
 
     RULE_IDENTIFIER = 'ELSE'
+    TESTS_MIN = 0
+    HAS_BLOCKS = False
 
     def __init__(
         self,
@@ -73,8 +77,7 @@ class CommandElse(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        self.validate_arguments()
-        self.validate_tests_size(0)
+        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if state.last_if:

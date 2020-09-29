@@ -39,8 +39,7 @@ class TestHeader(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments()
-        self.validate_tests_size(0)
+        tagged_args, positional_args = self.validate()
 
         self.headers = positional_args[0]
         self.keylist = positional_args[1]

@@ -35,14 +35,9 @@ class CommandRedirect(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate_arguments()
-        self.validate_tests_size(0)
-        self.validate_block_size(0)
-        if not isinstance(positional_args, list):
-            raise ValueError("CommandRedirect positional argument error")
-        if not isinstance(positional_args[0], list):
-            raise ValueError("CommandRedirect positional argument error")
-        self.email_address = positional_args[0][0]
+        _, positional_args = self.validate()
+
+        self.email_address = positional_args[0][0]  # type: ignore
         # TODO: section 2.4.2.3 constrains the email address to a limited
         # subset of valid address formats. need to check if python's
         # email.utils also uses this subset or if we need to do our own

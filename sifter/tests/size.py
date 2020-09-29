@@ -44,8 +44,7 @@ class TestSize(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments()
-        self.validate_tests_size(0)
+        tagged_args, positional_args = self.validate()
         self.comparison_fn = self.COMPARISON_FNS[tagged_args['size'][0]]  # type: ignore
         self.comparison_size = tagged_args['size'][1]
 

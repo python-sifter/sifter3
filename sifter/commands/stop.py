@@ -31,9 +31,7 @@ class CommandStop(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        self.validate_arguments()
-        self.validate_tests_size(0)
-        self.validate_block_size(0)
+        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.actions.append('stop')

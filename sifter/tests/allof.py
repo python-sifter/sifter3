@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 class TestAllOf(Test):
 
     RULE_IDENTIFIER: Text = 'ALLOF'
+    HAS_TESTS = False
 
     def __init__(
         self,
@@ -27,7 +28,7 @@ class TestAllOf(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        self.validate_arguments()
+        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         # short-circuit evaluation if a test is false. the base standard does

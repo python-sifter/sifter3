@@ -5,7 +5,9 @@ from typing import (
     Optional,
     List,
     Union,
-    SupportsInt
+    SupportsInt,
+    Tuple,
+    Dict
 )
 
 import sifter.grammar
@@ -24,6 +26,8 @@ if TYPE_CHECKING:
 class Command(Rule):
 
     RULE_TYPE: Text = 'command'
+    HAS_BLOCKS: bool = True
+    BLOCKS_MAX: int = 0
 
     def __init__(
         self,
@@ -51,6 +55,11 @@ class Command(Rule):
             raise RuleSyntaxError(
                 "%s takes no more than %d commands" % (self.RULE_IDENTIFIER, max_commands)
             )
+
+    def validate(self) -> Tuple[Dict[Text, List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]], List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]]:
+        if self.HAS_BLOCKS:
+            self.validate_block_size(max_commands=self.BLOCKS_MAX)
+        return super().validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         raise NotImplementedError

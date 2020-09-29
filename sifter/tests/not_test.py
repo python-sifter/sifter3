@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 class TestNot(Test):
 
     RULE_IDENTIFIER = 'NOT'
+    TESTS_MIN = 1
 
     def __init__(
         self,
@@ -27,8 +28,7 @@ class TestNot(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        self.validate_arguments()
-        self.validate_tests_size(1)
+        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return not self.tests[0].evaluate(message, state)

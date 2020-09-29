@@ -42,8 +42,7 @@ class TestAddress(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments()
-        self.validate_tests_size(0)
+        tagged_args, positional_args = self.validate()
 
         self.headers, self.keylist = positional_args
         self.match_type = self.comparator = self.address_part = None

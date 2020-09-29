@@ -32,6 +32,10 @@ class Rule(object):
     TAGGED_ARGS: Optional[Union[List[Validator], Dict[Text, Validator]]] = None
     POSITIONAL_ARGS: Optional[List[Validator]] = None
 
+    HAS_TESTS: bool = True
+    TESTS_MIN: Optional[int] = 0
+    TESTS_MAX: Optional[int] = None
+
     @classmethod
     def register(cls) -> None:
         try:
@@ -125,3 +129,12 @@ class Rule(object):
                 msg = "between %d and %d" % (min_tests, max_tests)
             raise RuleSyntaxError("%s takes %s tests" % (
                 self.RULE_IDENTIFIER, msg))
+
+    def validate(self) -> Tuple[
+        Dict[Text, List[Union[Tag, SupportsInt, List[Union[Text, 'String']]]]],
+        List[Union[Tag, SupportsInt, List[Union[Text, 'String']]]]
+    ]:
+        tagged_args, positional_args = self.validate_arguments()
+        if self.HAS_TESTS:
+            self.validate_tests_size(min_tests=self.TESTS_MIN, max_tests=self.TESTS_MAX)
+        return tagged_args, positional_args

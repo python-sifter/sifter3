@@ -35,14 +35,10 @@ class CommandRequire(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate_arguments()
-        self.validate_tests_size(0)
-        self.validate_block_size(0)
+        _, positional_args = self.validate()
         self.ext_names = positional_args[0]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
-        if not isinstance(self.ext_names, list):
-            raise ValueError("CommandRequire.ext_names must be a list!")
         for ext_name in self.ext_names:
             if not sifter.handler.get('extension', ext_name):
                 raise RuntimeError(

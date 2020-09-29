@@ -26,8 +26,7 @@ class TestTrue(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        self.validate_arguments()
-        self.validate_tests_size(0)
+        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return True

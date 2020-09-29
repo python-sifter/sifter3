@@ -33,9 +33,7 @@ class CommandFileInto(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate_arguments()
-        self.validate_tests_size(0)
-        self.validate_block_size(0)
+        _, positional_args = self.validate()
         self.file_dest = positional_args[0]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
