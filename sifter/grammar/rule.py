@@ -29,6 +29,9 @@ class Rule(object):
     RULE_TYPE: Optional[Text] = None
     RULE_IDENTIFIER: Optional[Text] = None
 
+    TAGGED_ARGS: Optional[Union[List[Validator], Dict[Text, Validator]]] = None
+    POSITIONAL_ARGS: Optional[List[Validator]] = None
+
     @classmethod
     def register(cls) -> None:
         try:
@@ -70,9 +73,9 @@ class Rule(object):
         List[Union[Tag, SupportsInt, List[Union[Text, 'String']]]]
     ]:
         if tagged_args is None:
-            tagged_args = {}
+            tagged_args = self.TAGGED_ARGS or {}
         if positional_args is None:
-            positional_args = []
+            positional_args = self.POSITIONAL_ARGS or []
 
         seen_args: Dict[Text, List[Union['Tag', SupportsInt, List[Union[Text, 'String']]]]] = {}
         i, n = 0, len(self.arguments)

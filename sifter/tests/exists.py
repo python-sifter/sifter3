@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 class TestExists(Test):
 
     RULE_IDENTIFIER = 'EXISTS'
+    POSITIONAL_ARGS = [StringList()]
 
     def __init__(
         self,
@@ -29,10 +30,7 @@ class TestExists(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments(
-            {},
-            [StringList(), ]
-        )
+        tagged_args, positional_args = self.validate_arguments()
         self.validate_tests_size(0)
         self.headers = positional_args[0]
 

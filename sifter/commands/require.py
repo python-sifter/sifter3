@@ -26,6 +26,7 @@ if TYPE_CHECKING:
 class CommandRequire(Command):
 
     RULE_IDENTIFIER: Text = 'REQUIRE'
+    POSITIONAL_ARGS = [StringList()]
 
     def __init__(
         self,
@@ -34,10 +35,7 @@ class CommandRequire(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate_arguments(
-            {},
-            [StringList(), ],
-        )
+        _, positional_args = self.validate_arguments()
         self.validate_tests_size(0)
         self.validate_block_size(0)
         self.ext_names = positional_args[0]

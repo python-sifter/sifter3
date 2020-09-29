@@ -26,6 +26,12 @@ if TYPE_CHECKING:
 class TestSize(Test):
 
     RULE_IDENTIFIER = 'SIZE'
+    TAGGED_ARGS = {
+        'size': Tag(
+            ('OVER', 'UNDER'),
+            (Number(),)
+        ),
+    }
 
     COMPARISON_FNS: Dict[Text, Callable[[Any, Any], bool]] = {
         'OVER': operator.gt,
@@ -38,14 +44,7 @@ class TestSize(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments(
-            {
-                'size': Tag(
-                    ('OVER', 'UNDER'),
-                    (Number(),)
-                ),
-            }
-        )
+        tagged_args, positional_args = self.validate_arguments()
         self.validate_tests_size(0)
         self.comparison_fn = self.COMPARISON_FNS[tagged_args['size'][0]]  # type: ignore
         self.comparison_size = tagged_args['size'][1]

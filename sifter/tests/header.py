@@ -24,6 +24,14 @@ if TYPE_CHECKING:
 class TestHeader(Test):
 
     RULE_IDENTIFIER = 'HEADER'
+    TAGGED_ARGS = {
+        'comparator': Comparator(),
+        'match_type': MatchType(),
+    }
+    POSITIONAL_ARGS = [
+        StringList(),
+        StringList(),
+    ]
 
     def __init__(
         self,
@@ -31,16 +39,7 @@ class TestHeader(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments(
-            {
-                'comparator': Comparator(),
-                'match_type': MatchType(),
-            },
-            [
-                StringList(),
-                StringList(),
-            ]
-        )
+        tagged_args, positional_args = self.validate_arguments()
         self.validate_tests_size(0)
 
         self.headers = positional_args[0]

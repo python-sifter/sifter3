@@ -26,6 +26,15 @@ if TYPE_CHECKING:
 class TestAddress(Test):
 
     RULE_IDENTIFIER: Text = 'ADDRESS'
+    TAGGED_ARGS = {
+        'comparator': Comparator(),
+        'match_type': MatchType(),
+        'address_part': Tag(('LOCALPART', 'DOMAIN', 'ALL')),
+    }
+    POSITIONAL_ARGS = [
+        StringList(),
+        StringList(),
+    ]
 
     def __init__(
         self,
@@ -33,17 +42,7 @@ class TestAddress(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate_arguments(
-            {
-                'comparator': Comparator(),
-                'match_type': MatchType(),
-                'address_part': Tag(('LOCALPART', 'DOMAIN', 'ALL')),
-            },
-            [
-                StringList(),
-                StringList(),
-            ]
-        )
+        tagged_args, positional_args = self.validate_arguments()
         self.validate_tests_size(0)
 
         self.headers, self.keylist = positional_args

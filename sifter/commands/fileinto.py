@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 class CommandFileInto(Command):
 
     RULE_IDENTIFIER = 'FILEINTO'
+    POSITIONAL_ARGS = [StringList(length=1)]
 
     def __init__(
         self,
@@ -32,10 +33,7 @@ class CommandFileInto(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate_arguments(
-            {},
-            [StringList(length=1), ],
-        )
+        _, positional_args = self.validate_arguments()
         self.validate_tests_size(0)
         self.validate_block_size(0)
         self.file_dest = positional_args[0]
