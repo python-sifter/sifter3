@@ -35,9 +35,8 @@ class CommandRedirect(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate()
 
-        self.email_address = positional_args[0][0]  # type: ignore
+        self.email_address = self.positional_args[0][0]  # type: ignore
         # TODO: section 2.4.2.3 constrains the email address to a limited
         # subset of valid address formats. need to check if python's
         # email.utils also uses this subset or if we need to do our own

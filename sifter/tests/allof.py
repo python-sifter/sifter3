@@ -22,14 +22,6 @@ class TestAllOf(Test):
     RULE_IDENTIFIER: Text = 'ALLOF'
     HAS_TESTS = False
 
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None
-    ) -> None:
-        super().__init__(arguments, tests)
-        self.validate()
-
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         # short-circuit evaluation if a test is false. the base standard does
         # not specify if all tests must be evaluated or in what order, but the

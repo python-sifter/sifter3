@@ -21,14 +21,6 @@ class TestFalse(Test):
 
     RULE_IDENTIFIER = 'FALSE'
 
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None
-    ) -> None:
-        super().__init__(arguments, tests)
-        self.validate()
-
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return False
 

@@ -35,11 +35,11 @@ class Command(Rule):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super().__init__(arguments, tests)
         if block is None:
             self.block = CommandList()
         else:
             self.block = block
+        super().__init__(arguments, tests)
 
     def __str__(self) -> Text:
         s = [super().__str__(), ]

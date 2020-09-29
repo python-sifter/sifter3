@@ -30,8 +30,7 @@ class TestExists(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate()
-        self.headers = positional_args[0]
+        self.headers = self.positional_args[0]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         if not isinstance(self.headers, list):

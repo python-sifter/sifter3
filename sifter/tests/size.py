@@ -44,9 +44,8 @@ class TestSize(Test):
         tests: Optional[List['Test']] = None
     ) -> None:
         super().__init__(arguments, tests)
-        tagged_args, positional_args = self.validate()
-        self.comparison_fn = self.COMPARISON_FNS[tagged_args['size'][0]]  # type: ignore
-        self.comparison_size = tagged_args['size'][1]
+        self.comparison_fn = self.COMPARISON_FNS[self.tagged_args['size'][0]]  # type: ignore
+        self.comparison_size = self.tagged_args['size'][1]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         # FIXME: size is defined as number of octets, whereas this gives us

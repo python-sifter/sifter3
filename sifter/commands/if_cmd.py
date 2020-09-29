@@ -25,15 +25,6 @@ class CommandIfBase(Command):
     TESTS_MIN = 1
     HAS_BLOCKS = False
 
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None,
-        block: Optional[CommandList] = None
-    ) -> None:
-        super().__init__(arguments, tests, block)
-        self.validate()
-
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if self.tests[0].evaluate(message, state):
             result = self.block.evaluate(message, state)
@@ -77,7 +68,6 @@ class CommandElse(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        self.validate()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if state.last_if:

@@ -35,8 +35,7 @@ class CommandRequire(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate()
-        self.ext_names = positional_args[0]
+        self.ext_names = self.positional_args[0]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         for ext_name in self.ext_names:

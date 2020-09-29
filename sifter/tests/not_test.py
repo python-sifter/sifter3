@@ -22,14 +22,6 @@ class TestNot(Test):
     RULE_IDENTIFIER = 'NOT'
     TESTS_MIN = 1
 
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None
-    ) -> None:
-        super().__init__(arguments, tests)
-        self.validate()
-
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return not self.tests[0].evaluate(message, state)
 

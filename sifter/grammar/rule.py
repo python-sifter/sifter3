@@ -48,7 +48,8 @@ class Rule(object):
     def __init__(
         self,
         arguments: Optional[List[Union['Tag', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None
+        tests: Optional[List['Test']] = None,
+        validate: bool = True
     ) -> None:
         if arguments is None:
             self.arguments = []
@@ -58,6 +59,8 @@ class Rule(object):
             self.tests = []
         else:
             self.tests = tests
+        if validate:
+            self.tagged_args, self.positional_args = self.validate()
 
     def __str__(self) -> Text:
         s = ["%s" % self.RULE_IDENTIFIER, ]

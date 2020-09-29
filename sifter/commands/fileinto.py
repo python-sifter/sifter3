@@ -33,8 +33,7 @@ class CommandFileInto(Command):
         block: Optional[CommandList] = None
     ) -> None:
         super().__init__(arguments, tests, block)
-        _, positional_args = self.validate()
-        self.file_dest = positional_args[0]
+        self.file_dest = self.positional_args[0]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.check_required_extension('fileinto', 'FILEINTO')

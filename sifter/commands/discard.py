@@ -24,15 +24,6 @@ class CommandDiscard(Command):
 
     RULE_IDENTIFIER = 'DISCARD'
 
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None,
-        block: Optional[CommandList] = None
-    ) -> None:
-        super().__init__(arguments, tests, block)
-        self.validate()
-
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.actions.cancel_implicit_keep()
         return None
