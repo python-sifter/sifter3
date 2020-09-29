@@ -1,22 +1,11 @@
 from email.message import Message
 from typing import (
-    TYPE_CHECKING,
-    List,
-    Optional,
-    Union,
-    SupportsInt,
-    Text
+    Optional
 )
 
 from sifter.grammar.command import Command
-from sifter.grammar.command_list import CommandList
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.actions import Actions
-
-if TYPE_CHECKING:
-    from sifter.grammar.tag import Tag as TagGrammar
-    from sifter.grammar.string import String
-    from sifter.grammar.test import Test
 
 
 # section 3.1
@@ -60,14 +49,6 @@ class CommandElse(Command):
     RULE_IDENTIFIER = 'ELSE'
     TESTS_MIN = 0
     HAS_BLOCKS = False
-
-    def __init__(
-        self,
-        arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
-        tests: Optional[List['Test']] = None,
-        block: Optional[CommandList] = None
-    ) -> None:
-        super().__init__(arguments, tests, block)
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if state.last_if:
