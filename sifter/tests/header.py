@@ -30,7 +30,7 @@ class TestHeader(Test):
         arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
         tests: Optional[List['Test']] = None
     ) -> None:
-        super(TestHeader, self).__init__(arguments, tests)
+        super().__init__(arguments, tests)
         tagged_args, positional_args = self.validate_arguments(
             {
                 'comparator': Comparator(),

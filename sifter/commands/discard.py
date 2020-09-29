@@ -30,7 +30,7 @@ class CommandDiscard(Command):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(CommandDiscard, self).__init__(arguments, tests, block)
+        super().__init__(arguments, tests, block)
         self.validate_arguments()
         self.validate_tests_size(0)
         self.validate_block_size(0)

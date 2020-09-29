@@ -28,7 +28,7 @@ class CommandIfBase(Command):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(CommandIfBase, self).__init__(arguments, tests, block)
+        super().__init__(arguments, tests, block)
         self.validate_arguments()
         self.validate_tests_size(1)
 
@@ -56,7 +56,7 @@ class CommandElsIf(CommandIfBase):
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if state.last_if:
             return None
-        return super(CommandElsIf, self).evaluate(message, state)
+        return super().evaluate(message, state)
 
 
 CommandElsIf.register()
@@ -72,7 +72,7 @@ class CommandElse(Command):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(CommandElse, self).__init__(arguments, tests, block)
+        super().__init__(arguments, tests, block)
         self.validate_arguments()
         self.validate_tests_size(0)
 

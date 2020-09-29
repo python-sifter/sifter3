@@ -26,7 +26,7 @@ class TestNot(Test):
         arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
         tests: Optional[List['Test']] = None
     ) -> None:
-        super(TestNot, self).__init__(arguments, tests)
+        super().__init__(arguments, tests)
         self.validate_arguments()
         self.validate_tests_size(1)
 

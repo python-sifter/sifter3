@@ -31,14 +31,14 @@ class Command(Rule):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(Command, self).__init__(arguments, tests)
+        super().__init__(arguments, tests)
         if block is None:
             self.block = CommandList()
         else:
             self.block = block
 
     def __str__(self) -> Text:
-        s = [super(Command, self).__str__(), ]
+        s = [super().__str__(), ]
         if len(self.block.commands) > 0:
             s.append("{\n")
             for command in self.block.commands:

@@ -26,7 +26,7 @@ class TestAnyOf(Test):
         arguments: Optional[List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]] = None,
         tests: Optional[List['Test']] = None
     ) -> None:
-        super(TestAnyOf, self).__init__(arguments, tests)
+        super().__init__(arguments, tests)
         self.validate_arguments()
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:

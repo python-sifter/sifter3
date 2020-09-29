@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 class StringList(Validator):
 
     def __init__(self, length: Optional[int] = None) -> None:
-        super(StringList, self).__init__()
+        super().__init__()
         self.length = length
 
     def validate(

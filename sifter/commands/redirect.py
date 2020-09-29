@@ -33,7 +33,7 @@ class CommandRedirect(Command):
         tests: Optional[List['Test']] = None,
         block: Optional[CommandList] = None
     ) -> None:
-        super(CommandRedirect, self).__init__(arguments, tests, block)
+        super().__init__(arguments, tests, block)
         _, positional_args = self.validate_arguments(
             {},
             [StringList(length=1), ],

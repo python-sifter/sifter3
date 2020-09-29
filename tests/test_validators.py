@@ -16,7 +16,7 @@ class MockRule(Rule):
     RULE_IDENTIFIER = 'MOCKRULE'
 
     def __init__(self, arguments=None, tests=None):
-        super(MockRule, self).__init__(arguments, tests)
+        super().__init__(arguments, tests)
 
 
 def test_too_many_args() -> None:
