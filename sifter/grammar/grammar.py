@@ -35,7 +35,9 @@ class SieveParser():
     @staticmethod
     def make_parser(mod: Any) -> 'LRParser':
         return ply.yacc.yacc(
-            module=mod
+            module=mod,
+            debug=False,
+            write_tables=False
         )
 
     def parse(self, rules: Text, tracking: int = 0) -> CommandList:

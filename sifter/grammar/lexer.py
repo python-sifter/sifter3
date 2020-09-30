@@ -18,7 +18,10 @@ if TYPE_CHECKING:
 class SieveLexer():
 
     def __init__(self) -> None:
-        self.lexer = ply.lex.lex(module=self)
+        self.lexer = ply.lex.lex(
+            module=self,
+            debug=False
+        )
         self.lexer.linestart = 0
 
     def __iter__(self) -> Any:
