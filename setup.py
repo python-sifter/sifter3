@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # read the contents of your README file
 from os import path
@@ -41,18 +41,8 @@ setup(
         "Topic :: Software Development :: Interpreters",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    packages=[
-        "sifter",
-        "sifter.commands",
-        "sifter.comparators",
-        "sifter.extensions",
-        "sifter.grammar",
-        "sifter.t",
-        "sifter.tests",
-        "sifter.validators",
-    ],
+    packages=find_packages(exclude=("tests",)),
     package_data={
-        "sifter": ['py.typed'],
-        "sifter.t": ["*.in", "*.out", "*.msg", "*.rules"],
+        "sifter": ['py.typed']
     },
 )
