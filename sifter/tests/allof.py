@@ -23,6 +23,3 @@ class TestAllOf(Test):
             if not test.evaluate(message, state):
                 return False
         return True
-
-
-TestAllOf.register()

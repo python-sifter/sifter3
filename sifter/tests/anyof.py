@@ -22,6 +22,3 @@ class TestAnyOf(Test):
             if test.evaluate(message, state):
                 return True
         return False
-
-
-TestAnyOf.register()

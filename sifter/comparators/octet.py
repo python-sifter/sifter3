@@ -49,6 +49,3 @@ class ComparatorOctet(Comparator):
             cls.sort_key(s),
             re.MULTILINE | re.DOTALL
         )
-
-
-ComparatorOctet.register()

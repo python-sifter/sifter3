@@ -14,6 +14,3 @@ class TestFalse(Test):
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return False
-
-
-TestFalse.register()

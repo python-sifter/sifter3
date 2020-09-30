@@ -28,9 +28,6 @@ class CommandIf(CommandIfBase):
     RULE_IDENTIFIER = 'IF'
 
 
-CommandIf.register()
-
-
 class CommandElsIf(CommandIfBase):
 
     RULE_IDENTIFIER = 'ELSIF'
@@ -39,9 +36,6 @@ class CommandElsIf(CommandIfBase):
         if state.last_if:
             return None
         return super().evaluate(message, state)
-
-
-CommandElsIf.register()
 
 
 class CommandElse(Command):
@@ -54,6 +48,3 @@ class CommandElse(Command):
         if state.last_if:
             return None
         return self.block.evaluate(message, state)
-
-
-CommandElse.register()

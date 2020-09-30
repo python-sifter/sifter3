@@ -16,6 +16,14 @@ class Comparator(object):
     COMPARATOR_ID: Optional[Text] = None
 
     @classmethod
+    def get_mapkey(cls):
+        return 'comparator'
+
+    @classmethod
+    def get_identifier(cls):
+        return cls.COMPARATOR_ID
+
+    @classmethod
     def register(cls) -> None:
         try:
             sifter.comparator.register(cls.COMPARATOR_ID, cls)

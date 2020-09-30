@@ -16,6 +16,3 @@ class CommandStop(Command):
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.actions.append('stop')
         return None
-
-
-CommandStop.register()

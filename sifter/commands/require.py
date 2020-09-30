@@ -28,6 +28,3 @@ class CommandRequire(Command):
                 )
             state.require_extension(ext_name)
         return None
-
-
-CommandRequire.register()

@@ -66,6 +66,3 @@ class TestHeader(Test):
                     ):
                         return True
         return False
-
-
-TestHeader.register()

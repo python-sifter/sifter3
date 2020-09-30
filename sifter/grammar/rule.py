@@ -37,6 +37,14 @@ class Rule(object):
     TESTS_MAX: Optional[int] = None
 
     @classmethod
+    def get_mapkey(cls):
+        return cls.RULE_TYPE
+
+    @classmethod
+    def get_identifier(cls):
+        return cls.RULE_IDENTIFIER
+
+    @classmethod
     def register(cls) -> None:
         try:
             sifter.handler.register(cls.RULE_TYPE, cls.RULE_IDENTIFIER, cls)

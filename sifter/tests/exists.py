@@ -23,6 +23,3 @@ class TestExists(Test):
             if header not in message:
                 return False
         return True
-
-
-TestExists.register()

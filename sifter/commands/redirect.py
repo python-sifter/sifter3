@@ -52,6 +52,3 @@ class CommandRedirect(Command):
         state.actions.append('redirect', self.email_address)
         state.actions.cancel_implicit_keep()
         return None
-
-
-CommandRedirect.register()
