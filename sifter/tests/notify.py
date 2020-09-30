@@ -51,7 +51,7 @@ class TestNotifyMethodCapability(Test):
         StringList(),
     ]
 
-    def evaluate(self, message, state):
+    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         state.check_required_extension('enotify', 'NOTIFY')
 
         if 'comparator' in self.tagged_args:

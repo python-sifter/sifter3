@@ -1,10 +1,15 @@
 import re
+from email.message import Message
+from typing import Optional
+
 from sifter.grammar.command import Command
 from sifter.grammar.string import expand_variables
 from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Tag
 from sifter.grammar.rule import RuleSyntaxError
 from sifter.extensions import ExtensionRegistry
+from sifter.grammar.state import EvaluationState
+from sifter.grammar.actions import Actions
 
 
 # RFC 5435
@@ -21,34 +26,32 @@ class CommandNotify(Command):
         StringList(length=1)
     ]
 
-    def __init__(self, arguments=None, tests=None, block=None):
-        super(CommandNotify, self).__init__(arguments, tests, block)
-
-        self.notify_from = self.notify_importance = self.notify_message = None
-        self.notify_options = []
+    def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
+        notify_from = notify_importance = self.notify_message = None
+        notify_options = []  # type: ignore
         if 'from' in self.tagged_args:
-            self.notify_from = self.tagged_args['from'][1][0]
+            notify_from = self.tagged_args['from'][1][0]  # type: ignore
         if 'importance' in self.tagged_args:
-            self.notify_importance = self.tagged_args['importance'][1][0]
+            notify_importance = self.tagged_args['importance'][1][0]  # type: ignore
         if 'options' in self.tagged_args:
-            self.notify_options = self.tagged_args['options'][1]
+            notify_options = self.tagged_args['options'][1]  # type: ignore
+        notify_message = None
         if 'message' in self.tagged_args:
-            self.notify_message = self.tagged_args['message'][1][0]  # type: ignore
-        self.notify_method = self.positional_args[0][0]  # type: ignore
+            notify_message = self.tagged_args['message'][1][0]  # type: ignore
+        notify_method = self.positional_args[0][0]  # type: ignore
 
-    def evaluate(self, message, state):
         state.check_required_extension('enotify', 'NOTIFY')
-        notify_from = expand_variables(self.notify_from, state)
-        notify_importance = expand_variables(self.notify_importance, state)
-        notify_options = map(lambda s: expand_variables(s, state), self.notify_options)
-        notify_message = expand_variables(self.notify_message, state)
-        notify_method = expand_variables(self.notify_method, state)
+        notify_from = expand_variables(notify_from, state)  # type: ignore
+        notify_importance = expand_variables(notify_importance, state)  # type: ignore
+        notify_options = list(map(lambda s: expand_variables(s, state), notify_options))
+        notify_message = expand_variables(notify_message, state)  # type: ignore
+        notify_method = expand_variables(notify_method, state)
 
         m = re.match('^([A-Za-z][A-Za-z0-9.+-]*):', notify_method)
         if not m:
             raise RuleSyntaxError("Notification method must be an URI, e.g. 'mailto:email@example.com'")
         if notify_importance and notify_importance not in ["1", "2", "3"]:
-            raise RuleSyntaxError("Illegal notify importance '%s' encountered" % self.notify_importance)
+            raise RuleSyntaxError("Illegal notify importance '%s' encountered" % notify_importance)
         notify_method_cls = ExtensionRegistry.get_notification_method(m.group(1).lower())
         if not notify_method_cls:
             raise RuleSyntaxError("Unsupported notification method '%s'" % m.group(1))
@@ -56,4 +59,6 @@ class CommandNotify(Command):
         if not res:
             raise RuleSyntaxError(msg)
 
-        state.actions.append('notify', (notify_method, notify_from, notify_importance, notify_options, notify_message))
+        state.actions.append('notify', (notify_method, notify_from, notify_importance, notify_options, notify_message))  # type: ignore
+
+        return None

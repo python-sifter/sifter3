@@ -1,5 +1,5 @@
 import re
-import urllib
+from urllib.parse import quote
 from sifter.grammar.command import Command
 from sifter.grammar.rule import RuleSyntaxError
 from sifter.validators.stringlist import StringList
@@ -55,10 +55,7 @@ class CommandSet(Command):
         if 'quoteregex' in self.variable_modifier:
             variable_value = re.escape(variable_value)
         if 'encodeurl' in self.variable_modifier:
-            try:
-                variable_value = urllib.quote(variable_value, safe='-._~')
-            except AttributeError:
-                variable_value = urllib.parse.quote(variable_value, safe='-._~')
+            variable_value = quote(variable_value, safe='-._~')
         if 'length' in self.variable_modifier:
             variable_value = "" + len(variable_value)
         state.named_variables[self.variable_name] = variable_value

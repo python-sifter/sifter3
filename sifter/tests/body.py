@@ -1,10 +1,13 @@
 import re
+from typing import (
+    Text
+)
+from sifter.grammar.state import EvaluationState
 
 from sifter.grammar.test import Test
-import sifter.grammar.string
-import sifter.validators
 from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Comparator, MatchType, BodyTransform
+from sifter.grammar.string import compare as string_compare, expand_variables
 
 
 # RFC 5173
@@ -69,10 +72,9 @@ class TestBody(Test):
                             return True
         return False
 
-    def evaluate_part(self, part_str, state):
+    def evaluate_part(self, part_str: Text, state: EvaluationState) -> bool:
         for key in self.keylist:
-            key = sifter.grammar.string.expand_variables(key, state)
-            if sifter.grammar.string.compare(part_str, key, state,
-                                             self.comparator, self.match_type):
+            key = expand_variables(key, state)
+            if string_compare(part_str, key, state, self.comparator, self.match_type):
                 return True
         return False
