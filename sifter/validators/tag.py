@@ -12,8 +12,7 @@ from sifter.grammar.validator import Validator
 from sifter.grammar.rule import RuleSyntaxError
 from sifter.grammar import tag
 from sifter.validators.stringlist import StringList
-import sifter.handler
-import sifter.validators
+from sifter.extensions import ExtensionRegistry
 
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
@@ -98,7 +97,7 @@ class Comparator(Tag):
                         "'%s' comparator is unknown/unsupported"
                         % arg_list[starting_index + 1]
                     )
-                if not sifter.handler.ExtensionRegistry.get(
+                if not ExtensionRegistry.get(
                     'comparator',
                     val[0],
                 ):

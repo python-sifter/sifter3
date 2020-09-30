@@ -2,7 +2,7 @@
 
 import pytest
 
-from sifter.handler import ExtensionRegistry
+from sifter.extensions import ExtensionRegistry
 from sifter.grammar.state import EvaluationState
 
 

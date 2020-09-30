@@ -12,7 +12,6 @@ from typing import (
 from sifter.grammar.tag import Tag
 from sifter.grammar.validator import Validator
 import sifter.grammar
-import sifter.handler
 import sifter.utils
 
 if TYPE_CHECKING:

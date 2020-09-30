@@ -7,7 +7,7 @@ from typing import (
     Union
 )
 
-import sifter.handler
+from sifter.extensions import ExtensionRegistry
 
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag
@@ -31,7 +31,7 @@ def get_match_fn(
         match_type = 'IS'
 
     # TODO: support wildcard matching in comparator names (RFC 4790)
-    cmp_handler = sifter.handler.ExtensionRegistry.get('comparator', comparator)
+    cmp_handler = ExtensionRegistry.get('comparator', comparator)
     if not cmp_handler:
         raise RuntimeError("Comparator not supported: %s" % comparator)
 
