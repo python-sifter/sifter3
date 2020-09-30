@@ -3,8 +3,7 @@ from typing import (
     TextIO
 )
 
-import sifter.extensions.builtin  # needed by the lexer
-import sifter.extensions.regex  # needed by the lexer
+
 from sifter.grammar.grammar import SieveParser
 from sifter.grammar.command_list import CommandList
 

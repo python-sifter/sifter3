@@ -37,21 +37,12 @@ class Rule(object):
     TESTS_MAX: Optional[int] = None
 
     @classmethod
-    def get_mapkey(cls):
+    def handler_type(cls):
         return cls.RULE_TYPE
 
     @classmethod
-    def get_identifier(cls):
+    def handler_id(cls):
         return cls.RULE_IDENTIFIER
-
-    @classmethod
-    def register(cls) -> None:
-        try:
-            sifter.handler.register(cls.RULE_TYPE, cls.RULE_IDENTIFIER, cls)
-        except AttributeError:
-            # this method shouldn't be called on the Rule class directly,
-            # only on subclasses that implement specific rules
-            raise NotImplementedError
 
     def __init__(
         self,

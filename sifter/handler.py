@@ -13,32 +13,44 @@ if TYPE_CHECKING:
     from sifter.grammar.comparator import Comparator
 
 
-_HANDLERS_MAP: Dict[Text, Dict[Text, Union[bool, Type['Comparator'], Type['Rule']]]] = {}
+class ExtensionRegistry():
 
+    _HANDLERS_MAP: Dict[Text, Dict[Text, Union[bool, Type['Comparator'], Type['Rule']]]] = {}
+    DEFAULT_EXTENSION = [
+        'regex',
+        'comparator-i;ascii-casemap',
+        'comparator-i;octet',
+        'fileinto',
+    ]
 
-def register(
-    handler_type: Optional[Text],
-    handler_id: Optional[Text],
-    value: Union[bool, Type['Comparator'], Type['Rule']]
-) -> None:
-    from sifter.grammar.rule import Rule
-    from sifter.grammar.comparator import Comparator
-    if not handler_type or not handler_id:
-        raise ValueError("handler_type and handler_id must not be None!")
-    if not isinstance(value, Rule) and not (isinstance(value, type) and issubclass(value, (Rule, Comparator))):
-        print(type(value))
-        _HANDLERS_MAP.setdefault(handler_type, {})[handler_id] = value
-    else:
+    def __init__(self) -> None:
+        for extension_name in self.DEFAULT_EXTENSION:
+            self.register_extension(extension_name)
+
         for entry_point in pkg_resources.iter_entry_points('sifter_extensions'):
-            if entry_point.name not in _HANDLERS_MAP:
-                ext_cls = entry_point.load()
-                _HANDLERS_MAP.setdefault(ext_cls.get_mapkey(), {})[ext_cls.get_identifier()] = ext_cls
-                _HANDLERS_MAP[entry_point.name] = entry_point.load()
+            self.register_handler(entry_point.load())
 
+    @classmethod
+    def register_extension(cls, extension_name):
+        cls.register('extension', extension_name, True)
 
-def unregister(handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type['Comparator'], Type['Rule']]]:
-    return _HANDLERS_MAP.get(handler_type, {}).pop(handler_id, None)
+    @classmethod
+    def register_handler(cls, ext_cls):
+        cls.register(ext_cls.handler_type(), ext_cls.handler_id(), ext_cls)
 
+    @classmethod
+    def register(
+        cls,
+        handler_type: Optional[Text],
+        handler_id: Optional[Text],
+        value: Union[bool, Type['Comparator'], Type['Rule']]
+    ) -> None:
+        cls._HANDLERS_MAP.setdefault(handler_type, {})[handler_id] = value
 
-def get(handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type['Comparator'], Type['Rule']]]:
-    return _HANDLERS_MAP.get(handler_type, {}).get(handler_id, None)
+    @classmethod
+    def unregister(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type['Comparator'], Type['Rule']]]:
+        return cls._HANDLERS_MAP.get(handler_type, {}).pop(handler_id, None)
+
+    @classmethod
+    def get(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type['Comparator'], Type['Rule']]]:
+        return cls._HANDLERS_MAP.get(handler_type, {}).get(handler_id, None)

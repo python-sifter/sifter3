@@ -98,7 +98,7 @@ class Comparator(Tag):
                         "'%s' comparator is unknown/unsupported"
                         % arg_list[starting_index + 1]
                     )
-                if not sifter.handler.get(
+                if not sifter.handler.ExtensionRegistry.get(
                     'comparator',
                     val[0],
                 ):

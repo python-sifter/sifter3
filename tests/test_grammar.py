@@ -2,13 +2,13 @@
 
 import pytest
 
-import sifter.extension
+from sifter.handler import ExtensionRegistry
 from sifter.grammar.state import EvaluationState
 
 
 def test_grammar():
-    sifter.extension.register('ext1')
-    sifter.extension.register('ext2')
+    ExtensionRegistry.register_extension('ext1')
+    ExtensionRegistry.register_extension('ext2')
     state = EvaluationState()
 
     state.require_extension('ext1')

@@ -4,20 +4,14 @@ from typing import (
     Text,
     Optional,
     Tuple,
-    Type,
     Union
 )
 
 import sifter.handler
 
 if TYPE_CHECKING:
-    from sifter.grammar.comparator import Comparator
     from sifter.grammar.tag import Tag
     from sifter.grammar.state import EvaluationState
-
-
-def register(comparator_name: Optional[Text], comparator_cls: Type['Comparator']) -> None:
-    sifter.handler.register('comparator', comparator_name, comparator_cls)
 
 
 def get_match_fn(
@@ -37,7 +31,7 @@ def get_match_fn(
         match_type = 'IS'
 
     # TODO: support wildcard matching in comparator names (RFC 4790)
-    cmp_handler = sifter.handler.get('comparator', comparator)
+    cmp_handler = sifter.handler.ExtensionRegistry.get('comparator', comparator)
     if not cmp_handler:
         raise RuntimeError("Comparator not supported: %s" % comparator)
 
