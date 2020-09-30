@@ -1,6 +1,7 @@
 from typing import (
     TYPE_CHECKING,
     Dict,
+    List,
     Text,
     Optional,
     Union,
@@ -16,7 +17,7 @@ if TYPE_CHECKING:
 class ExtensionRegistry():
 
     _HANDLERS_MAP: Dict[Text, Dict[Text, Union[bool, Type['Comparator'], Type['Rule']]]] = {}
-    DEFAULT_EXTENSION = [
+    DEFAULT_EXTENSION: List[Text] = [
         'regex',
         'comparator-i;ascii-casemap',
         'comparator-i;octet',
@@ -31,18 +32,18 @@ class ExtensionRegistry():
             self.register_handler(entry_point.load())
 
     @classmethod
-    def register_extension(cls, extension_name):
+    def register_extension(cls, extension_name: Text) -> None:
         cls.register('extension', extension_name, True)
 
     @classmethod
-    def register_handler(cls, ext_cls):
+    def register_handler(cls, ext_cls: Union[Type['Comparator'], Type['Rule']]) -> None:
         cls.register(ext_cls.handler_type(), ext_cls.handler_id(), ext_cls)
 
     @classmethod
     def register(
         cls,
-        handler_type: Optional[Text],
-        handler_id: Optional[Text],
+        handler_type: Text,
+        handler_id: Text,
         value: Union[bool, Type['Comparator'], Type['Rule']]
     ) -> None:
         cls._HANDLERS_MAP.setdefault(handler_type, {})[handler_id] = value

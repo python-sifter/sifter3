@@ -15,11 +15,13 @@ class Comparator(object):
     COMPARATOR_ID: Optional[Text] = None
 
     @classmethod
-    def handler_type(cls):
+    def handler_type(cls) -> Text:
         return 'comparator'
 
     @classmethod
-    def handler_id(cls):
+    def handler_id(cls) -> Text:
+        if cls.COMPARATOR_ID is None:
+            raise NotImplementedError('Rule must be implemented as subclass as COMPARATOR_ID must be set')
         return cls.COMPARATOR_ID
 
     @classmethod

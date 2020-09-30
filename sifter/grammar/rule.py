@@ -36,11 +36,15 @@ class Rule(object):
     TESTS_MAX: Optional[int] = None
 
     @classmethod
-    def handler_type(cls):
+    def handler_type(cls) -> Text:
+        if cls.RULE_TYPE is None:
+            raise NotImplementedError('Rule must be implemented as subclass as RULE_TYPE must be set')
         return cls.RULE_TYPE
 
     @classmethod
-    def handler_id(cls):
+    def handler_id(cls) -> Text:
+        if cls.RULE_IDENTIFIER is None:
+            raise NotImplementedError('Rule must be implemented as subclass as RULE_IDENTIFIER must be set')
         return cls.RULE_IDENTIFIER
 
     def __init__(
