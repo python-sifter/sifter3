@@ -85,6 +85,3 @@ class TestAddress(Test):
                 ):
                     return True
         return False
-
-
-TestAddress.register()

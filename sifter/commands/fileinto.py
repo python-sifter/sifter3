@@ -22,6 +22,3 @@ class CommandFileInto(Command):
         state.actions.append('fileinto', file_dest)  # type: ignore
         state.actions.cancel_implicit_keep()
         return None
-
-
-CommandFileInto.register()

@@ -12,7 +12,6 @@ from typing import (
 from sifter.grammar.tag import Tag
 from sifter.grammar.validator import Validator
 import sifter.grammar
-import sifter.handler
 import sifter.utils
 
 if TYPE_CHECKING:
@@ -37,13 +36,16 @@ class Rule(object):
     TESTS_MAX: Optional[int] = None
 
     @classmethod
-    def register(cls) -> None:
-        try:
-            sifter.handler.register(cls.RULE_TYPE, cls.RULE_IDENTIFIER, cls)
-        except AttributeError:
-            # this method shouldn't be called on the Rule class directly,
-            # only on subclasses that implement specific rules
-            raise NotImplementedError
+    def handler_type(cls) -> Text:
+        if cls.RULE_TYPE is None:
+            raise NotImplementedError('Rule must be implemented as subclass as RULE_TYPE must be set')
+        return cls.RULE_TYPE
+
+    @classmethod
+    def handler_id(cls) -> Text:
+        if cls.RULE_IDENTIFIER is None:
+            raise NotImplementedError('Rule must be implemented as subclass as RULE_IDENTIFIER must be set')
+        return cls.RULE_IDENTIFIER
 
     def __init__(
         self,

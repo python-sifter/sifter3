@@ -18,6 +18,3 @@ class CommandKeep(Command):
         state.actions.append('keep')
         state.actions.cancel_implicit_keep()
         return None
-
-
-CommandKeep.register()

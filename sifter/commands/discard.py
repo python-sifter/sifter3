@@ -16,6 +16,3 @@ class CommandDiscard(Command):
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.actions.cancel_implicit_keep()
         return None
-
-
-CommandDiscard.register()

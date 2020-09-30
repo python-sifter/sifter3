@@ -13,12 +13,11 @@ from typing import (
 
 import ply.yacc  # type: ignore
 
-import sifter.grammar
 from sifter.grammar.tag import Tag
 from sifter.grammar.command_list import CommandList
 from sifter.grammar.string import String
-import sifter.handler
 from sifter.grammar.lexer import SieveLexer
+from sifter.extensions import ExtensionRegistry
 
 if TYPE_CHECKING:
     from py.yacc import LRParser, YaccProduction  # type: ignore
@@ -31,11 +30,14 @@ class SieveParser():
     def __init__(self) -> None:
         self.lexer = SieveLexer()
         self.parser = self.make_parser(self)
+        self.extensions = ExtensionRegistry()
 
     @staticmethod
     def make_parser(mod: Any) -> 'LRParser':
         return ply.yacc.yacc(
-            module=mod
+            module=mod,
+            debug=False,
+            write_tables=False
         )
 
     def parse(self, rules: Text, tracking: int = 0) -> CommandList:
@@ -77,7 +79,7 @@ class SieveParser():
         block = None
         if p[3] != ';':
             block = p[3]
-        handler = sifter.handler.get('command', p[1])
+        handler = ExtensionRegistry.get_command(p[1])
         if handler is None:
             print("No handler registered for command '%s' on line %d" % (p[1], p.lineno(1)))
             raise SyntaxError
@@ -134,7 +136,7 @@ class SieveParser():
         """test : IDENTIFIER arguments"""
         # print("TEST:", p[1], p[2])
         tests = p[2].get('tests')
-        handler = sifter.handler.get('test', p[1])
+        handler = ExtensionRegistry.get_test(p[1])
         if handler is None:
             print("No handler registered for test '%s' on line %d" % (p[1], p.lineno(1)))
             raise SyntaxError

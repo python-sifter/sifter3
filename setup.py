@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # read the contents of your README file
 from os import path
@@ -41,18 +41,35 @@ setup(
         "Topic :: Software Development :: Interpreters",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    packages=[
-        "sifter",
-        "sifter.commands",
-        "sifter.comparators",
-        "sifter.extensions",
-        "sifter.grammar",
-        "sifter.t",
-        "sifter.tests",
-        "sifter.validators",
-    ],
+    packages=find_packages(exclude=("tests",)),
     package_data={
-        "sifter": ['py.typed'],
-        "sifter.t": ["*.in", "*.out", "*.msg", "*.rules"],
+        "sifter": ['py.typed']
     },
+    entry_points={
+        'sifter_extensions': [
+            # sifter commands
+            'discard = sifter.commands.discard:CommandDiscard',
+            'fileinto = sifter.commands.fileinto:CommandFileInto',
+            'if = sifter.commands.if_cmd:CommandIf',
+            'elseif = sifter.commands.if_cmd:CommandElsIf',
+            'else = sifter.commands.if_cmd:CommandElse',
+            'keep = sifter.commands.keep:CommandKeep',
+            'redirect = sifter.commands.redirect:CommandRedirect',
+            'require = sifter.commands.require:CommandRequire',
+            'stop = sifter.commands.stop:CommandStop',
+            # sifter tests
+            'address = sifter.tests.address:TestAddress',
+            'allof = sifter.tests.allof:TestAllOf',
+            'anyof = sifter.tests.anyof:TestAnyOf',
+            'exists = sifter.tests.exists:TestExists',
+            'header = sifter.tests.header:TestHeader',
+            'false = sifter.tests.false:TestFalse',
+            'not_test = sifter.tests.not_test:TestNot',
+            'size = sifter.tests.size:TestSize',
+            'true = sifter.tests.true:TestTrue',
+            # sifter comparators
+            'ascii_casemap = sifter.comparators.ascii_casemap:ComparatorASCIICasemap',
+            'octed = sifter.comparators.octet:ComparatorOctet'
+        ],
+    }
 )

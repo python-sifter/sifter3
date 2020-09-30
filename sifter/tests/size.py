@@ -38,6 +38,3 @@ class TestSize(Test):
         # number of characters
         message_size = len(message.as_string())
         return comparison_fn(message_size, comparison_size)
-
-
-TestSize.register()

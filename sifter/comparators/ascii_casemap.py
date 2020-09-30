@@ -11,6 +11,3 @@ class ComparatorASCIICasemap(ComparatorOctet):
     @classmethod
     def sort_key(cls, s: Text) -> Text:
         return s.upper()
-
-
-ComparatorASCIICasemap.register()

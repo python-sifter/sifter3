@@ -6,7 +6,6 @@ from typing import (
 )
 
 import re
-import sifter.comparator
 from sifter.grammar.state import EvaluationState
 
 
@@ -16,13 +15,14 @@ class Comparator(object):
     COMPARATOR_ID: Optional[Text] = None
 
     @classmethod
-    def register(cls) -> None:
-        try:
-            sifter.comparator.register(cls.COMPARATOR_ID, cls)
-        except AttributeError:
-            # this method should only be called on sub-classes that define an
-            # identifier
-            raise NotImplementedError
+    def handler_type(cls) -> Text:
+        return 'comparator'
+
+    @classmethod
+    def handler_id(cls) -> Text:
+        if cls.COMPARATOR_ID is None:
+            raise NotImplementedError('Rule must be implemented as subclass as COMPARATOR_ID must be set')
+        return cls.COMPARATOR_ID
 
     @classmethod
     def sort_key(cls, s: Text) -> Text:

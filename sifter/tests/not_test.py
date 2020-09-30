@@ -15,6 +15,3 @@ class TestNot(Test):
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return not self.tests[0].evaluate(message, state)
-
-
-TestNot.register()

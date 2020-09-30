@@ -13,6 +13,3 @@ class TestTrue(Test):
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return True
-
-
-TestTrue.register()
