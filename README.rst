@@ -1,3 +1,11 @@
+MISSING:
+
+sifter/commands/imap4flags.py
+sifter/commands/pipe.py
+sifter/commands/rewrite.py
+sifter/tests/envelope.py
+
+
 Python implementation of the Sieve email filtering language (RFC 5228).
 
 https://github.com/garyp/sifter
@@ -80,4 +88,3 @@ In rough order of importance:
   - mailbox metadata (RFC 5490)
   - notifications (RFC 5435), mailto notifications (RFC 5436), xmpp
     notifications (RFC 5437)
-

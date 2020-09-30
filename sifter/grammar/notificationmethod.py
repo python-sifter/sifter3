@@ -1,29 +1,28 @@
-from sifter.extensions import ExtensionRegistry
-
-
-def register(notification_method_name, notification_method_cls):
-    ExtensionRegistry.register('notification_method', notification_method_name, notification_method_cls)
-
-
-def get_cls(notification_method_name):
-    return ExtensionRegistry.get('notification_method', notification_method_name)
+from typing import (
+    Text,
+    Tuple,
+    Optional
+)
 
 
 class NotificationMethod(object):
 
-    @classmethod
-    def register(cls):
-        try:
-            register(cls.NOTIFICATION_METHOD_ID, cls)
-        except AttributeError:
-            # this method should only be called on sub-classes that define an
-            # identifier
-            raise NotImplementedError
+    NOTIFICATION_METHOD_ID: Optional[Text] = None
 
     @classmethod
-    def test_valid(cls, notification_uri):
+    def handler_type(cls) -> Text:
+        return 'notification_method'
+
+    @classmethod
+    def handler_id(cls) -> Text:
+        if cls.NOTIFICATION_METHOD_ID is None:
+            raise NotImplementedError('NotificationMethod must be implemented as subclass as NOTIFICATION_METHOD_ID must be set')
+        return cls.NOTIFICATION_METHOD_ID
+
+    @classmethod
+    def test_valid(cls, notification_uri: Text) -> Tuple[bool, Text]:
         raise NotImplementedError
 
     @classmethod
-    def test_capability(cls, notification_uri, notification_capability):
+    def test_capability(cls, notification_uri: Text, notification_capability: Text) -> Tuple[bool, Text]:
         raise NotImplementedError

@@ -27,7 +27,7 @@ class String(str):
     pass
 
 
-def expand_variables(s, state):
+def expand_variables(s: Text, state: EvaluationState) -> Text:
     if s and state.have_extension('variables'):
         for m in reversed(list(_variable_re.finditer(s))):
             if m.group(1):

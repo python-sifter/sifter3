@@ -20,8 +20,8 @@ class CommandFileInto(Command):
         state.check_required_extension('fileinto', 'FILEINTO')
 
         file_dest = self.positional_args[0]
-        file_dest = list(map(lambda s: expand_variables(s, state), file_dest))
+        file_dest = list(map(lambda s: expand_variables(s, state), file_dest))  # type: ignore
 
-        state.actions.append('fileinto', file_dest)  # type: ignore
+        state.actions.append('fileinto', file_dest)
         state.actions.cancel_implicit_keep()
         return None

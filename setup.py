@@ -74,7 +74,10 @@ setup(
             'notify_method_capability = sifter.tests.notify:TestValidNotifyMethod',
             # sifter comparators
             'ascii_casemap = sifter.comparators.ascii_casemap:ComparatorASCIICasemap',
-            'octed = sifter.comparators.octet:ComparatorOctet'
-        ],
+            'ascii_casemap_noi = sifter.comparators.ascii_casemap:ComparatorASCIICasemapnoi',
+            'octed = sifter.comparators.octet:ComparatorOctet',
+            # notification methods
+            'mailto = sifter.notificationmethods.mailto:MailtoNotificationMethod',
+        ]
     }
 )

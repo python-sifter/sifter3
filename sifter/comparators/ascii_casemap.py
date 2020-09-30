@@ -1,3 +1,4 @@
+import string
 from typing import Text
 from sifter.comparators.octet import ComparatorOctet
 
@@ -10,4 +11,23 @@ class ComparatorASCIICasemap(ComparatorOctet):
 
     @classmethod
     def sort_key(cls, s: Text) -> Text:
-        return s.upper()
+        return s.translate(
+            str.maketrans(
+                string.ascii_lowercase,
+                string.ascii_uppercase
+            )
+        )
+
+
+class ComparatorASCIICasemapnoi(ComparatorOctet):
+
+    COMPARATOR_ID = ';ascii-casemap'
+
+    @classmethod
+    def sort_key(cls, s: Text) -> Text:
+        return s.translate(
+            str.maketrans(
+                string.ascii_lowercase,
+                string.ascii_uppercase
+            )
+        )

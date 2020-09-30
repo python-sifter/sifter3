@@ -56,7 +56,10 @@ class Command(Rule):
                 "%s takes no more than %d commands" % (self.RULE_IDENTIFIER, max_commands)
             )
 
-    def validate(self) -> Tuple[Dict[Text, List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]], List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]]:
+    def validate(self) -> Tuple[
+        Dict[Text, List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]],
+        List[Union['TagGrammar', SupportsInt, List[Union[Text, 'String']]]]
+    ]:
         if self.HAS_BLOCKS:
             self.validate_block_size(max_commands=self.BLOCKS_MAX)
         return super().validate()

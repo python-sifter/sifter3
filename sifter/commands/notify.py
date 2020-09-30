@@ -1,10 +1,10 @@
 import re
-import sifter.grammar
-import sifter.validators
-import sifter.grammar.notificationmethod
 from sifter.grammar.command import Command
+from sifter.grammar.string import expand_variables
 from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Tag
+from sifter.grammar.rule import RuleSyntaxError
+from sifter.extensions import ExtensionRegistry
 
 
 # RFC 5435
@@ -33,27 +33,27 @@ class CommandNotify(Command):
         if 'options' in self.tagged_args:
             self.notify_options = self.tagged_args['options'][1]
         if 'message' in self.tagged_args:
-            self.notify_message = self.tagged_args['message'][1][0]
-        self.notify_method = self.positional_args[0][0]
+            self.notify_message = self.tagged_args['message'][1][0]  # type: ignore
+        self.notify_method = self.positional_args[0][0]  # type: ignore
 
     def evaluate(self, message, state):
         state.check_required_extension('enotify', 'NOTIFY')
-        notify_from = sifter.grammar.string.expand_variables(self.notify_from, state)
-        notify_importance = sifter.grammar.string.expand_variables(self.notify_importance, state)
-        notify_options = map(lambda s: sifter.grammar.string.expand_variables(s, state), self.notify_options)
-        notify_message = sifter.grammar.string.expand_variables(self.notify_message, state)
-        notify_method = sifter.grammar.string.expand_variables(self.notify_method, state)
+        notify_from = expand_variables(self.notify_from, state)
+        notify_importance = expand_variables(self.notify_importance, state)
+        notify_options = map(lambda s: expand_variables(s, state), self.notify_options)
+        notify_message = expand_variables(self.notify_message, state)
+        notify_method = expand_variables(self.notify_method, state)
 
         m = re.match('^([A-Za-z][A-Za-z0-9.+-]*):', notify_method)
         if not m:
-            raise sifter.grammar.RuleSyntaxError("Notification method must be an URI, e.g. 'mailto:email@example.com'")
+            raise RuleSyntaxError("Notification method must be an URI, e.g. 'mailto:email@example.com'")
         if notify_importance and notify_importance not in ["1", "2", "3"]:
-            raise sifter.grammar.RuleSyntaxError("Illegal notify importance '%s' encountered" % self.notify_importance)
-        notify_method_cls = sifter.grammar.notificationmethod.get_cls(m.group(1).lower())
+            raise RuleSyntaxError("Illegal notify importance '%s' encountered" % self.notify_importance)
+        notify_method_cls = ExtensionRegistry.get_notification_method(m.group(1).lower())
         if not notify_method_cls:
-            raise sifter.grammar.RuleSyntaxError("Unsupported notification method '%s'" % m.group(1))
+            raise RuleSyntaxError("Unsupported notification method '%s'" % m.group(1))
         (res, msg) = notify_method_cls.test_valid(notify_method)
         if not res:
-            raise sifter.grammar.RuleSyntaxError(msg)
+            raise RuleSyntaxError(msg)
 
         state.actions.append('notify', (notify_method, notify_from, notify_importance, notify_options, notify_message))

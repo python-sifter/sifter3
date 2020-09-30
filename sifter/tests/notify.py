@@ -1,8 +1,13 @@
 import re
+from email.message import Message
+from typing import Optional
+
 from sifter.grammar.test import Test
 from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Comparator, MatchType
 import sifter.grammar.notificationmethod
+from sifter.extensions import ExtensionRegistry
+from sifter.grammar.state import EvaluationState
 
 __all__ = ('TestValidNotifyMethod',)
 
@@ -15,20 +20,21 @@ class TestValidNotifyMethod(Test):
         StringList(),
     ]
 
-    def evaluate(self, message, state):
+    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         notify_methods = self.positional_args[0]
         state.check_required_extension('enotify', 'NOTIFY')
-        notify_methods = map(lambda s: sifter.grammar.string.expand_variables(s, state), notify_methods)
+        notify_methods = list(map(lambda s: sifter.grammar.string.expand_variables(s, state), notify_methods))  # type: ignore
 
         for notify_method in notify_methods:
             m = re.match('^([A-Za-z][A-Za-z0-9.+-]*):', notify_method)
             if not m:
                 return False
-            notify_method_cls = sifter.grammar.notificationmethod.get_cls(m.group(1).lower())
+            notify_method_cls = ExtensionRegistry.get_notification_method(m.group(1).lower())
             if not notify_method_cls:
                 return False
             (res, _) = notify_method_cls.test_valid(notify_method)
             return res
+        return False
 
 
 # RFC 5435
@@ -67,7 +73,7 @@ class TestNotifyMethodCapability(Test):
         m = re.match('^([A-Za-z][A-Za-z0-9.+-]*):', notification_uri)
         if not m:
             return False
-        notify_method_cls = sifter.notificationmethod.get_cls(m.group(1).lower())
+        notify_method_cls = ExtensionRegistry.get_notification_method(m.group(1).lower())
         if not notify_method_cls:
             return False
         (success, result) = notify_method_cls.test_capability(notification_uri, notification_capability)

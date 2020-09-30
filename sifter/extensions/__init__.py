@@ -13,6 +13,7 @@ import pkg_resources
 from sifter.grammar.comparator import Comparator
 from sifter.grammar.rule import Rule
 from sifter.grammar.command import Command
+from sifter.grammar.notificationmethod import NotificationMethod
 from sifter.grammar.test import Test
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag
@@ -20,7 +21,18 @@ if TYPE_CHECKING:
 
 class ExtensionRegistry():
 
-    _HANDLERS_MAP: Dict[Text, Dict[Text, Union[bool, Type['Comparator'], Type['Rule']]]] = {}
+    _HANDLERS_MAP: Dict[
+        Text,
+        Dict[
+            Text,
+            Union[
+                bool,
+                Type['Comparator'],
+                Type['Rule'],
+                Type['NotificationMethod']
+            ]
+        ]
+    ] = {}
     DEFAULT_EXTENSION: List[Text] = [
         'regex',
         'comparator-i;ascii-casemap',
@@ -28,7 +40,8 @@ class ExtensionRegistry():
         'fileinto',
         'body'
         'variables',
-        'enotify'
+        'enotify',
+        'imap4flags'
     ]
 
     def __init__(self) -> None:
@@ -68,6 +81,13 @@ class ExtensionRegistry():
         return handler
 
     @classmethod
+    def get_notification_method(cls, methodname: Text) -> Type[NotificationMethod]:
+        handler = cls.get('test', methodname)
+        if not isinstance(handler, type) or not issubclass(handler, NotificationMethod):
+            raise ValueError('Wrong Notification Method Type!')
+        return handler
+
+    @classmethod
     def has_extension(cls, ext_name: Text) -> bool:
         if cls.get('extension', ext_name):
             return True
@@ -83,9 +103,9 @@ class ExtensionRegistry():
         cls._HANDLERS_MAP.setdefault(handler_type, {})[handler_id] = value
 
     @classmethod
-    def unregister(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type['Comparator'], Type['Rule']]]:
+    def unregister(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
         return cls._HANDLERS_MAP.get(handler_type, {}).pop(handler_id, None)
 
     @classmethod
-    def get(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type['Comparator'], Type['Rule']]]:
+    def get(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
         return cls._HANDLERS_MAP.get(handler_type, {}).get(handler_id, None)
