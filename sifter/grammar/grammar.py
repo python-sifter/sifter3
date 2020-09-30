@@ -79,7 +79,7 @@ class SieveParser():
         block = None
         if p[3] != ';':
             block = p[3]
-        handler = ExtensionRegistry.get('command', p[1])
+        handler = ExtensionRegistry.get_command(p[1])
         if handler is None:
             print("No handler registered for command '%s' on line %d" % (p[1], p.lineno(1)))
             raise SyntaxError
@@ -136,7 +136,7 @@ class SieveParser():
         """test : IDENTIFIER arguments"""
         # print("TEST:", p[1], p[2])
         tests = p[2].get('tests')
-        handler = ExtensionRegistry.get('test', p[1])
+        handler = ExtensionRegistry.get_test(p[1])
         if handler is None:
             print("No handler registered for test '%s' on line %d" % (p[1], p.lineno(1)))
             raise SyntaxError

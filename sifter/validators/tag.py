@@ -97,10 +97,7 @@ class Comparator(Tag):
                         "'%s' comparator is unknown/unsupported"
                         % arg_list[starting_index + 1]
                     )
-                if not ExtensionRegistry.get(
-                    'comparator',
-                    val[0],
-                ):
+                if not ExtensionRegistry.get_comparator(val[0]):
                     raise RuleSyntaxError(
                         "'%s' comparator is unknown/unsupported"
                         % val[0]

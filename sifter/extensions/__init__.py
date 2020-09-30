@@ -9,9 +9,13 @@ from typing import (
 )
 import pkg_resources
 
+
+from sifter.grammar.comparator import Comparator
+from sifter.grammar.rule import Rule
+from sifter.grammar.command import Command
+from sifter.grammar.test import Test
 if TYPE_CHECKING:
-    from sifter.grammar.rule import Rule
-    from sifter.grammar.comparator import Comparator
+    from sifter.grammar.tag import Tag
 
 
 class ExtensionRegistry():
@@ -38,6 +42,33 @@ class ExtensionRegistry():
     @classmethod
     def register_handler(cls, ext_cls: Union[Type['Comparator'], Type['Rule']]) -> None:
         cls.register(ext_cls.handler_type(), ext_cls.handler_id(), ext_cls)
+
+    @classmethod
+    def get_comparator(cls, comparator: Union[Text, 'Tag']) -> Type['Comparator']:
+        handler = cls.get('comparator', comparator)
+        if not isinstance(handler, type) or not issubclass(handler, Comparator):
+            raise ValueError('Wrong Comparator Type!')
+        return handler
+
+    @classmethod
+    def get_command(cls, commandname: Text) -> Type['Command']:
+        handler = cls.get('command', commandname)
+        if not isinstance(handler, type) or not issubclass(handler, Command):
+            raise ValueError('Wrong Command Type!')
+        return handler
+
+    @classmethod
+    def get_test(cls, testname: Text) -> Type['Test']:
+        handler = cls.get('test', testname)
+        if not isinstance(handler, type) or not issubclass(handler, Test):
+            raise ValueError('Wrong Test Type!')
+        return handler
+
+    @classmethod
+    def has_extension(cls, ext_name: Text) -> bool:
+        if cls.get('extension', ext_name):
+            return True
+        return False
 
     @classmethod
     def register(
