@@ -1,3 +1,4 @@
+import re
 from typing import (
     TYPE_CHECKING,
     Text,
@@ -10,11 +11,36 @@ from sifter.grammar.state import EvaluationState
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag
 
+# Grammar for string variable expansion, RFC 5229, section 3
+_variable_re_identifier = r'(?:[A-Za-z_][A-Za-z0-9_]*)'
+_variable_re_num_variable = r'(?:[0-9]+)'
+_variable_re_variable_name = r'(?:' + _variable_re_num_variable + r'|' + _variable_re_identifier + r')'
+_variable_re_sub_namespace = r'(?:' + _variable_re_variable_name + r'\.)'
+_variable_re_namespace = r'(?:' + _variable_re_identifier + r'\.(?:' + _variable_re_sub_namespace + r'*))'
+_variable_re_variable_ref = r'\$\{(' + _variable_re_namespace + r')?(' + _variable_re_variable_name + r')\}'
+_variable_re = re.compile(_variable_re_variable_ref)
+
 
 # TODO: this is here because it'll be needed when support for encoded
 # characters and variables is added. for now it's just a wrapper around str.
 class String(str):
     pass
+
+
+def expand_variables(s, state):
+    if s and state.have_extension('variables'):
+        for m in reversed(list(_variable_re.finditer(s))):
+            if m.group(1):
+                raise RuntimeError("Variable namespaces not supported")
+            try:
+                if m.group(2).isdigit():
+                    r = state.match_variables[int(m.group(2))]
+                else:
+                    r = state.named_variables[m.group(2)]
+            except Exception:
+                r = ''
+            s = s[:m.start()] + r + s[m.end():]
+    return s
 
 
 def compare(

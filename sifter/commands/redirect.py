@@ -15,6 +15,7 @@ from sifter.grammar.rule import RuleSyntaxError
 from sifter.validators.stringlist import StringList
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.actions import Actions
+from sifter.grammar.string import expand_variables
 
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag as TagGrammar
@@ -49,6 +50,7 @@ class CommandRedirect(Command):
             )
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
-        state.actions.append('redirect', self.email_address)
+        email_address = expand_variables(self.email_address, state)
+        state.actions.append('redirect', email_address)
         state.actions.cancel_implicit_keep()
         return None

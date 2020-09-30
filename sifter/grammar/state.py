@@ -17,9 +17,15 @@ class EvaluationState(object):
         # used.
         for ext in ('comparator-i;octet', 'comparator-i;ascii-casemap'):
             self.require_extension(ext)
+        # variables extension
+        self.named_variables = {}
+        self.match_variables = []
 
     def require_extension(self, extension: Text) -> None:
         self.required_extensions[extension] = True
+
+    def have_extension(self, extension):
+        return extension in self.required_extensions
 
     def check_required_extension(self, extension: Text, feature_string: Text) -> bool:
         if extension not in self.required_extensions:

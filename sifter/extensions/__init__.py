@@ -26,6 +26,9 @@ class ExtensionRegistry():
         'comparator-i;ascii-casemap',
         'comparator-i;octet',
         'fileinto',
+        'body'
+        'variables',
+        'enotify'
     ]
 
     def __init__(self) -> None:

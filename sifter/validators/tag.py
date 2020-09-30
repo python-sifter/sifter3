@@ -69,7 +69,7 @@ class Tag(Validator):
 class MatchType(Tag):
 
     def __init__(self) -> None:
-        super().__init__(('IS', 'CONTAINS', 'MATCHES'))
+        super().__init__(('IS', 'CONTAINS', 'MATCHES', 'REGEX'))
 
 
 class Comparator(Tag):
@@ -102,4 +102,22 @@ class Comparator(Tag):
                         "'%s' comparator is unknown/unsupported"
                         % val[0]
                     )
-        return None
+        return validated_args
+
+
+class BodyTransform(Tag):
+
+    def __init__(self):
+        super(BodyTransform, self).__init__(('RAW', 'CONTENT', 'TEXT',))
+
+    def validate(self, arg_list, starting_index):
+        validated_args = super(BodyTransform, self).validate(arg_list, starting_index)
+
+        if validated_args > 0 and arg_list[starting_index] == 'CONTENT':
+            content_args = StringList().validate(
+                arg_list, starting_index + validated_args)
+            if content_args > 0:
+                return validated_args + content_args
+            else:
+                raise RuleSyntaxError("body :content requires argument")
+        return validated_args

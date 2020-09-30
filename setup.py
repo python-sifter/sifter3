@@ -54,11 +54,14 @@ setup(
             'elseif = sifter.commands.if_cmd:CommandElsIf',
             'else = sifter.commands.if_cmd:CommandElse',
             'keep = sifter.commands.keep:CommandKeep',
+            'notify = sifter.commands.notify:CommandNotify',
             'redirect = sifter.commands.redirect:CommandRedirect',
             'require = sifter.commands.require:CommandRequire',
+            'set = sifter.commands.variables:CommandSet',
             'stop = sifter.commands.stop:CommandStop',
             # sifter tests
             'address = sifter.tests.address:TestAddress',
+            'body = sifter.tests.body:TestBody',
             'allof = sifter.tests.allof:TestAllOf',
             'anyof = sifter.tests.anyof:TestAnyOf',
             'exists = sifter.tests.exists:TestExists',
@@ -67,6 +70,8 @@ setup(
             'not_test = sifter.tests.not_test:TestNot',
             'size = sifter.tests.size:TestSize',
             'true = sifter.tests.true:TestTrue',
+            'valid_notify_method = sifter.tests.notify:TestValidNotifyMethod',
+            'notify_method_capability = sifter.tests.notify:TestValidNotifyMethod',
             # sifter comparators
             'ascii_casemap = sifter.comparators.ascii_casemap:ComparatorASCIICasemap',
             'octed = sifter.comparators.octet:ComparatorOctet'
