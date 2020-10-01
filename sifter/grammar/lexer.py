@@ -2,25 +2,21 @@
 # references are to sections in RFC 5228 unless stated otherwise.
 
 from typing import (
-    TYPE_CHECKING,
     Any,
     Optional,
     Text
 )
 
 import math
-import ply.lex  # type: ignore
-
-if TYPE_CHECKING:
-    from ply.lex import LexToken
+from ply.lex import lex, LexToken  # type: ignore
 
 
 class SieveLexer():
 
-    def __init__(self) -> None:
-        self.lexer = ply.lex.lex(
+    def __init__(self, debug: bool = False) -> None:
+        self.lexer = lex(
             module=self,
-            debug=False
+            debug=debug
         )
         self.lexer.linestart = 0
 
