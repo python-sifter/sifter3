@@ -60,6 +60,7 @@ TODO
 -   An example adaptor that provides Unix LDA behavior using sieve for
     filtering
 -   Base spec features not yet implemented:
+
     -   encoded characters (section 2.4.2.4)
     -   multi-line strings (section 2.4.2)
     -   bracketed comments (section 2.3)
