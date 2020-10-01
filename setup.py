@@ -5,27 +5,28 @@ from setuptools import setup, find_packages
 # read the contents of your README file
 from os import path
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-with open('requirements.txt') as f:
-    requirements = f.read().splitlines()
-
 setup(
-    name="sifter",
+    name="sifter3",
     version="0.2.0",
-    author="Gary Peck, Manfred Kaiser",
-    author_email="gary@realify.com, manfred.kaiser@logfile.at",
+    author="Manfred Kaiser, Gary Peck",
+    author_email="manfred.kaiser@logfile.at, gary@realify.com",
     url="https://github.com/garyp/sifter",
     license="BSD",
+    description='Parser/evaluator for the Sieve filtering language (RFC 5228) - Python3 version',
     long_description=long_description,
-    long_description_content_type='text/x-rst',
+    long_description_content_type='text/markdown',
+    keywords="sieve email filter parser",
     project_urls={
-        'Source': 'https://github.com/garyp/sifter',
-        'Tracker': 'https://github.com/garyp/sifter/issues',
+        'Source': 'https://github.com/manfred-kaiser/sifter3',
+        'Tracker': 'https://github.com/manfred-kaiser/sifter3/issues',
     },
     python_requires='>= 3.6',
-    install_requires=requirements,
+    install_requires=[
+        'ply'
+    ],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
