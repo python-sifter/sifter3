@@ -7,6 +7,7 @@ from typing import (
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.test import Test
 from sifter.validators.stringlist import StringList
+from sifter.grammar.string import expand_variables
 
 
 # section 5.9
@@ -20,6 +21,7 @@ class TestExists(Test):
         if not isinstance(headers, list):
             raise ValueError("TestExists.headers must be a list")
         for header in headers:
+            header = expand_variables(header, state)
             if header not in message:
                 return False
         return True

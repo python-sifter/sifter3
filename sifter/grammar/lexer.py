@@ -44,7 +44,7 @@ class SieveLexer():
 
     # section 2.3
     def t_HASH_COMMENT(self, t: 'LexToken') -> Optional['LexToken']:
-        r'\#.*\r\n'
+        r'\#.*\r?\n'
         t.lexer.lineno += 1
         return None
 
@@ -113,7 +113,7 @@ class SieveLexer():
         return t
 
     def t_newline(self, t: 'LexToken') -> Optional['LexToken']:
-        r'(\r\n)+'
+        r'(\r?\n)+'
         t.lexer.lineno += t.value.count('\n')
         return None
 

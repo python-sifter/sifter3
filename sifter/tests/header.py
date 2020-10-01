@@ -1,4 +1,5 @@
 from email.message import Message
+import re
 from typing import (
     TYPE_CHECKING,
     List,
@@ -10,7 +11,7 @@ from typing import (
 
 
 from sifter.grammar.test import Test
-import sifter.grammar.string
+from sifter.grammar.string import expand_variables, compare as string_compare
 from sifter.grammar.state import EvaluationState
 from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Comparator, MatchType
@@ -32,6 +33,8 @@ class TestHeader(Test):
         StringList(),
         StringList(),
     ]
+
+    _newline_re = re.compile(r'\n+\s+')
 
     def __init__(
         self,
@@ -55,10 +58,13 @@ class TestHeader(Test):
         if not isinstance(self.keylist, list):
             raise ValueError("TestHeader.keylist is not a list")
         for header in self.headers:
+            header = expand_variables(header, state)
             for value in message.get_all(header, []):
+                value = self._newline_re.sub(" ", value)
                 for key in self.keylist:
-                    if sifter.grammar.string.compare(
-                        value,
+                    key = expand_variables(key, state)
+                    if string_compare(
+                        str(value),
                         key,
                         state,
                         self.comparator,

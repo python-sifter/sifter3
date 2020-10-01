@@ -14,6 +14,7 @@ from sifter.validators.tag import Tag, Comparator, MatchType
 import sifter.grammar
 from sifter.grammar.test import Test
 import sifter.grammar.string
+from sifter.grammar.string import expand_variables
 from sifter.validators.stringlist import StringList
 from sifter.grammar.state import EvaluationState
 
@@ -61,6 +62,7 @@ class TestAddress(Test):
 
         header_values: List[Text] = []
         for header in self.headers:
+            header = expand_variables(header, state)
             # TODO: section 5.1: we should restrict the allowed headers to
             # those headers that contain an "address-list". this includes at
             # least: from, to, cc, bcc, sender, resent-from, resent-to.
@@ -76,6 +78,7 @@ class TestAddress(Test):
                 )
         for address in addresses:
             for key in self.keylist:
+                key = expand_variables(key, state)
                 if sifter.grammar.string.compare(
                     address,
                     key,
