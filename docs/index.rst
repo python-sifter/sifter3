@@ -48,10 +48,12 @@ actions returned.
 COMMAND LINE
 ------------
 
+The output of the command line tool can be parsed as json.
+
 .. code-block:: bash
 
     $ sifter tests/evaluation_1.rules tests/evaluation_1.msg
-    [('redirect', 'acm@example.com')]
+    [['redirect', 'acm@example.com']]
 
 
 WARNINGS
