@@ -1,6 +1,11 @@
 import re
 from email.message import Message
-from typing import Optional
+from typing import (
+    Any,
+    Optional,
+    Text,
+    List
+)
 
 from sifter.grammar.test import Test
 from sifter.validators.stringlist import StringList
@@ -54,21 +59,23 @@ class TestNotifyMethodCapability(Test):
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         state.check_required_extension('enotify', 'NOTIFY')
 
+        match_type: Text
+
         if 'comparator' in self.tagged_args:
-            comparator = self.tagged_args['comparator'][1][0]
+            comparator = self.tagged_args['comparator'][1][0]  # type: ignore
         else:
             comparator = 'i;ascii-casemap'
         if 'match_type' in self.tagged_args:
-            match_type = self.tagged_args['match_type'][0]
+            match_type = self.tagged_args['match_type'][0]  # type: ignore
         else:
             match_type = 'IS'
-        notification_uri = self.positional_args[0][0]
-        notification_capability = self.positional_args[1][0]
-        key_list = self.positional_args[2]
+        notification_uri = self.positional_args[0][0]  # type: ignore
+        notification_capability = self.positional_args[1][0]  # type: ignore
+        key_list: List[Any] = self.positional_args[2]  # type: ignore
 
         notification_uri = sifter.grammar.string.expand_variables(notification_uri, state)
         notification_capability = sifter.grammar.string.expand_variables(notification_capability, state)
-        key_list = map(lambda s: sifter.grammar.string.expand_variables(s, state), key_list)
+        key_list = list(map(lambda s: sifter.grammar.string.expand_variables(s, state), key_list))
 
         m = re.match('^([A-Za-z][A-Za-z0-9.+-]*):', notification_uri)
         if not m:

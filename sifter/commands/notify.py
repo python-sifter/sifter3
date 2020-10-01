@@ -59,6 +59,9 @@ class CommandNotify(Command):
         if not res:
             raise RuleSyntaxError(msg)
 
-        state.actions.append('notify', (notify_method, notify_from, notify_importance, notify_options, notify_message))  # type: ignore
+        state.actions.append(
+            'notify',
+            (notify_method, notify_from, notify_importance, notify_options, notify_message)  # type: ignore
+        )
 
         return None

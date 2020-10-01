@@ -16,7 +16,9 @@ class NotificationMethod(object):
     @classmethod
     def handler_id(cls) -> Text:
         if cls.NOTIFICATION_METHOD_ID is None:
-            raise NotImplementedError('NotificationMethod must be implemented as subclass as NOTIFICATION_METHOD_ID must be set')
+            raise NotImplementedError(
+                'NotificationMethod must be implemented as subclass as NOTIFICATION_METHOD_ID must be set'
+            )
         return cls.NOTIFICATION_METHOD_ID
 
     @classmethod

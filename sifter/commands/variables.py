@@ -1,10 +1,18 @@
 import re
+from email.message import Message
+from typing import (
+    Optional,
+    Text
+)
+
 from urllib.parse import quote
 from sifter.grammar.command import Command
 from sifter.grammar.rule import RuleSyntaxError
 from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Tag
 from sifter.grammar.string import expand_variables
+from sifter.grammar.state import EvaluationState
+from sifter.grammar.actions import Actions
 
 __all__ = ('CommandSet',)
 
@@ -28,34 +36,33 @@ class CommandSet(Command):
         StringList(length=1),
     ]
 
-    def __init__(self, arguments=None, tests=None, block=None):
-        super(CommandSet, self).__init__(arguments, tests, block)
-
-        self.variable_modifier = self.tagged_args
-        self.variable_name = self.positional_args[0][0]
-        if (not re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', self.variable_name)):
-            raise RuleSyntaxError("Illegal variable name '%s' encountered" % self.variable_name)
-        self.variable_value = self.positional_args[1][0]
-
-    def evaluate(self, message, state):
+    def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.check_required_extension('variables', 'VARIABLES')
-        variable_value = expand_variables(self.variable_value, state)
-        if 'lower' in self.variable_modifier:
+
+        variable_modifier = self.tagged_args
+        variable_name = self.positional_args[0][0]  # type: ignore
+        if (not re.match(r'^[A-Za-z_][A-Za-z0-9_]*$', variable_name)):
+            raise RuleSyntaxError("Illegal variable name '%s' encountered" % variable_name)
+        variable_value: Text = self.positional_args[1][0]  # type: ignore
+
+        variable_value = expand_variables(variable_value, state)
+        if 'lower' in variable_modifier:
             variable_value = variable_value.lower()
-        if 'upper' in self.variable_modifier:
+        if 'upper' in variable_modifier:
             variable_value = variable_value.upper()
-        if 'lowerfirst' in self.variable_modifier:
+        if 'lowerfirst' in variable_modifier:
             variable_value = variable_value[:1].lower() + variable_value[1:]
-        if 'upperfirst' in self.variable_modifier:
+        if 'upperfirst' in variable_modifier:
             variable_value = variable_value[:1].upper() + variable_value[1:]
-        if 'quotewildcard' in self.variable_modifier:
+        if 'quotewildcard' in variable_modifier:
             variable_value = variable_value.replace('*', '\\*')
             variable_value = variable_value.replace('?', '\\?')
             variable_value = variable_value.replace('\\', '\\\\')
-        if 'quoteregex' in self.variable_modifier:
+        if 'quoteregex' in variable_modifier:
             variable_value = re.escape(variable_value)
-        if 'encodeurl' in self.variable_modifier:
+        if 'encodeurl' in variable_modifier:
             variable_value = quote(variable_value, safe='-._~')
-        if 'length' in self.variable_modifier:
-            variable_value = "" + len(variable_value)
-        state.named_variables[self.variable_name] = variable_value
+        if 'length' in variable_modifier:
+            variable_value = "" + str(len(variable_value))
+        state.named_variables[variable_name] = variable_value
+        return None

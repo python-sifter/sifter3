@@ -103,9 +103,13 @@ class ExtensionRegistry():
         cls._HANDLERS_MAP.setdefault(handler_type, {})[handler_id] = value
 
     @classmethod
-    def unregister(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
+    def unregister(
+        cls, handler_type: Text, handler_id: Text
+    ) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
         return cls._HANDLERS_MAP.get(handler_type, {}).pop(handler_id, None)
 
     @classmethod
-    def get(cls, handler_type: Text, handler_id: Text) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
+    def get(
+        cls, handler_type: Text, handler_id: Text
+    ) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
         return cls._HANDLERS_MAP.get(handler_type, {}).get(handler_id, None)
