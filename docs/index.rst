@@ -45,6 +45,15 @@ consisting of the action name and action-specific arguments. It is up to
 the caller to manipulate the message and message store based on the
 actions returned.
 
+COMMAND LINE
+------------
+
+.. code-block:: bash
+
+    $ sifter tests/evaluation_1.rules tests/evaluation_1.msg
+    [('redirect', 'acm@example.com')]
+
+
 WARNINGS
 --------
 
