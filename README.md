@@ -20,6 +20,16 @@ FEATURES
     features still listed under TODO below
 -   Extensions supported:
     -   regex (draft-ietf-sieve-regex-01)
+    -   body (RFC 5173)
+    -   variables (RFC 5229)
+    -   enotify (RFC 5435, particularly the mailto method RFC 5436)
+    -   imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
+- compatible with the python 2 version from https://github.com/garyp/sifter
+
+INSTALL
+=======
+
+    pip install sifter3
 
 EXAMPLE
 =======
@@ -47,8 +57,6 @@ WARNINGS
 TODO
 ====
 
-In rough order of importance:
-
 -   An example adaptor that provides Unix LDA behavior using sieve for
     filtering
 -   Base spec features not yet implemented:
@@ -69,9 +77,7 @@ In rough order of importance:
 -   Make sure regular expressions are actually handled according to the
     extension spec
 -   Add support for various extensions:
-    -   variables (RFC 5229)
     -   externally stored lists (draft-melnikov-sieve-external-lists)
-    -   body (RFC 5173)
     -   relational (RFC 5231)
     -   subaddress (RFC 5233)
     -   copy (RFC 3894)
@@ -80,5 +86,4 @@ In rough order of importance:
     -   editheader (RFC 5293)
     -   ihave (RFC 5463)
     -   mailbox metadata (RFC 5490)
-    -   notifications (RFC 5435), mailto notifications (RFC 5436), xmpp
-        notifications (RFC 5437)
+    -   xmpp notifications (RFC 5437)

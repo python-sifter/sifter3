@@ -10,10 +10,10 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="sifter3",
-    version="0.2.0",
+    version="0.2.1",
     author="Manfred Kaiser, Gary Peck",
     author_email="manfred.kaiser@logfile.at, gary@realify.com",
-    url="https://github.com/garyp/sifter",
+    url="https://sifter3.readthedocs.io/en/latest/",
     license="BSD",
     description='Parser/evaluator for the Sieve filtering language (RFC 5228) - Python3 version',
     long_description=long_description,
