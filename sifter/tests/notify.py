@@ -14,8 +14,6 @@ import sifter.grammar.notificationmethod
 from sifter.extensions import ExtensionRegistry
 from sifter.grammar.state import EvaluationState
 
-__all__ = ('TestValidNotifyMethod',)
-
 
 # RFC 5435
 class TestValidNotifyMethod(Test):

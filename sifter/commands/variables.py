@@ -14,8 +14,6 @@ from sifter.grammar.string import expand_variables
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.actions import Actions
 
-__all__ = ('CommandSet',)
-
 
 # RFC 5229
 class CommandSet(Command):
