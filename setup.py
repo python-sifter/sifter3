@@ -47,6 +47,9 @@ setup(
         "sifter": ['py.typed']
     },
     entry_points={
+        'console_scripts': [
+            'sifter = sifter.cli:main'
+        ],
         'sifter_extensions': [
             # sifter commands
             'discard = sifter.commands.discard:CommandDiscard',
