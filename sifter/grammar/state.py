@@ -1,5 +1,7 @@
 from typing import (
+    Any,
     Text,
+    List,
     Dict,
     Optional
 )
@@ -17,9 +19,15 @@ class EvaluationState(object):
         # used.
         for ext in ('comparator-i;octet', 'comparator-i;ascii-casemap'):
             self.require_extension(ext)
+        # variables extension
+        self.named_variables: Dict[Text, Any] = {}
+        self.match_variables: List[Any] = []
 
     def require_extension(self, extension: Text) -> None:
         self.required_extensions[extension] = True
+
+    def have_extension(self, extension: Text) -> bool:
+        return extension in self.required_extensions
 
     def check_required_extension(self, extension: Text, feature_string: Text) -> bool:
         if extension not in self.required_extensions:

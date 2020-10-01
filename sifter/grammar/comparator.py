@@ -44,4 +44,10 @@ class Comparator(object):
         # boundaries and backreferences, 2) double-check that python supports
         # all ERE features.
         compiled_re = re.compile(pattern)
-        return compiled_re.search(cls.sort_key(s))
+        m = compiled_re.search(cls.sort_key(s))
+        state.match_variables = []
+        if m and state.have_extension('variables'):
+            # Get the matched ranges from the original string, not the case-corrected one
+            for i in range(0, len(m.groups()) + 1):
+                state.match_variables.append(s[m.start(i):m.end(i)])
+        return m

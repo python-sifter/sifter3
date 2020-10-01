@@ -6,12 +6,11 @@ from sifter.grammar.test import Test
 from sifter.grammar.command import Command
 from typing import (
     Any,
-    TYPE_CHECKING,
     cast,
     Text
 )
 
-import ply.yacc  # type: ignore
+from ply.yacc import yacc, NullLogger, YaccError, LRParser, YaccProduction  # type: ignore
 
 from sifter.grammar.tag import Tag
 from sifter.grammar.command_list import CommandList
@@ -19,25 +18,23 @@ from sifter.grammar.string import String
 from sifter.grammar.lexer import SieveLexer
 from sifter.extensions import ExtensionRegistry
 
-if TYPE_CHECKING:
-    from py.yacc import LRParser, YaccProduction  # type: ignore
-
 
 class SieveParser():
 
     tokens = SieveLexer.tokens
 
-    def __init__(self) -> None:
-        self.lexer = SieveLexer()
+    def __init__(self, debug: bool = False) -> None:
+        self.lexer = SieveLexer(debug=debug)
         self.parser = self.make_parser(self)
         self.extensions = ExtensionRegistry()
 
     @staticmethod
-    def make_parser(mod: Any) -> 'LRParser':
-        return ply.yacc.yacc(
+    def make_parser(mod: Any, debug: bool = False) -> 'LRParser':
+        return yacc(
             module=mod,
-            debug=False,
-            write_tables=False
+            debug=debug,
+            write_tables=False,
+            errorlog=NullLogger() if not debug else None
         )
 
     def parse(self, rules: Text, tracking: int = 0) -> CommandList:
@@ -45,7 +42,7 @@ class SieveParser():
 
         rules = self.parser.parse(rules, self.lexer, tracking=tracking)
         if not self.parser.errorok:
-            raise ply.yacc.YaccError('Syntax error')
+            raise YaccError('Syntax error')
 
         return cast(CommandList, rules)
 
@@ -187,3 +184,6 @@ class SieveParser():
     def p_string(self, p: 'YaccProduction') -> None:
         """string : QUOTED_STRING"""
         p[0] = String(p[1])
+
+    def p_error(self, p: 'YaccProduction') -> None:
+        pass

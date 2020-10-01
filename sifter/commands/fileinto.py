@@ -4,6 +4,7 @@ from typing import (
 )
 
 from sifter.grammar.command import Command
+from sifter.grammar.string import expand_variables
 from sifter.validators.stringlist import StringList
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.actions import Actions
@@ -16,9 +17,11 @@ class CommandFileInto(Command):
     POSITIONAL_ARGS = [StringList(length=1)]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
-        file_dest = self.positional_args[0]
-
         state.check_required_extension('fileinto', 'FILEINTO')
-        state.actions.append('fileinto', file_dest)  # type: ignore
+
+        file_dest = self.positional_args[0]
+        file_dest = list(map(lambda s: expand_variables(s, state), file_dest))  # type: ignore
+
+        state.actions.append('fileinto', file_dest)
         state.actions.cancel_implicit_keep()
         return None
