@@ -18,6 +18,7 @@ FEATURES
 
 -   Supports all of the base Sieve spec from RFC 5228, except for
     features still listed under TODO below
+    - multiline strings (since version 0.2.2)
 -   Extensions supported:
     -   regex (draft-ietf-sieve-regex-01)
     -   body (RFC 5173)

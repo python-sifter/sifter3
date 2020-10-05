@@ -54,7 +54,7 @@ class SieveLexer():
 
     # section 2.4.2
     def t_MULTILINE_STRING(self, t: 'LexToken') -> Optional['LexToken']:
-        r'"@@@@@@@@@@@@@@@"'
+        r'text:\s?(?:\#.*)\r?\n(?P<multilinetext>[\r\n\S\s.]*?\r?\n)\.\r?\n'
         # TODO: For entering larger amounts of text, such as an email message,
         # a multi-line form is allowed.  It starts with the keyword "text:",
         # followed by a CRLF, and ends with the sequence of a CRLF, a single
@@ -68,7 +68,8 @@ class SieveLexer():
         # that is, ".foo" is interpreted as ".foo".  However, because this is
         # potentially ambiguous, scripts SHOULD be properly dot-stuffed so such
         # lines do not appear.
-        return None
+        t.value = t.lexer.lexmatch.group('multilinetext')
+        return t
 
     # section 2.4.2
     def t_QUOTED_STRING(self, t: 'LexToken') -> Optional['LexToken']:

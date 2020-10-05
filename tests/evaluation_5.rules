@@ -1,0 +1,11 @@
+require "reject";
+
+if header "from" "coyote@desert.example.org"
+  {
+    reject text: # testcomment
+I do not accept messages from
+this address.
+..
+.
+;
+  }
