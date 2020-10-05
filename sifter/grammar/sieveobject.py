@@ -7,6 +7,7 @@ class SieveObject():
 
     HANDLER_TYPE: Optional[Text] = None
     HANDLER_ID: Optional[Text] = None
+    EXTENSION_NAME: Optional[Text] = None
 
     @classmethod
     def handler_type(cls) -> Text:

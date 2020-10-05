@@ -1,5 +1,6 @@
 from typing import (
     TYPE_CHECKING,
+    cast,
     Dict,
     List,
     Text,
@@ -17,6 +18,7 @@ from sifter.grammar.notificationmethod import NotificationMethod
 from sifter.grammar.test import Test
 if TYPE_CHECKING:
     from sifter.grammar.tag import Tag
+    from sifter.grammar.sieveobject import SieveObject
 
 
 class ExtensionRegistry():
@@ -27,23 +29,14 @@ class ExtensionRegistry():
             Text,
             Union[
                 bool,
-                Type['Comparator'],
-                Type['Rule'],
-                Type['NotificationMethod']
+                Type['SieveObject']
             ]
         ]
     ] = {}
     DEFAULT_EXTENSION: List[Text] = [
-        'body',
         'comparator-i;ascii-casemap',
-        'comparator-i;octet',
-        'enotify',
-        'fileinto',
-        'imap4flags',
-        'regex',
-        'reject',
-        'ereject',
-        'variables',
+        'comparator-i;octet'
+        'regex'
     ]
 
     def __init__(self) -> None:
@@ -51,14 +44,17 @@ class ExtensionRegistry():
             self.register_extension(extension_name)
 
         for entry_point in pkg_resources.iter_entry_points('sifter_extensions'):
-            self.register_handler(entry_point.load())
+            sifter_extension_cls = cast(Type['SieveObject'], entry_point.load())
+            self.register_handler(sifter_extension_cls)
+            if sifter_extension_cls.EXTENSION_NAME is not None:
+                self.register_extension(sifter_extension_cls.EXTENSION_NAME)
 
     @classmethod
     def register_extension(cls, extension_name: Text) -> None:
         cls.register('extension', extension_name, True)
 
     @classmethod
-    def register_handler(cls, ext_cls: Union[Type['Comparator'], Type['Rule']]) -> None:
+    def register_handler(cls, ext_cls: Type['SieveObject']) -> None:
         cls.register(ext_cls.handler_type(), ext_cls.handler_id(), ext_cls)
 
     @classmethod
@@ -100,18 +96,18 @@ class ExtensionRegistry():
         cls,
         handler_type: Text,
         handler_id: Text,
-        value: Union[bool, Type['Comparator'], Type['Rule']]
+        value: Union[bool, Type['SieveObject']]
     ) -> None:
         cls._HANDLERS_MAP.setdefault(handler_type, {})[handler_id] = value
 
     @classmethod
     def unregister(
         cls, handler_type: Text, handler_id: Text
-    ) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
+    ) -> Optional[Union[bool, Type['SieveObject']]]:
         return cls._HANDLERS_MAP.get(handler_type, {}).pop(handler_id, None)
 
     @classmethod
     def get(
         cls, handler_type: Text, handler_id: Text
-    ) -> Optional[Union[bool, Type[NotificationMethod], Type['Comparator'], Type['Rule']]]:
+    ) -> Optional[Union[bool, Type['SieveObject']]]:
         return cls._HANDLERS_MAP.get(handler_type, {}).get(handler_id, None)

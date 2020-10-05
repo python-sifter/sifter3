@@ -19,6 +19,7 @@ from sifter.grammar.actions import Actions
 class CommandSet(Command):
 
     HANDLER_ID = 'SET'
+    EXTENSION_NAME = 'variables'
     TAGGED_ARGS = {
         'lower': Tag('LOWER'),
         'upper': Tag('UPPER'),

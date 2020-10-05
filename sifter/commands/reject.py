@@ -14,6 +14,7 @@ from sifter.grammar.actions import Actions
 class CommandReject(Command):
 
     HANDLER_ID: Text = 'REJECT'
+    EXTENSION_NAME = 'reject'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
@@ -26,3 +27,4 @@ class CommandReject(Command):
 class CommandEReject(CommandReject):
 
     HANDLER_ID: Text = 'EREJECT'
+    EXTENSION_NAME = 'ereject'

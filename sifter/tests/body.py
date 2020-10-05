@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 class TestBody(Test):
 
     HANDLER_ID = 'BODY'
+    EXTENSION_NAME = 'body'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),

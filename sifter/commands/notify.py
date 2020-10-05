@@ -16,6 +16,7 @@ from sifter.grammar.actions import Actions
 class CommandNotify(Command):
 
     HANDLER_ID = 'NOTIFY'
+    EXTENSION_NAME = 'enotify'
     TAGGED_ARGS = {
         'from': Tag('FROM', (StringList(1),)),
         'importance': Tag('IMPORTANCE', (StringList(1),)),
