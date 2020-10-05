@@ -42,6 +42,7 @@ class ExtensionRegistry():
         'imap4flags',
         'regex',
         'reject',
+        'ereject',
         'variables',
     ]
 

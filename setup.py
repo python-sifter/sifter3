@@ -61,6 +61,7 @@ setup(
             'notify = sifter.commands.notify:CommandNotify',
             'redirect = sifter.commands.redirect:CommandRedirect',
             'reject = sifter.commands.reject:CommandReject',
+            'ereject = sifter.commands.reject:CommandEReject',
             'require = sifter.commands.require:CommandRequire',
             'set = sifter.commands.variables:CommandSet',
             'stop = sifter.commands.stop:CommandStop',

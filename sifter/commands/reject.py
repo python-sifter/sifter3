@@ -21,3 +21,8 @@ class CommandReject(Command):
         state.actions.append('reject', reject_message)
         state.actions.cancel_implicit_keep()
         return None
+
+
+class CommandEReject(CommandReject):
+
+    RULE_IDENTIFIER: Text = 'EREJECT'
