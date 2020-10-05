@@ -11,6 +11,7 @@ FEATURES
     features still listed under TODO below
 
     - multiline strings (since version 0.2.2)
+    - bracketed comments (since version 0.2.4)
 
 -   Extensions supported:
 
@@ -76,7 +77,6 @@ TODO
 -   Base spec features not yet implemented:
 
     -   encoded characters (section 2.4.2.4)
-    -   bracketed comments (section 2.3)
     -   message uniqueness (section 2.10.3)
     -   envelope test (section 5.4)
     -   handle message loops (section 10)

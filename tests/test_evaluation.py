@@ -26,6 +26,7 @@ def test_evaulation():
         ("evaluation_3.msg", "evaluation_3.rules", [('keep', None)]),
         ("evaluation_1.msg", "evaluation_4.rules", [('reject', 'I do not accept messages from this address.')]),
         ("evaluation_1.msg", "evaluation_5.rules", [('reject', 'I do not accept messages from\nthis address.\n.\n')]),
+        ("evaluation_1.msg", "evaluation_6.rules", [('reject', 'I do not accept messages from this address.')]),
     )
 
     for messagefile, rulefile, evaluated_rules in EVAL_RESULTS:

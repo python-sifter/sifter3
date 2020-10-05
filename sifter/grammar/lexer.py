@@ -47,8 +47,8 @@ class SieveLexer():
 
     # section 2.3
     def t_BRACKET_COMMENT(self, t: 'LexToken') -> Optional['LexToken']:
-        r'/\*.*\*/'
-        # TODO: Bracketed comments begin with the token "/*" and end with "*/"
+        r'/\*[\r\n\S\s.]*?\*/'
+        # Bracketed comments begin with the token "/*" and end with "*/"
         # outside of a string.  Bracketed comments may span multiple lines.
         # Bracketed comments do not nest.
         return None
@@ -56,7 +56,7 @@ class SieveLexer():
     # section 2.4.2
     def t_MULTILINE_STRING(self, t: 'LexToken') -> Optional['LexToken']:
         r'text:\s?(?:\#.*)\r?\n(?P<multilinetext>[\r\n\S\s.]*?\r?\n)\.\r?\n'
-        # TODO: For entering larger amounts of text, such as an email message,
+        # For entering larger amounts of text, such as an email message,
         # a multi-line form is allowed.  It starts with the keyword "text:",
         # followed by a CRLF, and ends with the sequence of a CRLF, a single
         # period, and another CRLF.  The CRLF before the final period is

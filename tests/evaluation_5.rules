@@ -1,8 +1,10 @@
 require "reject";
 
-if header "from" "coyote@desert.example.org"
+#testcomment1
+
+if header "from" "coyote@desert.example.org" # testcomment2
   {
-    reject text: # testcomment
+    reject text: # testcomment3
 I do not accept messages from
 this address.
 ..
