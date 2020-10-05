@@ -13,7 +13,7 @@ from sifter.grammar.actions import Actions
 # section 3.2
 class CommandReject(Command):
 
-    RULE_IDENTIFIER: Text = 'REJECT'
+    HANDLER_ID: Text = 'REJECT'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
@@ -25,4 +25,4 @@ class CommandReject(Command):
 
 class CommandEReject(CommandReject):
 
-    RULE_IDENTIFIER: Text = 'EREJECT'
+    HANDLER_ID: Text = 'EREJECT'

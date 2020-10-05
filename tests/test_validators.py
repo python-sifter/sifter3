@@ -12,8 +12,8 @@ from sifter.validators.tag import Tag as TagValidator
 
 def test_too_many_args() -> None:
     class MockRuleNoArgs(Rule):
-        RULE_TYPE = 'mock'
-        RULE_IDENTIFIER = 'MOCKRULE'
+        HANDLER_TYPE = 'mock'
+        HANDLER_ID = 'MOCKRULE'
 
     with pytest.raises(RuleSyntaxError):
         _ = MockRuleNoArgs([GrammarTag('IS'), 13, ])
@@ -21,8 +21,8 @@ def test_too_many_args() -> None:
 
 def test_not_enough_args() -> None:
     class MockRuleTwoArgs(Rule):
-        RULE_TYPE = 'mock'
-        RULE_IDENTIFIER = 'MOCKRULE'
+        HANDLER_TYPE = 'mock'
+        HANDLER_ID = 'MOCKRULE'
         TAGGED_ARGS = [
             Number(),
             StringList(),

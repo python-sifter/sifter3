@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 # RFC 5173
 class TestBody(Test):
 
-    RULE_IDENTIFIER = 'BODY'
+    HANDLER_ID = 'BODY'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),

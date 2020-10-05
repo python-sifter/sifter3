@@ -9,7 +9,7 @@ from sifter.grammar.state import EvaluationState
 
 class Test(Rule):
 
-    RULE_TYPE = 'test'
+    HANDLER_TYPE = 'test'
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         raise NotImplementedError

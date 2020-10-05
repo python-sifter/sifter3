@@ -15,7 +15,7 @@ from sifter.grammar.actions import Actions
 # RFC 5435
 class CommandNotify(Command):
 
-    RULE_IDENTIFIER = 'NOTIFY'
+    HANDLER_ID = 'NOTIFY'
     TAGGED_ARGS = {
         'from': Tag('FROM', (StringList(1),)),
         'importance': Tag('IMPORTANCE', (StringList(1),)),

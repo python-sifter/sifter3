@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 # section 4.2
 class CommandRedirect(Command):
 
-    RULE_IDENTIFIER = 'REDIRECT'
+    HANDLER_ID = 'REDIRECT'
     POSITIONAL_ARGS = [StringList(length=1)]
 
     def __init__(

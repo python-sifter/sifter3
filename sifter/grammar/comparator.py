@@ -6,23 +6,14 @@ from typing import (
 )
 
 import re
+from sifter.grammar.sieveobject import SieveObject
 from sifter.grammar.state import EvaluationState
 
 
 # The official definition of comparators is in RFC 4790
-class Comparator(object):
+class Comparator(SieveObject):
 
-    COMPARATOR_ID: Optional[Text] = None
-
-    @classmethod
-    def handler_type(cls) -> Text:
-        return 'comparator'
-
-    @classmethod
-    def handler_id(cls) -> Text:
-        if cls.COMPARATOR_ID is None:
-            raise NotImplementedError('Rule must be implemented as subclass as COMPARATOR_ID must be set')
-        return cls.COMPARATOR_ID
+    HANDLER_TYPE = 'comparator'
 
     @classmethod
     def sort_key(cls, s: Text) -> Text:

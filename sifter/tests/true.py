@@ -9,7 +9,7 @@ from sifter.grammar.state import EvaluationState
 # section 5.10
 class TestTrue(Test):
 
-    RULE_IDENTIFIER = 'TRUE'
+    HANDLER_ID = 'TRUE'
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return True

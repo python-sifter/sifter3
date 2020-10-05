@@ -14,7 +14,7 @@ from sifter.grammar.actions import Actions
 # section 3.2
 class CommandRequire(Command):
 
-    RULE_IDENTIFIER: Text = 'REQUIRE'
+    HANDLER_ID: Text = 'REQUIRE'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:

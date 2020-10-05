@@ -15,7 +15,7 @@ from sifter.grammar.actions import Actions
 
 class CommandSetFlag(Command):
 
-    RULE_IDENTIFIER = 'SETFLAG'
+    HANDLER_ID = 'SETFLAG'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
@@ -28,7 +28,7 @@ class CommandSetFlag(Command):
 
 class CommandRemoveFlag(Command):
 
-    RULE_IDENTIFIER = 'REMOVEFLAG'
+    HANDLER_ID = 'REMOVEFLAG'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
@@ -41,7 +41,7 @@ class CommandRemoveFlag(Command):
 
 class CommandAddFlag(Command):
 
-    RULE_IDENTIFIER = 'ADDFLAG'
+    HANDLER_ID = 'ADDFLAG'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:

@@ -10,7 +10,7 @@ from sifter.grammar.state import EvaluationState
 # section 5.8
 class TestNot(Test):
 
-    RULE_IDENTIFIER = 'NOT'
+    HANDLER_ID = 'NOT'
     TESTS_MIN = 1
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:

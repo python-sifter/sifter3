@@ -7,7 +7,7 @@ maketrans = str.maketrans
 
 class ComparatorASCIICasemap(ComparatorOctet):
 
-    COMPARATOR_ID = 'i;ascii-casemap'
+    HANDLER_ID = 'i;ascii-casemap'
 
     @classmethod
     def sort_key(cls, s: Text) -> Text:
@@ -21,7 +21,7 @@ class ComparatorASCIICasemap(ComparatorOctet):
 
 class ComparatorASCIICasemapnoi(ComparatorOctet):
 
-    COMPARATOR_ID = ';ascii-casemap'
+    HANDLER_ID = ';ascii-casemap'
 
     @classmethod
     def sort_key(cls, s: Text) -> Text:

@@ -13,7 +13,7 @@ from sifter.grammar.string import expand_variables
 # section 5.9
 class TestExists(Test):
 
-    RULE_IDENTIFIER = 'EXISTS'
+    HANDLER_ID = 'EXISTS'
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
