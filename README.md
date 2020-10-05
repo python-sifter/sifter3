@@ -1,9 +1,9 @@
 # Sifter3 - Sieve email filter (RFC 5228)
 
-Sifter3 is a Python 3 implementation of the Sieve email filter language (RFC 5228) and is based on the Python 2 version from <https://github.com/garyp/sifter>
+Sifter3 is a Python 3 implementation of the Sieve email filter language (RFC 5228)
 
 ![Python package](https://github.com/manfred-kaiser/sifter3/workflows/Python%20package/badge.svg)
-[![Documentation Status](https://readthedocs.org/projects/sifter3/badge/?version=master)](https://sifter3.readthedocs.io/de/master/?badge=master)
+[![Documentation Status](https://readthedocs.org/projects/sifter3/badge/?version=latest)](https://sifter3.readthedocs.io/en/latest/?badge=latest)
 [![CodeFactor](https://www.codefactor.io/repository/github/manfred-kaiser/sifter3/badge)](https://www.codefactor.io/repository/github/manfred-kaiser/sifter3)
 [![Github version](https://img.shields.io/github/v/release/manfred-kaiser/sifter3?label=github&logo=github)](https://github.com/manfred-kaiser/sifter3/releases)
 [![PyPI version](https://img.shields.io/pypi/v/sifter3.svg?logo=pypi&logoColor=FFE873)](https://pypi.org/project/sifter3/)
@@ -18,6 +18,7 @@ FEATURES
 
 -   Supports all of the base Sieve spec from RFC 5228, except for
     features still listed under TODO below
+    - multiline strings (since version 0.2.2)
 -   Extensions supported:
     -   regex (draft-ietf-sieve-regex-01)
     -   body (RFC 5173)
@@ -44,6 +45,15 @@ In the above example, `msg_actions` is a list of actions to apply to the
 email message. Each action is a tuple consisting of the action name and
 action-specific arguments. It is up to the caller to manipulate the
 message and message store based on the actions returned.
+
+COMMAND LINE
+============
+
+The output of the command line tool can be parsed as json.
+
+    $ sifter tests/evaluation_1.rules tests/evaluation_1.msg
+    [['redirect', 'acm@example.com']]
+
 
 WARNINGS
 ========

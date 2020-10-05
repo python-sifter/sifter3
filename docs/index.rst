@@ -9,6 +9,9 @@ FEATURES
 
 -   Supports all of the base Sieve spec from RFC 5228, except for
     features still listed under TODO below
+
+    - multiline strings (since version 0.2.2)
+
 -   Extensions supported:
 
     -   regex (draft-ietf-sieve-regex-01)
@@ -45,6 +48,17 @@ consisting of the action name and action-specific arguments. It is up to
 the caller to manipulate the message and message store based on the
 actions returned.
 
+COMMAND LINE
+------------
+
+The output of the command line tool can be parsed as json.
+
+.. code-block:: bash
+
+    $ sifter tests/evaluation_1.rules tests/evaluation_1.msg
+    [['redirect', 'acm@example.com']]
+
+
 WARNINGS
 --------
 
@@ -60,8 +74,8 @@ TODO
 -   An example adaptor that provides Unix LDA behavior using sieve for
     filtering
 -   Base spec features not yet implemented:
+
     -   encoded characters (section 2.4.2.4)
-    -   multi-line strings (section 2.4.2)
     -   bracketed comments (section 2.3)
     -   message uniqueness (section 2.10.3)
     -   envelope test (section 5.4)

@@ -32,7 +32,7 @@ class SieveParser():
     def make_parser(mod: Any, debug: bool = False) -> 'LRParser':
         return yacc(
             module=mod,
-            debug=debug,
+            debug=True,
             write_tables=False,
             errorlog=NullLogger() if not debug else None
         )
@@ -167,6 +167,10 @@ class SieveParser():
         """argument : TAG"""
         p[0] = Tag(p[1])
 
+    def p_argument_multiline_string(self, p: 'YaccProduction') -> None:
+        """argument : MULTILINE_STRING"""
+        p[0] = [p[1]]
+
     def p_stringlist_error(self, p: 'YaccProduction') -> None:
         """argument : '[' error ']'"""
         print("Syntax error in string list that starts on line %d" % p.lineno(1))
@@ -186,4 +190,9 @@ class SieveParser():
         p[0] = String(p[1])
 
     def p_error(self, p: 'YaccProduction') -> None:
-        pass
+        if p is None:
+            token = "end of file"
+        else:
+            token = f"{p.type}({p.value}) on line {p.lineno}"
+
+        print(f"Syntax error: Unexpected {token}")

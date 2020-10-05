@@ -34,14 +34,15 @@ class ExtensionRegistry():
         ]
     ] = {}
     DEFAULT_EXTENSION: List[Text] = [
-        'regex',
+        'body',
         'comparator-i;ascii-casemap',
         'comparator-i;octet',
-        'fileinto',
-        'body'
-        'variables',
         'enotify',
-        'imap4flags'
+        'fileinto',
+        'imap4flags',
+        'regex',
+        'reject',
+        'variables',
     ]
 
     def __init__(self) -> None:
