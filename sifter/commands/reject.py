@@ -17,7 +17,7 @@ class CommandReject(Command):
     POSITIONAL_ARGS = [StringList()]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
-        print(self.positional_args[0][0])
-        state.actions.append('reject', self.positional_args[0][0])
+        reject_message = self.positional_args[0][0]  # type: ignore
+        state.actions.append('reject', reject_message)
         state.actions.cancel_implicit_keep()
         return None

@@ -1,6 +1,7 @@
 # Parser based on RFC 5228, especially the grammar as defined in section 8. All
 # references are to sections in RFC 5228 unless stated otherwise.
 
+import re
 from typing import (
     Any,
     Optional,
@@ -69,6 +70,7 @@ class SieveLexer():
         # potentially ambiguous, scripts SHOULD be properly dot-stuffed so such
         # lines do not appear.
         t.value = t.lexer.lexmatch.group('multilinetext')
+        t.value = re.sub(r'(\r?\n\.)\.', r'\1', t.value)
         return t
 
     # section 2.4.2
