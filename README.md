@@ -18,7 +18,8 @@ FEATURES
 
 -   Supports all of the base Sieve spec from RFC 5228, except for
     features still listed under TODO below
-    - multiline strings (since version 0.2.2)
+    -   multiline strings (since version 0.2.2)
+    -   bracketed comments (since version 0.2.4)
 -   Extensions supported:
     -   regex (draft-ietf-sieve-regex-01)
     -   body (RFC 5173)
@@ -72,7 +73,6 @@ TODO
 -   Base spec features not yet implemented:
     -   encoded characters (section 2.4.2.4)
     -   multi-line strings (section 2.4.2)
-    -   bracketed comments (section 2.3)
     -   message uniqueness (section 2.10.3)
     -   envelope test (section 5.4)
     -   handle message loops (section 10)

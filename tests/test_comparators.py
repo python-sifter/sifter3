@@ -9,7 +9,7 @@ from sifter.grammar.comparator import Comparator
 
 def test_mock_comparator() -> None:
     class MockComparator(Comparator):
-        COMPARATOR_ID = 'i;vnd-mock'
+        HANDLER_ID = 'i;vnd-mock'
 
     ExtensionRegistry.register_handler(MockComparator)
     with pytest.raises(RuntimeError):

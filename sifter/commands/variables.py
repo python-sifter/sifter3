@@ -18,7 +18,8 @@ from sifter.grammar.actions import Actions
 # RFC 5229
 class CommandSet(Command):
 
-    RULE_IDENTIFIER = 'SET'
+    HANDLER_ID = 'SET'
+    EXTENSION_NAME = 'variables'
     TAGGED_ARGS = {
         'lower': Tag('LOWER'),
         'upper': Tag('UPPER'),

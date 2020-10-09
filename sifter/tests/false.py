@@ -10,7 +10,7 @@ from sifter.grammar.test import Test
 # section 5.6
 class TestFalse(Test):
 
-    RULE_IDENTIFIER = 'FALSE'
+    HANDLER_ID = 'FALSE'
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
         return False

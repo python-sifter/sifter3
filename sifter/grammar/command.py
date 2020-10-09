@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 
 class Command(Rule):
 
-    RULE_TYPE: Text = 'command'
+    HANDLER_TYPE: Text = 'command'
     HAS_BLOCKS: bool = True
     BLOCKS_MAX: int = 0
 
@@ -53,7 +53,7 @@ class Command(Rule):
     def validate_block_size(self, max_commands: int) -> None:
         if len(self.block.commands) > max_commands:
             raise RuleSyntaxError(
-                "%s takes no more than %d commands" % (self.RULE_IDENTIFIER, max_commands)
+                "%s takes no more than %d commands" % (self.HANDLER_ID, max_commands)
             )
 
     def validate(self) -> Tuple[

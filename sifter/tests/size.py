@@ -17,7 +17,7 @@ from sifter.grammar.state import EvaluationState
 # section 5.9
 class TestSize(Test):
 
-    RULE_IDENTIFIER = 'SIZE'
+    HANDLER_ID = 'SIZE'
     TAGGED_ARGS = {
         'size': Tag(
             ('OVER', 'UNDER'),

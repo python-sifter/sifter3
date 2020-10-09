@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="sifter3",
-    version="0.2.3",
+    version="0.2.4",
     author="Manfred Kaiser, Gary Peck",
     author_email="manfred.kaiser@logfile.at, gary@realify.com",
     url="https://sifter3.readthedocs.io/en/latest/",
@@ -61,6 +61,7 @@ setup(
             'notify = sifter.commands.notify:CommandNotify',
             'redirect = sifter.commands.redirect:CommandRedirect',
             'reject = sifter.commands.reject:CommandReject',
+            'ereject = sifter.commands.reject:CommandEReject',
             'require = sifter.commands.require:CommandRequire',
             'set = sifter.commands.variables:CommandSet',
             'stop = sifter.commands.stop:CommandStop',

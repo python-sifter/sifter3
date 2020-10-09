@@ -18,7 +18,7 @@ from sifter.grammar.state import EvaluationState
 # RFC 5435
 class TestValidNotifyMethod(Test):
 
-    RULE_IDENTIFIER = 'VALID_NOTIFY_METHOD'
+    HANDLER_ID = 'VALID_NOTIFY_METHOD'
     POSITIONAL_ARGS = [
         StringList(),
     ]
@@ -43,7 +43,7 @@ class TestValidNotifyMethod(Test):
 # RFC 5435
 class TestNotifyMethodCapability(Test):
 
-    RULE_IDENTIFIER = 'NOTIFY_METHOD_CAPABILITY'
+    HANDLER_ID = 'NOTIFY_METHOD_CAPABILITY'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),

@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 # section 5.1
 class TestAddress(Test):
 
-    RULE_IDENTIFIER: Text = 'ADDRESS'
+    HANDLER_ID: Text = 'ADDRESS'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),

@@ -13,7 +13,8 @@ from sifter.grammar.actions import Actions
 # section 4.1
 class CommandFileInto(Command):
 
-    RULE_IDENTIFIER = 'FILEINTO'
+    HANDLER_ID = 'FILEINTO'
+    EXTENSION_NAME = 'fileinto'
     POSITIONAL_ARGS = [StringList(length=1)]
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:

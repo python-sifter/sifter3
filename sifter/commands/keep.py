@@ -11,7 +11,7 @@ from sifter.grammar.actions import Actions
 # section 4.3
 class CommandKeep(Command):
 
-    RULE_IDENTIFIER = 'KEEP'
+    HANDLER_ID = 'KEEP'
     HAS_BLOCKS = False
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:

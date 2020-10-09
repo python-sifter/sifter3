@@ -10,7 +10,7 @@ from sifter.grammar.notificationmethod import NotificationMethod
 
 class MailtoNotificationMethod(NotificationMethod):
 
-    NOTIFICATION_METHOD_ID = 'mailto'
+    HANDLER_ID = 'mailto'
 
     @staticmethod
     def parse_mailto_url(url: Text) -> Dict[Text, List[Text]]:

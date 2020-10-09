@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 # section 5.7
 class TestHeader(Test):
 
-    RULE_IDENTIFIER = 'HEADER'
+    HANDLER_ID = 'HEADER'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),

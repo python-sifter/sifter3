@@ -1,0 +1,10 @@
+require "reject";
+
+if header "from" "coyote@desert.example.org" /*
+This is a comment
+  {
+    reject "not evaluated, because comment.";
+  }
+*/{
+    reject "I do not accept messages from this address.";
+}

@@ -10,7 +10,7 @@ from sifter.grammar.state import EvaluationState
 # section 5.3
 class TestAnyOf(Test):
 
-    RULE_IDENTIFIER = 'ANYOF'
+    HANDLER_ID = 'ANYOF'
     HAS_TESTS = False
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:

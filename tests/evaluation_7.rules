@@ -1,0 +1,14 @@
+require "reject";
+
+#testcomment1
+
+if not header "from" "coyote@desert.example.org"  { # testcomment2
+   keep;
+} else {
+    ereject text: # testcomment3
+I do not accept messages from/* this is
+not a comment */this address.
+..
+.
+;
+  }

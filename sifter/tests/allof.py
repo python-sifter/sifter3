@@ -11,7 +11,7 @@ from sifter.grammar.state import EvaluationState
 # section 5.2
 class TestAllOf(Test):
 
-    RULE_IDENTIFIER: Text = 'ALLOF'
+    HANDLER_ID: Text = 'ALLOF'
     HAS_TESTS = False
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:

@@ -11,7 +11,7 @@ from sifter.grammar.command import Command
 # section 4.4
 class CommandDiscard(Command):
 
-    RULE_IDENTIFIER = 'DISCARD'
+    HANDLER_ID = 'DISCARD'
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         state.actions.cancel_implicit_keep()
