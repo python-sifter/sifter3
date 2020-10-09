@@ -20,8 +20,8 @@ FEATURES
     -   variables (RFC 5229)
     -   enotify (RFC 5435, particularly the mailto method RFC 5436)
     -   imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
-
--   compatible with the Python 2 version from https://github.com/garyp/sifter
+    -   reject and ereject (RFC 5429) (since version 0.2.4)
+    -   ihave (RFC 5463) (since version 0.2.5)
 
 INSTALL
 -------
@@ -81,3 +81,5 @@ TODO
     -   envelope test (section 5.4)
     -   handle message loops (section 10)
     -   limit abuse of redirect action (section
+    -   address test should limit allowed headers to those that contain
+        addresses (section 5.1)

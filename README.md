@@ -26,7 +26,9 @@ FEATURES
     -   variables (RFC 5229)
     -   enotify (RFC 5435, particularly the mailto method RFC 5436)
     -   imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
-- compatible with the python 2 version from https://github.com/garyp/sifter
+    -   reject and ereject (RFC 5429)
+    -   ihave (RFC 5463)
+
 
 INSTALL
 =======
@@ -72,7 +74,6 @@ TODO
     filtering
 -   Base spec features not yet implemented:
     -   encoded characters (section 2.4.2.4)
-    -   multi-line strings (section 2.4.2)
     -   message uniqueness (section 2.10.3)
     -   envelope test (section 5.4)
     -   handle message loops (section 10)
@@ -94,6 +95,5 @@ TODO
     -   environment (RFC 5183)
     -   date and index (RFC 5260)
     -   editheader (RFC 5293)
-    -   ihave (RFC 5463)
     -   mailbox metadata (RFC 5490)
     -   xmpp notifications (RFC 5437)
