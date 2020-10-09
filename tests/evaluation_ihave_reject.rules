@@ -1,0 +1,5 @@
+require "ihave";
+
+if ihave "reject"{
+    reject "I do not accept messages from this address.";
+}
