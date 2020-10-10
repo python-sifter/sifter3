@@ -1,7 +1,5 @@
 from email.message import Message
-from typing import (
-    Optional
-)
+
 from sifter.grammar.state import EvaluationState
 from sifter.extensions import ExtensionRegistry
 
@@ -18,7 +16,7 @@ class TestIHave(Test):
         StringList(),
     ]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         state.check_required_extension('ihave', 'conditions on installed extensions')
         extension_list = self.positional_args[0]
 

@@ -53,7 +53,7 @@ class TestAddress(Test):
         if 'address_part' in self.tagged_args:
             self.address_part = self.tagged_args['address_part'][0]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         if not isinstance(self.keylist, list):
             raise ValueError('TestAddress keylist not iterable')
 

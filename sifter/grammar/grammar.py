@@ -34,7 +34,7 @@ class SieveParser():
             module=mod,
             debug=True,
             write_tables=False,
-            errorlog=None #NullLogger() if not debug else None
+            errorlog=NullLogger() if not debug else None
         )
 
     def parse(self, rules: Text, tracking: int = 0) -> CommandList:
@@ -191,7 +191,7 @@ class SieveParser():
 
     def p_error(self, p: 'YaccProduction') -> None:
         if p is None:
-            token = "end of file"
+            token = "end of file"  # nosec
         else:
             token = f"{p.type}({p.value}) on line {p.lineno}"
 

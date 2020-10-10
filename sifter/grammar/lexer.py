@@ -40,18 +40,16 @@ class SieveLexer():
     t_ignore = ' \t'
 
     # section 2.3
-    def t_HASH_COMMENT(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_HASH_COMMENT(self, t: 'LexToken') -> None:
         r'\#.*\r?\n'
         t.lexer.lineno += 1
-        return None
 
     # section 2.3
-    def t_BRACKET_COMMENT(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_BRACKET_COMMENT(self, t: 'LexToken') -> None:
         r'/\*[\r\n\S\s.]*?\*/'
         # Bracketed comments begin with the token "/*" and end with "*/"
         # outside of a string.  Bracketed comments may span multiple lines.
         # Bracketed comments do not nest.
-        return None
 
     # section 2.4.2
     def t_MULTILINE_STRING(self, t: 'LexToken') -> Optional['LexToken']:
@@ -111,11 +109,9 @@ class SieveLexer():
             t.value = int(t.value)
         return t
 
-    def t_newline(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_newline(self, t: 'LexToken') -> None:
         r'(\r?\n)+'
         t.lexer.lineno += t.value.count('\n')
-        return None
 
-    def t_error(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_error(self, t: 'LexToken') -> None:
         t.lexer.skip(1)
-        return None

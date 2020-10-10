@@ -1,7 +1,6 @@
 from email.message import Message
 from typing import (
-    Text,
-    Optional,
+    Text
 )
 
 from sifter.grammar.test import Test
@@ -14,7 +13,7 @@ class TestAllOf(Test):
     HANDLER_ID: Text = 'ALLOF'
     HAS_TESTS = False
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         # short-circuit evaluation if a test is false. the base standard does
         # not specify if all tests must be evaluated or in what order, but the
         # "ihave" extension requires short-circuit left-to-right evaluation
