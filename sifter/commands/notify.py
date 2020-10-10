@@ -1,6 +1,5 @@
 import re
 from email.message import Message
-from typing import Optional
 
 from sifter.grammar.command import Command
 from sifter.grammar.string import expand_variables
@@ -9,13 +8,13 @@ from sifter.validators.tag import Tag
 from sifter.grammar.rule import RuleSyntaxError
 from sifter.extensions import ExtensionRegistry
 from sifter.grammar.state import EvaluationState
-from sifter.grammar.actions import Actions
 
 
 # RFC 5435
 class CommandNotify(Command):
 
-    RULE_IDENTIFIER = 'NOTIFY'
+    HANDLER_ID = 'NOTIFY'
+    EXTENSION_NAME = 'enotify'
     TAGGED_ARGS = {
         'from': Tag('FROM', (StringList(1),)),
         'importance': Tag('IMPORTANCE', (StringList(1),)),
@@ -26,7 +25,7 @@ class CommandNotify(Command):
         StringList(length=1)
     ]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
+    def evaluate(self, message: Message, state: EvaluationState) -> None:
         notify_from = notify_importance = self.notify_message = None
         notify_options = []  # type: ignore
         if 'from' in self.tagged_args:
@@ -63,5 +62,3 @@ class CommandNotify(Command):
             'notify',
             (notify_method, notify_from, notify_importance, notify_options, notify_message)  # type: ignore
         )
-
-        return None

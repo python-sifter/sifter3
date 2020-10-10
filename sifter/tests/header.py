@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 # section 5.7
 class TestHeader(Test):
 
-    RULE_IDENTIFIER = 'HEADER'
+    HANDLER_ID = 'HEADER'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),
@@ -52,7 +52,7 @@ class TestHeader(Test):
         if 'match_type' in self.tagged_args:
             self.match_type = self.tagged_args['match_type'][0]  # type: ignore
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         if not isinstance(self.headers, list):
             raise ValueError("TestHeader.headers is not a list")
         if not isinstance(self.keylist, list):

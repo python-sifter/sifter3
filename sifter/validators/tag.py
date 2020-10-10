@@ -125,6 +125,5 @@ class BodyTransform(Tag):
                 raise ValueError('unexpected return value from StringList.validate')
             if content_args > 0:
                 return validated_args + content_args
-            else:
-                raise RuleSyntaxError("body :content requires argument")
+            raise RuleSyntaxError("body :content requires argument")
         return validated_args

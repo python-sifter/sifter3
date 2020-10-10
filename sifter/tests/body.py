@@ -23,7 +23,8 @@ if TYPE_CHECKING:
 # RFC 5173
 class TestBody(Test):
 
-    RULE_IDENTIFIER = 'BODY'
+    HANDLER_ID = 'BODY'
+    EXTENSION_NAME = 'body'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),
@@ -58,33 +59,33 @@ class TestBody(Test):
         else:
             self.body_transform = ['text']
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         state.check_required_extension('body', 'tests against the email body')
         if not self.body_transform:  # RAW
             # Flatten message, match header / body separator (two new-lines);
             #     if there are no headers, we match ^\n, which is guaranteed to be there
             (_, bodystr) = re.split(r'^\r?\n|\r?\n\r?\n', message.as_string(False), 1)
             return self.evaluate_part(bodystr, state)
-        else:
-            for msgpart in message.walk():
-                if msgpart.is_multipart():
-                    # TODO: If "multipart/*" extract prologue and epilogue and make that searcheable
-                    # TODO: If "message/rfc822" extract headers and make that searchable
-                    # Insetad we skip multipart objects and descend into its children
-                    continue
-                msgtxt = msgpart.get_payload()
-                for mimetype in self.body_transform:
-                    if not mimetype:  # empty body_transform matches all
-                        if self.evaluate_part(msgtxt, state):
-                            return True
-                    match = re.match(r'^([^/]+)(?:/([^/]+))?$', mimetype)
-                    if not match:
-                        continue  # malformed body_transform is skipped
-                    (maintype, subtype) = match.groups()
-                    if maintype == msgpart.get_content_maintype() and (
-                            not subtype or subtype == msgpart.get_content_subtype()):
-                        if self.evaluate_part(msgtxt, state):
-                            return True
+
+        for msgpart in message.walk():
+            if msgpart.is_multipart():
+                # TODO: If "multipart/*" extract prologue and epilogue and make that searcheable
+                # TODO: If "message/rfc822" extract headers and make that searchable
+                # Insetad we skip multipart objects and descend into its children
+                continue
+            msgtxt = msgpart.get_payload()
+            for mimetype in self.body_transform:
+                if not mimetype:  # empty body_transform matches all
+                    if self.evaluate_part(msgtxt, state):
+                        return True
+                match = re.match(r'^([^/]+)(?:/([^/]+))?$', mimetype)
+                if not match:
+                    continue  # malformed body_transform is skipped
+                (maintype, subtype) = match.groups()
+                if maintype == msgpart.get_content_maintype() and (
+                        not subtype or subtype == msgpart.get_content_subtype()):
+                    if self.evaluate_part(msgtxt, state):
+                        return True
         return False
 
     def evaluate_part(self, part_str: Text, state: EvaluationState) -> bool:

@@ -9,6 +9,10 @@ FEATURES
 
 -   Supports all of the base Sieve spec from RFC 5228, except for
     features still listed under TODO below
+
+    - multiline strings (since version 0.2.2)
+    - bracketed comments (since version 0.2.4)
+
 -   Extensions supported:
 
     -   regex (draft-ietf-sieve-regex-01)
@@ -16,8 +20,8 @@ FEATURES
     -   variables (RFC 5229)
     -   enotify (RFC 5435, particularly the mailto method RFC 5436)
     -   imap4flags (RFC 5232: setflag, addflag, removeflag; not supported: hasflags, :flags)
-
--   compatible with the Python 2 version from https://github.com/garyp/sifter
+    -   reject and ereject (RFC 5429) (since version 0.2.4)
+    -   ihave (RFC 5463) (since version 0.2.5)
 
 INSTALL
 -------
@@ -45,6 +49,17 @@ consisting of the action name and action-specific arguments. It is up to
 the caller to manipulate the message and message store based on the
 actions returned.
 
+COMMAND LINE
+------------
+
+The output of the command line tool can be parsed as json.
+
+.. code-block:: bash
+
+    $ sifter tests/evaluation_1.rules tests/evaluation_1.msg
+    [['redirect', 'acm@example.com']]
+
+
 WARNINGS
 --------
 
@@ -60,10 +75,11 @@ TODO
 -   An example adaptor that provides Unix LDA behavior using sieve for
     filtering
 -   Base spec features not yet implemented:
+
     -   encoded characters (section 2.4.2.4)
-    -   multi-line strings (section 2.4.2)
-    -   bracketed comments (section 2.3)
     -   message uniqueness (section 2.10.3)
     -   envelope test (section 5.4)
     -   handle message loops (section 10)
     -   limit abuse of redirect action (section
+    -   address test should limit allowed headers to those that contain
+        addresses (section 5.1)

@@ -3,6 +3,7 @@ import email
 import os
 import logging
 import sys
+import json
 
 import sifter.parser
 
@@ -24,4 +25,4 @@ def main() -> None:
     rules = sifter.parser.parse_file(open(args.rulefile))
     msg = email.message_from_file(open(args.messagefile))
     msg_actions = rules.evaluate(msg)
-    print(msg_actions)
+    print(json.dumps(msg_actions, indent=4))

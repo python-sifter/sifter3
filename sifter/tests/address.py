@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 # section 5.1
 class TestAddress(Test):
 
-    RULE_IDENTIFIER: Text = 'ADDRESS'
+    HANDLER_ID: Text = 'ADDRESS'
     TAGGED_ARGS = {
         'comparator': Comparator(),
         'match_type': MatchType(),
@@ -53,7 +53,7 @@ class TestAddress(Test):
         if 'address_part' in self.tagged_args:
             self.address_part = self.tagged_args['address_part'][0]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         if not isinstance(self.keylist, list):
             raise ValueError('TestAddress keylist not iterable')
 

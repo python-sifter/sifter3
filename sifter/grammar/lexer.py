@@ -1,6 +1,7 @@
 # Parser based on RFC 5228, especially the grammar as defined in section 8. All
 # references are to sections in RFC 5228 unless stated otherwise.
 
+import re
 from typing import (
     Any,
     Optional,
@@ -39,23 +40,21 @@ class SieveLexer():
     t_ignore = ' \t'
 
     # section 2.3
-    def t_HASH_COMMENT(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_HASH_COMMENT(self, t: 'LexToken') -> None:
         r'\#.*\r?\n'
         t.lexer.lineno += 1
-        return None
 
     # section 2.3
-    def t_BRACKET_COMMENT(self, t: 'LexToken') -> Optional['LexToken']:
-        r'/\*.*\*/'
-        # TODO: Bracketed comments begin with the token "/*" and end with "*/"
+    def t_BRACKET_COMMENT(self, t: 'LexToken') -> None:
+        r'/\*[\r\n\S\s.]*?\*/'
+        # Bracketed comments begin with the token "/*" and end with "*/"
         # outside of a string.  Bracketed comments may span multiple lines.
         # Bracketed comments do not nest.
-        return None
 
     # section 2.4.2
     def t_MULTILINE_STRING(self, t: 'LexToken') -> Optional['LexToken']:
-        r'"@@@@@@@@@@@@@@@"'
-        # TODO: For entering larger amounts of text, such as an email message,
+        r'text:\s?(?:\#.*)\r?\n(?P<multilinetext>[\r\n\S\s.]*?\r?\n)\.\r?\n'
+        # For entering larger amounts of text, such as an email message,
         # a multi-line form is allowed.  It starts with the keyword "text:",
         # followed by a CRLF, and ends with the sequence of a CRLF, a single
         # period, and another CRLF.  The CRLF before the final period is
@@ -68,7 +67,9 @@ class SieveLexer():
         # that is, ".foo" is interpreted as ".foo".  However, because this is
         # potentially ambiguous, scripts SHOULD be properly dot-stuffed so such
         # lines do not appear.
-        return None
+        t.value = t.lexer.lexmatch.group('multilinetext')
+        t.value = re.sub(r'(\r?\n\.)\.', r'\1', t.value)
+        return t
 
     # section 2.4.2
     def t_QUOTED_STRING(self, t: 'LexToken') -> Optional['LexToken']:
@@ -108,11 +109,9 @@ class SieveLexer():
             t.value = int(t.value)
         return t
 
-    def t_newline(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_newline(self, t: 'LexToken') -> None:
         r'(\r?\n)+'
         t.lexer.lineno += t.value.count('\n')
-        return None
 
-    def t_error(self, t: 'LexToken') -> Optional['LexToken']:
+    def t_error(self, t: 'LexToken') -> None:
         t.lexer.skip(1)
-        return None

@@ -25,12 +25,12 @@ class CommandIfBase(Command):
 
 class CommandIf(CommandIfBase):
 
-    RULE_IDENTIFIER = 'IF'
+    HANDLER_ID = 'IF'
 
 
 class CommandElsIf(CommandIfBase):
 
-    RULE_IDENTIFIER = 'ELSIF'
+    HANDLER_ID = 'ELSIF'
 
     def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
         if state.last_if:
@@ -40,7 +40,7 @@ class CommandElsIf(CommandIfBase):
 
 class CommandElse(Command):
 
-    RULE_IDENTIFIER = 'ELSE'
+    HANDLER_ID = 'ELSE'
     TESTS_MIN = 0
     HAS_BLOCKS = False
 

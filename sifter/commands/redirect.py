@@ -14,7 +14,6 @@ from sifter.grammar.command_list import CommandList
 from sifter.grammar.rule import RuleSyntaxError
 from sifter.validators.stringlist import StringList
 from sifter.grammar.state import EvaluationState
-from sifter.grammar.actions import Actions
 from sifter.grammar.string import expand_variables
 
 if TYPE_CHECKING:
@@ -26,7 +25,7 @@ if TYPE_CHECKING:
 # section 4.2
 class CommandRedirect(Command):
 
-    RULE_IDENTIFIER = 'REDIRECT'
+    HANDLER_ID = 'REDIRECT'
     POSITIONAL_ARGS = [StringList(length=1)]
 
     def __init__(
@@ -49,8 +48,7 @@ class CommandRedirect(Command):
                 % self.email_address
             )
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
+    def evaluate(self, message: Message, state: EvaluationState) -> None:
         email_address = expand_variables(self.email_address, state)
         state.actions.append('redirect', email_address)
         state.actions.cancel_implicit_keep()
-        return None

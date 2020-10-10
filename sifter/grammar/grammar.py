@@ -32,7 +32,7 @@ class SieveParser():
     def make_parser(mod: Any, debug: bool = False) -> 'LRParser':
         return yacc(
             module=mod,
-            debug=debug,
+            debug=True,
             write_tables=False,
             errorlog=NullLogger() if not debug else None
         )
@@ -51,14 +51,14 @@ class SieveParser():
         p[0] = p[1]
 
         # section 3.2: REQUIRE command must come before any other commands
-        if p[2].RULE_IDENTIFIER == 'REQUIRE':
-            if any(command.RULE_IDENTIFIER != 'REQUIRE' for command in p[0].commands):
+        if p[2].HANDLER_ID == 'REQUIRE':
+            if any(command.HANDLER_ID != 'REQUIRE' for command in p[0].commands):
                 print("REQUIRE command on line %d must come before any other non-REQUIRE commands" % p.lineno(2))
                 raise SyntaxError
 
         # section 3.1: ELSIF and ELSE must follow IF or another ELSIF
-        elif p[2].RULE_IDENTIFIER in ('ELSIF', 'ELSE'):
-            if p[0].commands[-1].RULE_IDENTIFIER not in ('IF', 'ELSIF'):
+        elif p[2].HANDLER_ID in ('ELSIF', 'ELSE'):
+            if p[0].commands[-1].HANDLER_ID not in ('IF', 'ELSIF'):
                 print("ELSIF/ELSE command on line %d must follow an IF/ELSIF command" % p.lineno(2))
                 raise SyntaxError
 
@@ -94,7 +94,7 @@ class SieveParser():
         """block : '{' commands '}' """
         # section 3.2: REQUIRE command must come before any other commands,
         # which means it can't be in the block of another command
-        if any(command.RULE_IDENTIFIER == 'REQUIRE' for command in p[2].commands):
+        if any(command.HANDLER_ID == 'REQUIRE' for command in p[2].commands):
             print("REQUIRE command not allowed inside of a block (line %d)" % (p.lineno(2)))
             raise SyntaxError
         p[0] = p[2]
@@ -167,6 +167,10 @@ class SieveParser():
         """argument : TAG"""
         p[0] = Tag(p[1])
 
+    def p_argument_multiline_string(self, p: 'YaccProduction') -> None:
+        """argument : MULTILINE_STRING"""
+        p[0] = [p[1]]
+
     def p_stringlist_error(self, p: 'YaccProduction') -> None:
         """argument : '[' error ']'"""
         print("Syntax error in string list that starts on line %d" % p.lineno(1))
@@ -186,4 +190,9 @@ class SieveParser():
         p[0] = String(p[1])
 
     def p_error(self, p: 'YaccProduction') -> None:
-        pass
+        if p is None:
+            token = "end of file"  # nosec
+        else:
+            token = f"{p.type}({p.value}) on line {p.lineno}"
+
+        print(f"Syntax error: Unexpected {token}")

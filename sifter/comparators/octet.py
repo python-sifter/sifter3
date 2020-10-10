@@ -11,7 +11,7 @@ from sifter.grammar.state import EvaluationState
 
 class ComparatorOctet(Comparator):
 
-    COMPARATOR_ID = 'i;octet'
+    HANDLER_ID = 'i;octet'
 
     @classmethod
     def cmp_is(cls, str1: Text, str2: Text, state: EvaluationState) -> bool:
