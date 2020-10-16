@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="sifter3",
-    version="0.2.6",
+    version="0.2.7",
     author="Manfred Kaiser, Gary Peck",
     author_email="manfred.kaiser@logfile.at, gary@realify.com",
     url="https://sifter3.readthedocs.io/en/latest/",
@@ -20,8 +20,8 @@ setup(
     long_description_content_type='text/markdown',
     keywords="sieve email filter parser",
     project_urls={
-        'Source': 'https://github.com/manfred-kaiser/sifter3',
-        'Tracker': 'https://github.com/manfred-kaiser/sifter3/issues',
+        'Source': 'https://github.com/python-sifter/sifter3',
+        'Tracker': 'https://github.com/python-sifter/sifter3/issues',
     },
     python_requires='>= 3.6',
     install_requires=[
