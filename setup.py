@@ -21,8 +21,8 @@ setup(
     keywords="sieve email filter parser",
     project_urls={
         'Documentation': 'https://sifter3.readthedocs.io/en/latest/',
-        'Source': 'https://github.com/manfred-kaiser/sifter3',
-        'Tracker': 'https://github.com/manfred-kaiser/sifter3/issues',
+        'Source': 'https://github.com/python-sifter/sifter3',
+        'Tracker': 'https://github.com/python-sifter/sifter3/issues',
     },
     python_requires='>= 3.6',
     install_requires=[
