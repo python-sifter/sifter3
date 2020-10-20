@@ -2,14 +2,14 @@
 
 Sifter3 is a Python 3 implementation of the Sieve email filter language (RFC 5228)
 
-![Python package](https://github.com/manfred-kaiser/sifter3/workflows/Python%20package/badge.svg)
+![Python package](https://github.com/python-sifter/sifter3/workflows/Python%20package/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/sifter3/badge/?version=latest)](https://sifter3.readthedocs.io/en/latest/?badge=latest)
-[![CodeFactor](https://www.codefactor.io/repository/github/manfred-kaiser/sifter3/badge)](https://www.codefactor.io/repository/github/manfred-kaiser/sifter3)
-[![Github version](https://img.shields.io/github/v/release/manfred-kaiser/sifter3?label=github&logo=github)](https://github.com/manfred-kaiser/sifter3/releases)
+[![CodeFactor](https://www.codefactor.io/repository/github/python-sifter/sifter3/badge)](https://www.codefactor.io/repository/github/python-sifter/sifter3)
+[![Github version](https://img.shields.io/github/v/release/python-sifter/sifter3?label=github&logo=github)](https://github.com/python-sifter/sifter3/releases)
 [![PyPI version](https://img.shields.io/pypi/v/sifter3.svg?logo=pypi&logoColor=FFE873)](https://pypi.org/project/sifter3/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/sifter3.svg?logo=python&logoColor=FFE873)](https://pypi.org/project/sifter3/)
 [![PyPI downloads](https://pepy.tech/badge/sifter3/month)](https://pepy.tech/project/sifter3/month)
-[![GitHub](https://img.shields.io/github/license/manfred-kaiser/sifter3.svg)](LICENSE)
+[![GitHub](https://img.shields.io/github/license/python-sifter/sifter3.svg)](LICENSE)
 
 
 

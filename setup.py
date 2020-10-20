@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="sifter3",
-    version="0.2.5",
+    version="0.2.7",
     author="Manfred Kaiser, Gary Peck",
     author_email="manfred.kaiser@logfile.at, gary@realify.com",
     url="https://python-sifter.logfile.at/",

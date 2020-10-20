@@ -1,8 +1,4 @@
 from email.message import Message
-from typing import (
-    Optional
-)
-
 
 from sifter.grammar.state import EvaluationState
 from sifter.grammar.test import Test
@@ -16,7 +12,7 @@ class TestExists(Test):
     HANDLER_ID = 'EXISTS'
     POSITIONAL_ARGS = [StringList()]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         headers = self.positional_args[0]
         if not isinstance(headers, list):
             raise ValueError("TestExists.headers must be a list")

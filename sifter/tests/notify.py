@@ -2,7 +2,6 @@ import re
 from email.message import Message
 from typing import (
     Any,
-    Optional,
     Text,
     List
 )
@@ -23,7 +22,7 @@ class TestValidNotifyMethod(Test):
         StringList(),
     ]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         notify_methods = self.positional_args[0]
         state.check_required_extension('enotify', 'NOTIFY')
         notify_methods = list(map(lambda s: sifter.grammar.string.expand_variables(s, state), notify_methods))  # type: ignore
@@ -54,7 +53,7 @@ class TestNotifyMethodCapability(Test):
         StringList(),
     ]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         state.check_required_extension('enotify', 'NOTIFY')
 
         match_type: Text

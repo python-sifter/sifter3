@@ -1,7 +1,6 @@
 import re
 from email.message import Message
 from typing import (
-    Optional,
     Text
 )
 
@@ -12,7 +11,6 @@ from sifter.validators.stringlist import StringList
 from sifter.validators.tag import Tag
 from sifter.grammar.string import expand_variables
 from sifter.grammar.state import EvaluationState
-from sifter.grammar.actions import Actions
 
 
 # RFC 5229
@@ -35,7 +33,7 @@ class CommandSet(Command):
         StringList(length=1),
     ]
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[Actions]:
+    def evaluate(self, message: Message, state: EvaluationState) -> None:
         state.check_required_extension('variables', 'VARIABLES')
 
         variable_modifier = self.tagged_args
@@ -64,4 +62,3 @@ class CommandSet(Command):
         if 'length' in variable_modifier:
             variable_value = "" + str(len(variable_value))
         state.named_variables[variable_name] = variable_value
-        return None

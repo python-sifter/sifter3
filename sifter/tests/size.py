@@ -4,8 +4,7 @@ from typing import (
     Any,
     Callable,
     Dict,
-    Text,
-    Optional
+    Text
 )
 
 from sifter.grammar.test import Test
@@ -30,7 +29,7 @@ class TestSize(Test):
         'UNDER': operator.lt,
     }
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         comparison_fn = self.COMPARISON_FNS[self.tagged_args['size'][0]]  # type: ignore
         comparison_size = self.tagged_args['size'][1]
 

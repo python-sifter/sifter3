@@ -59,7 +59,7 @@ class TestBody(Test):
         else:
             self.body_transform = ['text']
 
-    def evaluate(self, message: Message, state: EvaluationState) -> Optional[bool]:
+    def evaluate(self, message: Message, state: EvaluationState) -> bool:
         state.check_required_extension('body', 'tests against the email body')
         if not self.body_transform:  # RAW
             # Flatten message, match header / body separator (two new-lines);
