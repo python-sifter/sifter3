@@ -29,6 +29,11 @@ def test_evaulation():
         ("evaluation_1.msg", "evaluation_6.rules", [('reject', 'I do not accept messages from this address.')]),
         ("evaluation_1.msg", "evaluation_7.rules", [('reject', 'I do not accept messages from/* this is\nnot a comment */this address.\n.\n')]),
         ("evaluation_1.msg", "evaluation_8.rules", [('keep', None)]),
+        ("evaluation_1.msg", "evaluation_9.rules", [('setflag', ['test-set']),
+                                                    ('addflag', ['test-add']),
+                                                    ('removeflag', ['test-remove']),
+                                                    ('keep', None),
+                                                    ('keep', None)]),
         ("evaluation_1.msg", "evaluation_ihave_reject.rules", [('reject', 'I do not accept messages from this address.')]),
     )
 

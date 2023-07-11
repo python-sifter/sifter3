@@ -61,28 +61,28 @@ class ExtensionRegistry():
     def get_comparator(cls, comparator: Union[Text, 'Tag']) -> Type['Comparator']:
         handler = cls.get('comparator', comparator)
         if not isinstance(handler, type) or not issubclass(handler, Comparator):
-            raise ValueError('Wrong Comparator Type!')
+            raise ValueError("Wrong Comparator Type `%s'" % comparator)
         return handler
 
     @classmethod
     def get_command(cls, commandname: Text) -> Type['Command']:
         handler = cls.get('command', commandname)
         if not isinstance(handler, type) or not issubclass(handler, Command):
-            raise ValueError('Wrong Command Type!')
+            raise ValueError("Wrong Command Type `%s'" % commandname)
         return handler
 
     @classmethod
     def get_test(cls, testname: Text) -> Type['Test']:
         handler = cls.get('test', testname)
         if not isinstance(handler, type) or not issubclass(handler, Test):
-            raise ValueError('Wrong Test Type!')
+            raise ValueError("Wrong Test Type `%s'" % testname)
         return handler
 
     @classmethod
     def get_notification_method(cls, methodname: Text) -> Type[NotificationMethod]:
         handler = cls.get('test', methodname)
         if not isinstance(handler, type) or not issubclass(handler, NotificationMethod):
-            raise ValueError('Wrong Notification Method Type!')
+            raise ValueError("Wrong Notification Method Type `%s'" % methodname)
         return handler
 
     @classmethod
