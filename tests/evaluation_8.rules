@@ -1,0 +1,7 @@
+require "regex";
+
+if header :regex "from" ".*@desert.example.org"  {
+  keep;
+} else {
+  reject "I do not accept messages from this address.";
+}

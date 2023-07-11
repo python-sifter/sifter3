@@ -35,7 +35,7 @@ class ExtensionRegistry():
     ] = {}
     DEFAULT_EXTENSION: List[Text] = [
         'comparator-i;ascii-casemap',
-        'comparator-i;octet'
+        'comparator-i;octet',
         'regex'
     ]
 
