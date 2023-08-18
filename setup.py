@@ -66,6 +66,9 @@ setup(
             'require = sifter.commands.require:CommandRequire',
             'set = sifter.commands.variables:CommandSet',
             'stop = sifter.commands.stop:CommandStop',
+            'imap4flags.setflag = sifter.commands.imap4flags:CommandSetFlag',
+            'imap4flags.removeflag = sifter.commands.imap4flags:CommandRemoveFlag',
+            'imap4flags.addflag = sifter.commands.imap4flags:CommandAddFlag',
             # sifter tests
             'address = sifter.tests.address:TestAddress',
             'body = sifter.tests.body:TestBody',

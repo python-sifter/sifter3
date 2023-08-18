@@ -1,0 +1,11 @@
+require "imap4flags";
+
+if header :contains ["From"] ["coyote"] {
+        setflag "test-set";
+        addflag "test-add";
+        removeflag "test-remove";
+} elsif header :contains "Subject" "$$$" {
+        redirect "postmaster@example.com";
+} else {
+        redirect "field@example.com";
+}
